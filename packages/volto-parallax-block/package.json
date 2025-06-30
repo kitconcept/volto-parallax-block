@@ -1,0 +1,46 @@
+{
+  "name": "@kitconcept/volto-parallax-block",
+  "version": "1.0.0-alpha.0",
+  "description": "A visual block with a fixed background image that creates a parallax scrolling effect. Content scrolls over the image, revealing different areas as the user scrolls down the page.",
+  "main": "src/index.js",
+  "license": "MIT",
+  "keywords": [
+    "volto-addon",
+    "volto",
+    "plone",
+    "react"
+  ],
+  "author": "Timo Broeskamp",
+  "homepage": "https://github.com/TimoBroeskamp/volto-parallax-block#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:TimoBroeskamp/volto-parallax-block"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon",
+    "dry-release": "release-it --dry-run",
+    "release": "release-it",
+    "release-major-alpha": "release-it major --preRelease=alpha",
+    "release-alpha": "release-it --preRelease=alpha"
+  },
+  "addons": [],
+  "dependencies": {
+    "react-parallax": "3.5.2"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-intl": "^3.12.1",
+    "react-redux": "^8.1.2"
+  },
+  "devDependencies": {
+    "@plone/scripts": "^3.6.1",
+    "@plone/types": "workspace:*",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "release-it": "^19.0.2"
+  }
+}
