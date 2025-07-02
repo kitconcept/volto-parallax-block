@@ -1,12 +1,14 @@
 import ParallaxEdit from './components/Edit';
 import ParallaxView from './components/View';
 import imageFileListSVG from '@plone/volto/icons/image-fit.svg';
+import './theme/main.scss';
 
 const applyConfig = (config) => {
   config.blocks.blocksConfig.parallax = {
-    id: 'parallaxBlock',
-    title: 'Parallax Block',
-    group: 'teaser',
+    id: 'parallax',
+    icon: imageFileListSVG,
+    title: 'Parallax',
+    group: 'common',
     view: ParallaxView,
     edit: ParallaxEdit,
     restricted: false,

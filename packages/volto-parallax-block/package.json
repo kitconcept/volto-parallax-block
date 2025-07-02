@@ -26,9 +26,12 @@
     "release-major-alpha": "release-it major --preRelease=alpha",
     "release-alpha": "release-it --preRelease=alpha"
   },
-  "addons": [],
+  "addons": [
+    "@kitconcept/volto-bm3-compat"
+  ],
   "dependencies": {
-    "react-parallax": "3.5.2"
+    "react-parallax": "3.5.2",
+    "@kitconcept/volto-bm3-compat": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
     "react": "18.2.0",
@@ -38,7 +41,7 @@
   },
   "devDependencies": {
     "@plone/scripts": "^3.6.1",
-    "@plone/types": "workspace:*",
+    "@plone/types": "1.4.5",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "release-it": "^19.0.2"
