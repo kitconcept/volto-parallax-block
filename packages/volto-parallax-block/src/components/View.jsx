@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
-import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers/Url/Url';
+import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
 import config from '@plone/volto/registry';
 
 const ParallaxView = (props) => {
@@ -8,7 +8,6 @@ const ParallaxView = (props) => {
   const Image = config.getComponent({ name: 'Image' }).component;
   const blockConfig = config.blocks.blocksConfig.parallax;
 
-  console.log(blockConfig);
   const speedMap = {
     slow: 0.15,
     medium: 0.3,
@@ -54,16 +53,11 @@ const ParallaxView = (props) => {
 
             <h2 className="parallax-title">{data.parallaxTitle}</h2>
             <div className="parallax-text">
-              {
-                data.text && (
-                  <div>
-                    <>{data.text}</>
-                  </div>
-                )
-                // dangerouslySetInnerHTML={{
-                //   __html: data.text.data,
-                //}}
-              }
+              {data.text && (
+                <div>
+                  <>{data.text}</>
+                </div>
+              )}
               {data.additionalText && <p>{data?.additionalText}</p>}
             </div>
           </>
