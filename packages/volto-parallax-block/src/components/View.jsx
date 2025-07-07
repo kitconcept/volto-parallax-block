@@ -1,24 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers/Url/Url';
 import config from '@plone/volto/registry';
 
-import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
-
 const ParallaxView = (props) => {
-  const { data, blockConfig } = props;
+  const { data } = props;
   const Image = config.getComponent({ name: 'Image' }).component;
+  const blockConfig = config.blocks.blocksConfig.parallax;
+
+  console.log(blockConfig);
+  const speedMap = {
+    slow: 0.15,
+    medium: 0.3,
+    fast: 0.45,
+  };
+
+  const speed = blockConfig.hasFixedSpeed
+    ? speedMap.medium
+    : blockConfig.speedMap?.[data.parallaxSpeed] ||
+      speedMap[data.parallaxSpeed];
 
   const [offsetY, setOffsetY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setOffsetY(window.scrollY);
+    let animationFrameId;
+    let lastScrollY = window.scrollY;
 
-    handleScroll();
+    const updateOffset = () => {
+      const currentScrollY = window.scrollY;
+      lastScrollY += currentScrollY - lastScrollY;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+      setOffsetY(lastScrollY);
+      animationFrameId = requestAnimationFrame(updateOffset);
+    };
+
+    animationFrameId = requestAnimationFrame(updateOffset);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   return (
@@ -30,12 +48,22 @@ const ParallaxView = (props) => {
               src={`${flattenToAppURL(data.url)}/@@images/image`}
               className="parallax-image"
               style={{
-                transform: `translate(-50%, calc(-50% + ${offsetY * 0.3}px))`,
+                transform: `translate(-50%, calc(-50% + ${offsetY * speed}px))`,
               }}
             />
 
+            <h2 className="parallax-title">{data.parallaxTitle}</h2>
             <div className="parallax-text">
-              {data.text && <p>{data?.text}</p>}
+              {
+                data.text && (
+                  <div>
+                    <>{data.text}</>
+                  </div>
+                )
+                // dangerouslySetInnerHTML={{
+                //   __html: data.text.data,
+                //}}
+              }
               {data.additionalText && <p>{data?.additionalText}</p>}
             </div>
           </>

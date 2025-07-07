@@ -14,6 +14,7 @@ const applyConfig = (config) => {
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
+    hasFixedSpeed: false, //Set to true if you want a fixed speed for the parallex effect
   };
 
   return config;

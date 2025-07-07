@@ -22,7 +22,6 @@ const messages = defineMessages({
 const ParallaxSidebar = (props) => {
   const { block, data, onChangeBlock } = props;
   const intl = useIntl();
-  console.log(data.url);
 
   return (
     <>
@@ -65,11 +64,7 @@ const ParallaxSidebar = (props) => {
         )}
       </header>
 
-      <div
-        className="sidebar-metadata-container image-sidebar"
-        secondary
-        attached
-      >
+      <div className="parallax-sidebar-image" secondary attached>
         {data.url ? (
           <>
             <div>{(data.url['@id'] ?? data.url).split('/').slice(-1)[0]}</div>
