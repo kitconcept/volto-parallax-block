@@ -30,7 +30,6 @@
     "@kitconcept/volto-bm3-compat"
   ],
   "dependencies": {
-    "react-parallax": "3.5.2",
     "@kitconcept/volto-bm3-compat": "^1.0.0-alpha.1"
   },
   "peerDependencies": {
