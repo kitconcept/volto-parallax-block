@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import cx from 'classnames';
 import config from '@plone/volto/registry';
 
 const ParallaxView = (props) => {
@@ -13,11 +14,9 @@ const ParallaxView = (props) => {
     medium: 0.3,
     fast: 0.45,
   };
-
   const speed = blockConfig.hasFixedSpeed
     ? speedMap.medium
-    : blockConfig.speedMap?.[data.parallaxSpeed] ||
-      speedMap[data.parallaxSpeed];
+    : blockConfig.speedMap?.[data.Speed] || speedMap[data.Speed];
 
   const [offsetY, setOffsetY] = useState(0);
 
@@ -51,14 +50,15 @@ const ParallaxView = (props) => {
               }}
             />
 
-            <h2 className="parallax-title">{data.parallaxTitle}</h2>
-            <div className="parallax-text">
-              {data.text && (
-                <div>
-                  <>{data.text}</>
-                </div>
+            <div className={cx('parallax-content', data.Align)}>
+              {data.Title && (
+                <h2 className={cx('parallax-title', data.Text && 'has-text')}>
+                  {data.Title}
+                </h2>
               )}
-              {data.additionalText && <p>{data?.additionalText}</p>}
+              <div className="parallax-text">
+                {data.Text && <div>{data.Text}</div>}
+              </div>
             </div>
           </>
         )}

@@ -6,21 +6,25 @@ const messages = defineMessages({
     id: 'Parallax Block',
     defaultMessage: 'Parallax Block',
   },
-  parallaxTitle: {
-    id: 'Parallax Title',
+  Title: {
+    id: 'Title',
     defaultMessage: 'Title',
   },
-  text: {
+  Text: {
     id: 'Text',
     defaultMessage: 'Text',
   },
-  parallaxSpeed: {
-    id: 'Parallax Speed',
+  Speed: {
+    id: 'Speed',
     defaultMessage: 'Parallax Speed',
   },
-  parallaxSpeedDesc: {
+  SpeedDesc: {
     id: 'Parallax Speed Description',
     defaultMessage: 'Adjust how fast the image scrolls compared to the text.',
+  },
+  Align: {
+    id: 'Align',
+    defaultMessage: 'Text Alignment',
   },
 });
 
@@ -35,24 +39,31 @@ export const ParallaxSchema = (props) => {
         id: 'default',
         title: 'Default',
         fields: blockConfig.hasFixedSpeed
-          ? ['parallaxTitle', 'text']
-          : ['parallaxTitle', 'text', 'parallaxSpeed'],
+          ? ['Title', 'Text', 'Align']
+          : ['Title', 'Text', 'Align', 'Speed'],
       },
     ],
 
     properties: {
-      parallaxTitle: {
-        title: intl.formatMessage(messages.parallaxTitle),
+      Title: {
+        title: intl.formatMessage(messages.Title),
         type: 'string',
         widget: 'title',
       },
-      text: {
-        title: intl.formatMessage(messages.text),
+      Text: {
+        title: intl.formatMessage(messages.Text),
         widget: 'textarea',
       },
-      parallaxSpeed: {
-        title: intl.formatMessage(messages.parallaxSpeed),
-        description: intl.formatMessage(messages.parallaxSpeedDesc),
+      Align: {
+        title: intl.formatMessage(messages.Align),
+        description: 'Choose the alignment of the text over the image.',
+        widget: 'align',
+        default: 'center',
+        actions: ['left', 'center', 'right'],
+      },
+      Speed: {
+        title: intl.formatMessage(messages.Speed),
+        description: intl.formatMessage(messages.SpeedDesc),
         type: 'string',
         widget: 'select',
         choices: [
