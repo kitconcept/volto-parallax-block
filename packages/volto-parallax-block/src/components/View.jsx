@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import { defineMessages } from 'react-intl';
 import cx from 'classnames';
 import config from '@plone/volto/registry';
 
+const messages = defineMessages({
+  ButtonText: {
+    id: 'Continue Reading',
+    defaultMessage: 'Continue Reading',
+  },
+});
+
 const ParallaxView = (props) => {
-  const { data } = props;
+  const { data, intl } = props;
   const Image = config.getComponent({ name: 'Image' }).component;
   const blockConfig = config.blocks.blocksConfig.parallax;
 
@@ -39,7 +47,7 @@ const ParallaxView = (props) => {
 
   return (
     <BlockWrapper {...props}>
-      <div className="parallax-wrapper">
+      <div className={cx('parallax-wrapper', data.BlockHeight)}>
         {data.url && (
           <>
             <Image
@@ -52,13 +60,31 @@ const ParallaxView = (props) => {
 
             <div className={cx('parallax-content', data.Align)}>
               {data.Title && (
-                <h2 className={cx('parallax-title', data.Text && 'has-text')}>
+                <h2
+                  className={cx(
+                    'parallax-title',
+                    data.Text && 'has-text',
+                    data.ButtonText && 'has-ButtonText',
+                  )}
+                >
                   {data.Title}
                 </h2>
               )}
-              <div className="parallax-text">
-                {data.Text && <div>{data.Text}</div>}
-              </div>
+              {data.Text && (
+                <div
+                  className={cx(
+                    'parallax-text',
+                    !data.HideButton && 'has-ButtonText',
+                  )}
+                >
+                  {data.Text && <div>{data.Text}</div>}
+                </div>
+              )}
+              {/* {!data.HideButton && (
+                <button className="parallax-button">
+                  {data.ButtonText || intl.formatMessage(messages.ButtonText)}
+                </button>
+              )} */}
             </div>
           </>
         )}

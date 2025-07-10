@@ -1,7 +1,16 @@
 .parallax-wrapper {
   position: relative;
   overflow: hidden;
-  height: 60vh;
+
+  &.S {
+    height: 300px;
+  }
+  &.M {
+    height: 600px;
+  }
+  &.L {
+    height: 800px;
+  }
 }
 
 .parallax-image {
@@ -28,37 +37,51 @@
   top: 0;
   left: 0;
   display: flex;
-  width: 100%;
+  width: 940px;
   height: 100%;
   flex-direction: column;
   justify-content: center;
-  color: white;
+  color: var(--Primary-Bright, #fff);
+  margin: 0px 250px;
 
   &.center {
     text-align: center;
+    align-items: center;
   }
   &.left {
     text-align: left;
-
-    .parallax-title,
-    .parallax-text {
-      margin-left: 50px;
-    }
-  }
-  &.right {
-    text-align: right;
-
-    .parallax-title,
-    .parallax-text {
-      margin-right: 50px;
-    }
+    align-items: flex-start;
   }
 
   .parallax-title {
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
     margin: 0;
 
     &.has-text {
-      margin-bottom: 40px;
+      margin-bottom: 60px;
+    }
+    &.has-ButtonText {
+      margin-bottom: 60px;
     }
   }
+  .parallax-text {
+    margin-bottom: 0px;
+
+    &.has-ButtonText {
+      margin-bottom: 80px;
+    }
+  }
+}
+
+.parallax-button {
+  background: transparent;
+  border: 1px solid var(--Primary-Bright, #fff);
+  color: var(--Primary-Bright, #fff);
+  width: max-content;
+  padding: 8px 20px;
+  gap: 10px;
 }

@@ -26,6 +26,18 @@ const messages = defineMessages({
     id: 'Align',
     defaultMessage: 'Text Alignment',
   },
+  ButtonText: {
+    id: 'ButtonText',
+    defaultMessage: 'Button Text',
+  },
+  HideButton: {
+    id: 'HideButton',
+    defaultMessage: 'Hide Button',
+  },
+  BlockHeight: {
+    id: 'BlockHeight',
+    defaultMessage: 'Block Height',
+  },
 });
 
 export const ParallaxSchema = (props) => {
@@ -39,8 +51,23 @@ export const ParallaxSchema = (props) => {
         id: 'default',
         title: 'Default',
         fields: blockConfig.hasFixedSpeed
-          ? ['Title', 'Text', 'Align']
-          : ['Title', 'Text', 'Align', 'Speed'],
+          ? [
+              'Title',
+              'Text',
+              'Align',
+              'ButtonText',
+              'HideButton',
+              'BlockHeight',
+            ]
+          : [
+              'Title',
+              'Text',
+              'Align',
+              'ButtonText',
+              'HideButton',
+              'BlockHeight',
+              'Speed',
+            ],
       },
     ],
 
@@ -56,22 +83,41 @@ export const ParallaxSchema = (props) => {
       },
       Align: {
         title: intl.formatMessage(messages.Align),
-        description: 'Choose the alignment of the text over the image.',
         widget: 'align',
         default: 'center',
-        actions: ['left', 'center', 'right'],
+        actions: ['left', 'center'],
+      },
+      ButtonText: {
+        title: intl.formatMessage(messages.ButtonText),
+        type: 'string',
+        widget: 'textarea',
+      },
+      HideButton: {
+        title: intl.formatMessage(messages.HideButton),
+        type: 'boolean',
+        default: false,
       },
       Speed: {
         title: intl.formatMessage(messages.Speed),
         description: intl.formatMessage(messages.SpeedDesc),
-        type: 'string',
         widget: 'select',
+        default: 'medium',
         choices: [
           ['slow', 'Slow'],
           ['medium', 'Medium'],
           ['fast', 'Fast'],
         ],
+        isClearable: false,
+      },
+      BlockHeight: {
+        title: intl.formatMessage(messages.BlockHeight),
+        widget: 'select',
         default: 'medium',
+        choices: [
+          ['small', 'Small'],
+          ['medium', 'Medium'],
+          ['large', 'Large'],
+        ],
         isClearable: false,
       },
     },
