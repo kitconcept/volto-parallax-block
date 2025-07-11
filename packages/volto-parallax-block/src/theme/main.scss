@@ -2,13 +2,13 @@
   position: relative;
   overflow: hidden;
 
-  &.S {
+  &.s {
     height: 300px;
   }
-  &.M {
+  &.m {
     height: 600px;
   }
-  &.L {
+  &.l {
     height: 800px;
   }
 }
@@ -35,36 +35,39 @@
 .parallax-content {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   display: flex;
-  width: 940px;
+  width: 100%;
+  max-width: 940px;
   height: 100%;
   flex-direction: column;
   justify-content: center;
-  color: var(--Primary-Bright, #fff);
-  margin: 0px 250px;
+  transform: translateX(-50%);
 
-  &.center {
-    text-align: center;
+  &.centered {
     align-items: center;
+    text-align: center;
   }
   &.left {
-    text-align: left;
     align-items: flex-start;
+    text-align: left;
   }
 
   .parallax-title {
+    margin: 0;
     font-family: Inter;
     font-size: 36px;
     font-style: normal;
     font-weight: 700;
     line-height: 48px;
-    margin: 0;
 
     &.has-text {
       margin-bottom: 60px;
     }
     &.has-ButtonText {
+      margin-bottom: 60px;
+    }
+    &.has-hideButton {
       margin-bottom: 60px;
     }
   }
@@ -75,13 +78,50 @@
       margin-bottom: 80px;
     }
   }
+  &.parallax-custom-color-1 {
+    color: #fff;
+  }
+  &.parallax-custom-color-2 {
+    color: #000;
+  }
 }
 
 .parallax-button {
-  background: transparent;
-  border: 1px solid var(--Primary-Bright, #fff);
-  color: var(--Primary-Bright, #fff);
   width: max-content;
   padding: 8px 20px;
+  background: transparent;
   gap: 10px;
+
+  &.parallax-custom-color-2 {
+    border: 1px solid #000;
+    color: #000;
+  }
+  &.parallax-custom-color-1 {
+    border: 1px solid #fff;
+    color: #fff;
+  }
+}
+
+.color-picker-widget,
+.color-swatch-widget,
+.theme-picker-widget {
+  // Color widget &
+  // Theme color picker widget
+
+  button,
+  .button {
+    &.parallax-custom-color-1,
+    &.parallax-custom-color-1.active,
+    &.parallax-custom-color-1:hover,
+    &.active.parallax-custom-color-1:hover {
+      background-color: #fff;
+    }
+
+    &.parallax-custom-color-2,
+    &.parallax-custom-color-2.active,
+    &.parallax-custom-color-2:hover,
+    &.active.parallax-custom-color-2:hover {
+      background-color: #000;
+    }
+  }
 }

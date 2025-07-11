@@ -1,32 +1,26 @@
 import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
-import { defineMessages } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import cx from 'classnames';
 import config from '@plone/volto/registry';
 
 const messages = defineMessages({
-  ButtonText: {
-    id: 'Continue Reading',
+  buttonText: {
+    id: 'continueReading',
     defaultMessage: 'Continue Reading',
   },
 });
 
 const ParallaxView = (props) => {
-  const { data, intl } = props;
+  const { data } = props;
   const Image = config.getComponent({ name: 'Image' }).component;
-  const blockConfig = config.blocks.blocksConfig.parallax;
 
-  const speedMap = {
-    slow: 0.15,
-    medium: 0.3,
-    fast: 0.45,
-  };
-  const speed = blockConfig.hasFixedSpeed
-    ? speedMap.medium
-    : blockConfig.speedMap?.[data.Speed] || speedMap[data.Speed];
+  const speed = 0.3; // Adjust the speed of the parallax effect
 
   const [offsetY, setOffsetY] = useState(0);
+
+  const intl = useIntl();
 
   useEffect(() => {
     let animationFrameId;
@@ -47,7 +41,7 @@ const ParallaxView = (props) => {
 
   return (
     <BlockWrapper {...props}>
-      <div className={cx('parallax-wrapper', data.BlockHeight)}>
+      <div className={cx('parallax-wrapper', data.size)}>
         {data.url && (
           <>
             <Image
@@ -58,33 +52,40 @@ const ParallaxView = (props) => {
               }}
             />
 
-            <div className={cx('parallax-content', data.Align)}>
-              {data.Title && (
+            <div className={cx('parallax-content', data.align, data.fontColor)}>
+              {data.title && (
                 <h2
                   className={cx(
                     'parallax-title',
-                    data.Text && 'has-text',
-                    data.ButtonText && 'has-ButtonText',
+                    data.text && 'has-text',
+                    data.buttonText && 'has-ButtonText',
+                    !data.hideButton && 'has-hideButton',
                   )}
                 >
-                  {data.Title}
+                  {data.title}
                 </h2>
               )}
-              {data.Text && (
+              {data.text && (
                 <div
                   className={cx(
                     'parallax-text',
-                    !data.HideButton && 'has-ButtonText',
+                    !data.hideButton && 'has-ButtonText',
                   )}
                 >
-                  {data.Text && <div>{data.Text}</div>}
+                  {data.text && <div>{data.text}</div>}
                 </div>
               )}
-              {/* {!data.HideButton && (
-                <button className="parallax-button">
-                  {data.ButtonText || intl.formatMessage(messages.ButtonText)}
+              {!data.hideButton && (
+                <button
+                  className={cx('parallax-button', data.fontColor)}
+                  // style={{
+                  //   color: data.fontColor || 'white',
+                  //   border: `1px solid ${data.fontColor || 'white'}`,
+                  // }}
+                >
+                  {data.buttonText || intl.formatMessage(messages.buttonText)}
                 </button>
-              )} */}
+              )}
             </div>
           </>
         )}

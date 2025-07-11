@@ -1,48 +1,44 @@
 import { defineMessages } from 'react-intl';
-import config from '@plone/volto/registry';
+import textCenteredSVG from '@plone/volto/icons/align-center.svg';
+import textLeftSVG from '@plone/volto/icons/align-left.svg';
 
 const messages = defineMessages({
   parallaxBlock: {
     id: 'Parallax Block',
     defaultMessage: 'Parallax Block',
   },
-  Title: {
+  title: {
     id: 'Title',
     defaultMessage: 'Title',
   },
-  Text: {
+  text: {
     id: 'Text',
     defaultMessage: 'Text',
   },
-  Speed: {
-    id: 'Speed',
-    defaultMessage: 'Parallax Speed',
-  },
-  SpeedDesc: {
-    id: 'Parallax Speed Description',
-    defaultMessage: 'Adjust how fast the image scrolls compared to the text.',
-  },
-  Align: {
+  align: {
     id: 'Align',
     defaultMessage: 'Text Alignment',
   },
-  ButtonText: {
-    id: 'ButtonText',
+  buttonText: {
+    id: 'buttonText',
     defaultMessage: 'Button Text',
   },
-  HideButton: {
+  hideButton: {
     id: 'HideButton',
     defaultMessage: 'Hide Button',
   },
-  BlockHeight: {
-    id: 'BlockHeight',
-    defaultMessage: 'Block Height',
+  size: {
+    id: 'size',
+    defaultMessage: 'Image size',
+  },
+  fontColor: {
+    id: 'Font Color',
+    defaultMessage: 'Font Color',
   },
 });
 
 export const ParallaxSchema = (props) => {
   const { intl } = props;
-  const blockConfig = config.blocks.blocksConfig.parallax;
 
   return {
     block: 'parallax',
@@ -50,75 +46,67 @@ export const ParallaxSchema = (props) => {
       {
         id: 'default',
         title: 'Default',
-        fields: blockConfig.hasFixedSpeed
-          ? [
-              'Title',
-              'Text',
-              'Align',
-              'ButtonText',
-              'HideButton',
-              'BlockHeight',
-            ]
-          : [
-              'Title',
-              'Text',
-              'Align',
-              'ButtonText',
-              'HideButton',
-              'BlockHeight',
-              'Speed',
-            ],
+        fields: [
+          'title',
+          'text',
+          'align',
+          'size',
+          'buttonText',
+          'hideButton',
+          'fontColor',
+        ],
       },
     ],
 
     properties: {
-      Title: {
-        title: intl.formatMessage(messages.Title),
+      title: {
+        title: intl.formatMessage(messages.title),
         type: 'string',
         widget: 'title',
       },
-      Text: {
-        title: intl.formatMessage(messages.Text),
+      text: {
+        title: intl.formatMessage(messages.text),
         widget: 'textarea',
       },
-      Align: {
-        title: intl.formatMessage(messages.Align),
-        widget: 'align',
-        default: 'center',
-        actions: ['left', 'center'],
+      align: {
+        title: intl.formatMessage(messages.align),
+        widget: 'buttons',
+        default: 'centered',
+        actions: ['left', 'centered'],
+        actionsInfoMap: {
+          left: [textLeftSVG, 'Text Left'],
+          centered: [textCenteredSVG, 'Text Centered'],
+        },
       },
-      ButtonText: {
-        title: intl.formatMessage(messages.ButtonText),
+      buttonText: {
+        title: intl.formatMessage(messages.buttonText),
         type: 'string',
         widget: 'textarea',
       },
-      HideButton: {
-        title: intl.formatMessage(messages.HideButton),
+      hideButton: {
+        title: intl.formatMessage(messages.hideButton),
         type: 'boolean',
         default: false,
       },
-      Speed: {
-        title: intl.formatMessage(messages.Speed),
-        description: intl.formatMessage(messages.SpeedDesc),
-        widget: 'select',
-        default: 'medium',
-        choices: [
-          ['slow', 'Slow'],
-          ['medium', 'Medium'],
-          ['fast', 'Fast'],
-        ],
-        isClearable: false,
+      size: {
+        title: intl.formatMessage(messages.size),
+        widget: 'size',
+        default: 'l',
       },
-      BlockHeight: {
-        title: intl.formatMessage(messages.BlockHeight),
-        widget: 'select',
-        default: 'medium',
-        choices: [
-          ['small', 'Small'],
-          ['medium', 'Medium'],
-          ['large', 'Large'],
+      fontColor: {
+        title: intl.formatMessage(messages.fontColor),
+        widget: 'color_picker',
+        colors: [
+          {
+            name: 'parallax-custom-color-1',
+            label: 'White',
+          },
+          {
+            name: 'parallax-custom-color-2',
+            label: 'Black',
+          },
         ],
-        isClearable: false,
+        default: 'parallax-custom-color-1',
       },
     },
     required: [],
