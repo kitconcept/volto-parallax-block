@@ -3,6 +3,11 @@ import ParallaxView from './components/View';
 import imageFileListSVG from '@plone/volto/icons/image-fit.svg';
 import './theme/main.scss';
 
+const FONT_COLORS = [
+  { name: 'parallax-font-black', label: 'black' },
+  { name: 'parallax-font-white', label: 'white' },
+];
+
 const applyConfig = (config) => {
   config.blocks.blocksConfig.parallax = {
     id: 'parallax',
@@ -14,6 +19,7 @@ const applyConfig = (config) => {
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
+    fontColors: FONT_COLORS,
   };
 
   return config;

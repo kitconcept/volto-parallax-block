@@ -40,8 +40,8 @@ const ParallaxView = (props) => {
   }, []);
 
   return (
-    <BlockWrapper {...props}>
-      <div className={cx('parallax-wrapper', data.size)}>
+    <BlockWrapper className={props.className} {...props}>
+      <div className={cx('parallax-wrapper', data.size, props.className)}>
         {data.url && (
           <>
             <Image
@@ -53,39 +53,47 @@ const ParallaxView = (props) => {
             />
 
             <div className={cx('parallax-content', data.align, data.fontColor)}>
-              {data.title && (
-                <h2
-                  className={cx(
-                    'parallax-title',
-                    data.text && 'has-text',
-                    data.buttonText && 'has-ButtonText',
-                    !data.hideButton && 'has-hideButton',
-                  )}
-                >
-                  {data.title}
-                </h2>
-              )}
-              {data.text && (
-                <div
-                  className={cx(
-                    'parallax-text',
-                    !data.hideButton && 'has-ButtonText',
-                  )}
-                >
-                  {data.text && <div>{data.text}</div>}
-                </div>
-              )}
-              {!data.hideButton && (
-                <button
-                  className={cx('parallax-button', data.fontColor)}
-                  // style={{
-                  //   color: data.fontColor || 'white',
-                  //   border: `1px solid ${data.fontColor || 'white'}`,
-                  // }}
-                >
-                  {data.buttonText || intl.formatMessage(messages.buttonText)}
-                </button>
-              )}
+              <div className={cx('box', data.style, data.fontColor)}>
+                {data.style === 'default' && data.size === 'l' && (
+                  <hr className={cx('parallax-line', data.fontColor)} />
+                )}
+                {data.title && (
+                  <h2
+                    className={cx(
+                      'parallax-title',
+                      data.text && 'has-text',
+                      data.buttonText && 'has-ButtonText',
+                      !data.hideButton && 'has-hideButton',
+                    )}
+                  >
+                    {data.title}
+                  </h2>
+                )}
+                {data.text && (
+                  <div
+                    className={cx(
+                      'parallax-text',
+                      !data.hideButton && 'has-ButtonText',
+                    )}
+                  >
+                    {data.text && <div>{data.text}</div>}
+                  </div>
+                )}
+                {!data.hideButton && (
+                  <button
+                    className={cx('parallax-button', data.fontColor)}
+                    // style={{
+                    //   color: data.fontColor || 'white',
+                    //   border: `1px solid ${data.fontColor || 'white'}`,
+                    // }}
+                  >
+                    {data.buttonText || intl.formatMessage(messages.buttonText)}
+                  </button>
+                )}
+                {data.style === 'default' && data.size === 'l' && (
+                  <hr className={cx('parallax-line', data.fontColor)} />
+                )}
+              </div>
             </div>
           </>
         )}

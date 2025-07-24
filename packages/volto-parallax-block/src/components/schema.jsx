@@ -1,4 +1,8 @@
 import { defineMessages } from 'react-intl';
+import { addStyling } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
+
+import config from '@plone/volto/registry';
+
 import textCenteredSVG from '@plone/volto/icons/align-center.svg';
 import textLeftSVG from '@plone/volto/icons/align-left.svg';
 
@@ -32,16 +36,19 @@ const messages = defineMessages({
     defaultMessage: 'Image size',
   },
   fontColor: {
-    id: 'Font Color',
+    id: 'fontColor',
     defaultMessage: 'Font Color',
+  },
+  style: {
+    id: 'style',
+    defaultMessage: 'Style',
   },
 });
 
-export const ParallaxSchema = (props) => {
+export function ParallaxSchema(props) {
   const { intl } = props;
-
-  return {
-    block: 'parallax',
+  let schema = {
+    title: intl.formatMessage(messages.parallaxBlock),
     fieldsets: [
       {
         id: 'default',
@@ -54,6 +61,7 @@ export const ParallaxSchema = (props) => {
           'buttonText',
           'hideButton',
           'fontColor',
+          'style',
         ],
       },
     ],
@@ -96,6 +104,8 @@ export const ParallaxSchema = (props) => {
       fontColor: {
         title: intl.formatMessage(messages.fontColor),
         widget: 'color_picker',
+        default: 'parallax-custom-color-1',
+        required: true,
         colors: [
           {
             name: 'parallax-custom-color-1',
@@ -106,9 +116,34 @@ export const ParallaxSchema = (props) => {
             label: 'Black',
           },
         ],
-        default: 'parallax-custom-color-1',
+      },
+      style: {
+        title: intl.formatMessage(messages.style),
+        type: 'string',
+        widget: 'select',
+        default: 'default',
+        required: true,
+        choices: [
+          ['default', 'Default'],
+          ['outlined-textbox', 'outlined-Textbox'],
+          ['solid-textbox', 'solid-Textbox'],
+        ],
       },
     },
     required: [],
   };
-};
+
+  const fontColors = config.blocks?.blocksConfig.parallax.fontColors;
+
+  addStyling({ schema, intl });
+
+  schema.properties.styles.schema.fieldsets[0].fields = ['fontColor'];
+  schema.properties.styles.schema.properties.fontColor = {
+    title: intl.formatMessage(messages.fontColor),
+    widget: 'color_picker',
+    colors: fontColors,
+    default: 'parallax-font-black',
+  };
+
+  return schema;
+}
