@@ -14,22 +14,18 @@ const messages = defineMessages({
 });
 
 const LegacyWrapper = (props) => (
-
-    <div className='parallax-wrapper'>
-      {props.children}
-    </div>
-
+  <div className="parallax-wrapper">{props.children}</div>
 );
 
 const ParallaxView = (props) => {
   const {
     block,
     blocksConfig,
-    className,
+    // className,
     data,
-    isEditMode,
+    // isEditMode,
     onChangeBlock,
-    style,
+    // style,
   } = props;
   const Image = config.getComponent('Image').component;
   const dataAdapter = blocksConfig.parallax.dataAdapter;

@@ -101,7 +101,7 @@ export default function ParallaxSchema(props) {
       isDefault: false,
     },
   ];
-  
+
   schema = addExtensionFieldToSchema({
     schema,
     name: 'variation',
