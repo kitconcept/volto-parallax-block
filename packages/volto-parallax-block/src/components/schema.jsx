@@ -1,10 +1,6 @@
 import { defineMessages } from 'react-intl';
 import { addStyling } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
-
-import config from '@plone/volto/registry';
-
-import textCenteredSVG from '@plone/volto/icons/align-center.svg';
-import textLeftSVG from '@plone/volto/icons/align-left.svg';
+import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions';
 
 const messages = defineMessages({
   parallaxBlock: {
@@ -19,9 +15,9 @@ const messages = defineMessages({
     id: 'Text',
     defaultMessage: 'Text',
   },
-  align: {
-    id: 'Align',
-    defaultMessage: 'Text Alignment',
+  Alignment: {
+    id: 'Alignment',
+    defaultMessage: 'Alignment',
   },
   buttonText: {
     id: 'buttonText',
@@ -35,56 +31,44 @@ const messages = defineMessages({
     id: 'size',
     defaultMessage: 'Image size',
   },
-  fontColor: {
-    id: 'fontColor',
-    defaultMessage: 'Font Color',
+  variation: {
+    id: 'variation',
+    defaultMessage: 'Variation',
   },
-  style: {
-    id: 'style',
-    defaultMessage: 'Style',
+  fontColor: {
+    id: 'Font color',
+    defaultMessage: 'Font color',
+  },
+  image: {
+    id: 'Image',
+    defaultMessage: 'Image',
   },
 });
 
-export function ParallaxSchema(props) {
+export default function ParallaxSchema(props) {
   const { intl } = props;
   let schema = {
     title: intl.formatMessage(messages.parallaxBlock),
+    block: 'parallax',
     fieldsets: [
       {
         id: 'default',
         title: 'Default',
-        fields: [
-          'title',
-          'text',
-          'align',
-          'size',
-          'buttonText',
-          'hideButton',
-          'fontColor',
-          'style',
-        ],
+        fields: ['url', 'title', 'text', 'buttonText', 'hideButton'],
       },
     ],
 
     properties: {
       title: {
         title: intl.formatMessage(messages.title),
-        type: 'string',
-        widget: 'title',
+      },
+      url: {
+        title: props.intl.formatMessage(messages.image),
+        widget: 'image',
       },
       text: {
         title: intl.formatMessage(messages.text),
         widget: 'textarea',
-      },
-      align: {
-        title: intl.formatMessage(messages.align),
-        widget: 'buttons',
-        default: 'centered',
-        actions: ['left', 'centered'],
-        actionsInfoMap: {
-          left: [textLeftSVG, 'Text Left'],
-          centered: [textCenteredSVG, 'Text Centered'],
-        },
       },
       buttonText: {
         title: intl.formatMessage(messages.buttonText),
@@ -96,53 +80,75 @@ export function ParallaxSchema(props) {
         type: 'boolean',
         default: false,
       },
-      size: {
-        title: intl.formatMessage(messages.size),
-        widget: 'size',
-        default: 'l',
-      },
-      fontColor: {
-        title: intl.formatMessage(messages.fontColor),
-        widget: 'color_picker',
-        default: 'parallax-custom-color-1',
-        required: true,
-        colors: [
-          {
-            name: 'parallax-custom-color-1',
-            label: 'White',
-          },
-          {
-            name: 'parallax-custom-color-2',
-            label: 'Black',
-          },
-        ],
-      },
-      style: {
-        title: intl.formatMessage(messages.style),
-        type: 'string',
-        widget: 'select',
-        default: 'default',
-        required: true,
-        choices: [
-          ['default', 'Default'],
-          ['outlined-textbox', 'outlined-Textbox'],
-          ['solid-textbox', 'solid-Textbox'],
-        ],
-      },
     },
     required: [],
   };
 
-  const fontColors = config.blocks?.blocksConfig.parallax.fontColors;
+  const variations = [
+    {
+      id: 'default',
+      title: 'Default',
+      isDefault: true,
+    },
+    {
+      id: 'outlined-textbox',
+      title: 'Outlined textbox',
+      isDefault: false,
+    },
+    {
+      id: 'solid-textbox',
+      title: 'Solid textbox',
+      isDefault: false,
+    },
+  ];
+  
+  schema = addExtensionFieldToSchema({
+    schema,
+    name: 'variation',
+    items: variations,
+    intl,
+    title: messages.variation,
+  });
 
   addStyling({ schema, intl });
 
-  schema.properties.styles.schema.fieldsets[0].fields = ['fontColor'];
-  schema.properties.styles.schema.properties.fontColor = {
+  schema.properties.styles.schema.fieldsets[0].fields.push('size');
+  schema.properties.styles.schema.properties['size'] = {
+    title: intl.formatMessage(messages.size),
+    widget: 'size',
+    default: 'l',
+  };
+
+  schema.properties.styles.schema.fieldsets[0].fields.push('align:noprefix');
+  schema.properties.styles.schema.properties['align:noprefix'] = {
+    widget: 'blockAlignment',
+    title: intl.formatMessage(messages.Alignment),
+    default: 'left',
+  };
+
+  schema.properties.styles.schema.fieldsets[0].fields.push(
+    'themeForegroundColor',
+  );
+  schema.properties.styles.schema.properties['themeForegroundColor'] = {
     title: intl.formatMessage(messages.fontColor),
     widget: 'color_picker',
-    colors: fontColors,
-    default: 'parallax-font-black',
+    colors: [
+      {
+        style: {
+          '--theme-foreground-color': '#000',
+        },
+        name: 'custom-foreground-color-1',
+        label: 'Black',
+      },
+      {
+        style: {
+          '--theme-foreground-color': '#fff',
+        },
+        name: 'custom-foreground-color-2',
+        label: 'White',
+      },
+    ],
+    default: 'black',
   };
 
   return schema;

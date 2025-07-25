@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
-import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { defineMessages, useIntl } from 'react-intl';
 import cx from 'classnames';
 import config from '@plone/volto/registry';
-
+import { ImageInput } from '@plone/volto/components/manage/Widgets/ImageWidget';
+import { useSelector } from 'react-redux';
 const messages = defineMessages({
   buttonText: {
     id: 'continueReading',
@@ -12,15 +13,75 @@ const messages = defineMessages({
   },
 });
 
+const LegacyWrapper = (props) => (
+
+    <div className='parallax-wrapper'>
+      {props.children}
+    </div>
+
+);
+
 const ParallaxView = (props) => {
-  const { data } = props;
-  const Image = config.getComponent({ name: 'Image' }).component;
+  const {
+    block,
+    blocksConfig,
+    className,
+    data,
+    isEditMode,
+    onChangeBlock,
+    style,
+  } = props;
+  const Image = config.getComponent('Image').component;
+  const dataAdapter = blocksConfig.parallax.dataAdapter;
+  const request = useSelector((state) => state.content.subrequests[block]);
+  const content = request?.data;
 
   const speed = 0.3; // Adjust the speed of the parallax effect
 
   const [offsetY, setOffsetY] = useState(0);
 
   const intl = useIntl();
+
+  let renderedImage = null;
+  if (data.url) {
+    if (Image) {
+      // custom image component expects item summary as src
+      renderedImage = (
+        <Image
+          item={
+            data.image_scales
+              ? {
+                  '@id': data.url,
+                  image_field: data.image_field,
+                  image_scales: data.image_scales,
+                }
+              : null
+          }
+          src={!data.image_scales ? data.url : null}
+          alt=""
+          loading="lazy"
+          responsive={true}
+          style={{
+            transform: `translate(0, calc(-50% + ${offsetY * speed}px))`,
+          }}
+        />
+      );
+    } else {
+      // default img expects string src
+      renderedImage = (
+        <img
+          src={
+            isInternalURL(data.url['@id'])
+              ? // Backwards compat in the case that the block is storing the full server URL
+                `${flattenToAppURL(data.url['@id'])}/@@images/image`
+              : data.url['@id']
+          }
+          alt=""
+          loading="lazy"
+        />
+      );
+    }
+  }
 
   useEffect(() => {
     let animationFrameId;
@@ -40,64 +101,43 @@ const ParallaxView = (props) => {
   }, []);
 
   return (
-    <BlockWrapper className={props.className} {...props}>
-      <div className={cx('parallax-wrapper', data.size, props.className)}>
-        {data.url && (
+    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper}>
+      <>
+        {data.url ? (
           <>
-            <Image
-              src={`${flattenToAppURL(data.url)}/@@images/image`}
-              className="parallax-image"
-              style={{
-                transform: `translate(-50%, calc(-50% + ${offsetY * speed}px))`,
-              }}
-            />
-
-            <div className={cx('parallax-content', data.align, data.fontColor)}>
-              <div className={cx('box', data.style, data.fontColor)}>
-                {data.style === 'default' && data.size === 'l' && (
-                  <hr className={cx('parallax-line', data.fontColor)} />
-                )}
-                {data.title && (
-                  <h2
-                    className={cx(
-                      'parallax-title',
-                      data.text && 'has-text',
-                      data.buttonText && 'has-ButtonText',
-                      !data.hideButton && 'has-hideButton',
-                    )}
-                  >
-                    {data.title}
-                  </h2>
-                )}
-                {data.text && (
-                  <div
-                    className={cx(
-                      'parallax-text',
-                      !data.hideButton && 'has-ButtonText',
-                    )}
-                  >
-                    {data.text && <div>{data.text}</div>}
-                  </div>
-                )}
+            {renderedImage}
+            <div className="parallax-content">
+              <div className={cx('box', data.variation)}>
+                {data.title && <h2 className="parallax-title">{data.title}</h2>}
+                {data.text && <div className="parallax-text">{data.text}</div>}
                 {!data.hideButton && (
-                  <button
-                    className={cx('parallax-button', data.fontColor)}
-                    // style={{
-                    //   color: data.fontColor || 'white',
-                    //   border: `1px solid ${data.fontColor || 'white'}`,
-                    // }}
-                  >
+                  <button className="parallax-button">
                     {data.buttonText || intl.formatMessage(messages.buttonText)}
                   </button>
-                )}
-                {data.style === 'default' && data.size === 'l' && (
-                  <hr className={cx('parallax-line', data.fontColor)} />
                 )}
               </div>
             </div>
           </>
+        ) : (
+          <ImageInput
+            onChange={(id, value, item) => {
+              dataAdapter({
+                block,
+                data,
+                id: 'url',
+                onChangeBlock,
+                value,
+                content,
+                item,
+              });
+            }}
+            placeholderLinkInput={data.placeholder}
+            block={block}
+            id={block}
+            objectBrowserPickerType={'image'}
+          />
         )}
-      </div>
+      </>
     </BlockWrapper>
   );
 };

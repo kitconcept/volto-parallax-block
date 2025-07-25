@@ -1,29 +1,48 @@
-@import 'blocks/relatedItems';
-@import 'variables';
-
 $black: #000;
 $white: #fff;
 
-$parallax-font-black: $black;
-$parallax-font-white: $white;
+$custom-foreground-color-1: $black;
+$custom-foreground-color-2: $white;
 
 :root {
-  --parallax-font-black: #f00;
-  --parallax-font-white: #fff;
+  --custom-foreground-color-1: #000;
+  --custom-foreground-color-2: #fff;
+}
+.block.parallax,
+.block-editor-parallax {
+  &.has--themeForegroundColor--custom-foreground-color-1 .parallax-wrapper {
+    --theme-foreground-color: var(--custom-foreground-color-1, #000);
+  }
+  &.has--themeForegroundColor--custom-foreground-color-2 .parallax-wrapper {
+    --theme-foreground-color: var(--custom-foreground-color-2, #fff);
+  }
+
+  &.has--size--s {
+    .parallax-wrapper {
+      height: 300px;
+    }
+  }
+  &.has--size--m {
+    .parallax-wrapper {
+      height: 600px;
+    }
+  }
+  &.has--size--l {
+    .parallax-wrapper {
+      height: 900px;
+    }
+  }
 }
 
 .parallax-wrapper {
   position: relative;
   overflow: hidden;
+  color: var(--theme-foreground-color);
 
-  &.s {
-    height: 300px;
-  }
-  &.m {
-    height: 600px;
-  }
-  &.l {
-    height: 800px;
+  img {
+    min-width: 100%;
+    object-fit: cover;
+    will-change: transform;
   }
 }
 
@@ -31,8 +50,7 @@ $parallax-font-white: $white;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: auto;
-  width: 100%;
+  min-width: 100%;
   min-height: 150%;
   object-fit: cover;
   will-change: transform;
@@ -62,19 +80,14 @@ $parallax-font-white: $white;
     width: 100%;
     max-width: 940px;
     box-sizing: border-box;
+    text-align: var(--block-alignment);
   }
 
   .outlined-textbox {
     width: 100%;
-    padding: 80px 0;
+    padding: 40px;
     border: 1px solid #fff;
-
-    &.parallax-custom-color-1 {
-      border-color: #fff;
-    }
-    &.parallax-custom-color-2 {
-      border-color: #000;
-    }
+    border-color: var(--theme-foreground-color);
   }
 
   .solid-textbox {
@@ -99,13 +112,8 @@ $parallax-font-white: $white;
   }
 
   .parallax-title {
-    padding: 0 40px;
+    padding-bottom: 60px;
     margin: 0;
-    font-family: Inter;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 48px;
 
     &.has-text {
       margin-bottom: 60px;
@@ -118,35 +126,19 @@ $parallax-font-white: $white;
     }
   }
   .parallax-text {
-    padding: 0 40px;
+    padding-bottom: 80px;
     margin-bottom: 0px;
 
     &.has-ButtonText {
       margin-bottom: 80px;
     }
   }
-  &.parallax-custom-color-1 {
-    color: #fff;
-  }
-  &.parallax-custom-color-2 {
-    color: #000;
-  }
-  // &.has--fontColor--parallax-font-white {
-  //   color: #fff;
-  // }
-  // &.has--fontColor--parallax-font-black {
-  //   color: #000;
-  // }
+
   .parallax-line {
     width: 100%;
     margin: 80px 0;
-
-    &.parallax-custom-color-1 {
-      border: 1px solid #fff;
-    }
-    &.parallax-custom-color-2 {
-      border: 1px solid #000;
-    }
+    border: 1px solid #fff;
+    border-color: var(--theme-foreground-color);
   }
 }
 
@@ -155,15 +147,9 @@ $parallax-font-white: $white;
   padding: 8px 20px;
   background: transparent;
   gap: 10px;
-
-  &.parallax-custom-color-1 {
-    border: 1px solid #fff;
-    color: #fff;
-  }
-  &.parallax-custom-color-2 {
-    border: 1px solid #000;
-    color: #000;
-  }
+  border: 1px solid #fff;
+  border-color: var(--theme-foreground-color);
+  color: var(--theme-foreground-color);
 }
 
 .color-picker-widget,
@@ -174,18 +160,12 @@ $parallax-font-white: $white;
 
   button,
   .button {
-    &.parallax-custom-color-1,
-    &.parallax-custom-color-1.active,
-    &.parallax-custom-color-1:hover,
-    &.active.parallax-custom-color-1:hover {
-      background-color: #fff;
+    &.custom-foreground-color-1 {
+      background: var(--theme-foreground-color, #000);
     }
 
-    &.parallax-custom-color-2,
-    &.parallax-custom-color-2.active,
-    &.parallax-custom-color-2:hover,
-    &.active.parallax-custom-color-2:hover {
-      background-color: #000;
+    &.custom-foreground-color-2 {
+      background: var(--theme-foreground-color, #fff);
     }
   }
 }
