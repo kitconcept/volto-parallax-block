@@ -6,6 +6,8 @@ import cx from 'classnames';
 import config from '@plone/volto/registry';
 import { ImageInput } from '@plone/volto/components/manage/Widgets/ImageWidget';
 import { useSelector } from 'react-redux';
+import { ConditionalLink } from '@plone/volto/components';
+
 const messages = defineMessages({
   buttonText: {
     id: 'continueReading',
@@ -23,7 +25,7 @@ const ParallaxView = (props) => {
     blocksConfig,
     // className,
     data,
-    // isEditMode,
+    isEditMode,
     onChangeBlock,
     // style,
   } = props;
@@ -37,6 +39,8 @@ const ParallaxView = (props) => {
   const [offsetY, setOffsetY] = useState(0);
 
   const intl = useIntl();
+  // let x = document.getElementsByClassName('parallax-wrapper')[0];
+  // console.log(x.offsetTop); ------probably wont use it-------
 
   let renderedImage = null;
   if (data.url) {
@@ -44,6 +48,7 @@ const ParallaxView = (props) => {
       // custom image component expects item summary as src
       renderedImage = (
         <Image
+          className="parallax-img"
           item={
             data.image_scales
               ? {
@@ -66,6 +71,7 @@ const ParallaxView = (props) => {
       // default img expects string src
       renderedImage = (
         <img
+          className="parallax-img"
           src={
             isInternalURL(data.url['@id'])
               ? // Backwards compat in the case that the block is storing the full server URL
@@ -96,24 +102,33 @@ const ParallaxView = (props) => {
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
+  let link = data.href && (
+    <ConditionalLink
+      className={'link'}
+      to={data.href[0]?.['@id']}
+      condition={data.href && !isEditMode}
+      openLinkInNewTab={data.openLinkInNewTab}
+    >
+      {renderedImage}
+      <div className="parallax-content">
+        <div className={cx('box', data.variation)}>
+          {data.title && <h2 className="parallax-title">{data.title}</h2>}
+          {data.text && <div className="parallax-text">{data.text}</div>}
+          {!data.hideButton && (
+            <button className="parallax-button">
+              {data.buttonText || intl.formatMessage(messages.buttonText)}
+            </button>
+          )}
+        </div>
+      </div>
+    </ConditionalLink>
+  );
+
   return (
-    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper}>
+    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper} id="ParallaxBlock">
       <>
         {data.url ? (
-          <>
-            {renderedImage}
-            <div className="parallax-content">
-              <div className={cx('box', data.variation)}>
-                {data.title && <h2 className="parallax-title">{data.title}</h2>}
-                {data.text && <div className="parallax-text">{data.text}</div>}
-                {!data.hideButton && (
-                  <button className="parallax-button">
-                    {data.buttonText || intl.formatMessage(messages.buttonText)}
-                  </button>
-                )}
-              </div>
-            </div>
-          </>
+          <>{link}</>
         ) : (
           <ImageInput
             onChange={(id, value, item) => {

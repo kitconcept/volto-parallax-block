@@ -7,14 +7,40 @@ $custom-foreground-color-2: $white;
 :root {
   --custom-foreground-color-1: #000;
   --custom-foreground-color-2: #fff;
+
+  --custom-textbox-color-1: rgba(0, 0, 0, 0.66);
+  --custom-textbox-color-2: rgba(255, 255, 255, 0.66);
+
+  --custom-transparency-color-1: rgba(0, 0, 0, 0.33);
+  --custom-transparency-color-2: rgba(255, 255, 255, 0.33);
 }
 .block.parallax,
 .block-editor-parallax {
   &.has--themeForegroundColor--custom-foreground-color-1 .parallax-wrapper {
     --theme-foreground-color: var(--custom-foreground-color-1, #000);
+
+    .parallax-title,
+    .parallax-text,
+    .parallax-button {
+      color: var(--custom-foreground-color-1, #000);
+    }
+
+    &:has(.parallax-content .default, .outlined-textbox) .parallax-img {
+      filter: brightness(133.3%);
+    }
   }
   &.has--themeForegroundColor--custom-foreground-color-2 .parallax-wrapper {
     --theme-foreground-color: var(--custom-foreground-color-2, #fff);
+
+    .parallax-title,
+    .parallax-text,
+    .parallax-button {
+      color: var(--custom-foreground-color-2, #fff);
+    }
+
+    &:has(.parallax-content .default, .outlined-textbox) .parallax-img {
+      filter: brightness(66.6%);
+    }
   }
 
   &.has--size--s {
@@ -32,6 +58,42 @@ $custom-foreground-color-2: $white;
       height: 900px;
     }
   }
+
+  &.has--themeForegroundColor--custom-foreground-color-1
+    .parallax-wrapper
+    .parallax-content
+    .solid-textbox {
+    background-color: var(--custom-textbox-color-2, rgba(255, 255, 255, 0.66));
+  }
+  &.has--themeForegroundColor--custom-foreground-color-2
+    .parallax-wrapper
+    .parallax-content
+    .solid-textbox {
+    background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
+  }
+
+  .parallax-text {
+    padding-bottom: 0px;
+  }
+
+  &.has--showButton--true .parallax-text {
+    padding-bottom: 80px;
+  }
+
+  .parallax-button {
+    display: none;
+  }
+
+  &.has--showButton--true .parallax-button {
+    display: inline-block;
+    width: max-content;
+    padding: 8px 20px;
+    background: transparent;
+    gap: 10px;
+    border: 1px solid var(--theme-foreground-color);
+    border-color: var(--theme-foreground-color);
+    color: var(--theme-foreground-color);
+  }
 }
 
 .parallax-wrapper {
@@ -40,28 +102,13 @@ $custom-foreground-color-2: $white;
   color: var(--theme-foreground-color);
 
   img {
+    position: absolute;
+    top: 50%;
     min-width: 100%;
+    min-height: 150%;
     object-fit: cover;
     will-change: transform;
   }
-}
-
-.parallax-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 150%;
-  object-fit: cover;
-  will-change: transform;
-}
-
-.parallax-sidebar-image {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px;
-  background-color: rgb(243, 245, 246);
-  text-transform: uppercase;
 }
 
 .parallax-content {
@@ -78,6 +125,7 @@ $custom-foreground-color-2: $white;
 
   .box {
     width: 100%;
+    padding: 80px 40px;
     max-width: 940px;
     box-sizing: border-box;
     text-align: var(--block-alignment);
@@ -85,30 +133,14 @@ $custom-foreground-color-2: $white;
 
   .outlined-textbox {
     width: 100%;
-    padding: 40px;
+    padding: 80px 40px;
     border: 1px solid #fff;
     border-color: var(--theme-foreground-color);
   }
 
   .solid-textbox {
     width: 100%;
-    padding: 80px 0;
-
-    &.parallax-custom-color-1 {
-      background-color: rgba(0, 0, 0, 0.66);
-    }
-    &.parallax-custom-color-2 {
-      background-color: rgba(255, 255, 255, 0.66);
-    }
-  }
-
-  &.centered {
-    align-items: center;
-    text-align: center;
-  }
-  &.left {
-    align-items: flex-start;
-    text-align: left;
+    padding: 80px 40px;
   }
 
   .parallax-title {
@@ -126,12 +158,13 @@ $custom-foreground-color-2: $white;
     }
   }
   .parallax-text {
-    padding-bottom: 80px;
+    padding-bottom: 0px;
     margin-bottom: 0px;
+  }
 
-    &.has-ButtonText {
-      margin-bottom: 80px;
-    }
+  .has--showButton--true .parallax-text {
+    padding-bottom: 80px;
+    margin-bottom: 80px;
   }
 
   .parallax-line {

@@ -23,9 +23,9 @@ const messages = defineMessages({
     id: 'buttonText',
     defaultMessage: 'Button Text',
   },
-  hideButton: {
-    id: 'HideButton',
-    defaultMessage: 'Hide Button',
+  showButton: {
+    id: 'Show Button',
+    defaultMessage: 'Show Button',
   },
   size: {
     id: 'size',
@@ -43,6 +43,14 @@ const messages = defineMessages({
     id: 'Image',
     defaultMessage: 'Image',
   },
+  href: {
+    id: 'Link',
+    defaultMessage: 'Link',
+  },
+  openLinkInNewTab: {
+    id: 'Open in a new tab',
+    defaultMessage: 'Open in a new tab',
+  },
 });
 
 export default function ParallaxSchema(props) {
@@ -54,7 +62,14 @@ export default function ParallaxSchema(props) {
       {
         id: 'default',
         title: 'Default',
-        fields: ['url', 'title', 'text', 'buttonText', 'hideButton'],
+        fields: [
+          'url',
+          'title',
+          'text',
+          'buttonText',
+          'href',
+          'openLinkInNewTab',
+        ],
       },
     ],
 
@@ -75,10 +90,15 @@ export default function ParallaxSchema(props) {
         type: 'string',
         widget: 'textarea',
       },
-      hideButton: {
-        title: intl.formatMessage(messages.hideButton),
+      href: {
+        title: intl.formatMessage(messages.href),
+        widget: 'object_browser',
+        mode: 'link',
+        allowExternals: true,
+      },
+      openLinkInNewTab: {
+        title: intl.formatMessage(messages.openLinkInNewTab),
         type: 'boolean',
-        default: false,
       },
     },
     required: [],
@@ -117,6 +137,16 @@ export default function ParallaxSchema(props) {
     title: intl.formatMessage(messages.size),
     widget: 'size',
     default: 'l',
+  };
+
+  schema.properties.styles.schema.fieldsets[0].fields = [
+    'showButton',
+    ...schema.properties.styles.schema.fieldsets[0].fields,
+  ];
+
+  schema.properties.styles.schema.properties.showButton = {
+    title: intl.formatMessage(messages.showButton),
+    type: 'boolean',
   };
 
   schema.properties.styles.schema.fieldsets[0].fields.push('align:noprefix');
