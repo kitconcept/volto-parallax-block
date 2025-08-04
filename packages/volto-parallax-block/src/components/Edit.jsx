@@ -4,7 +4,7 @@ import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal'
 import ParallaxData from './Data.jsx';
 
 const ParallaxEdit = (props) => {
-  const { data, onChangeBlock, block, selected, blocksConfig } = props;
+  const { /*data, onChangeBlock, block,*/ selected /*, blocksConfig*/ } = props;
   return (
     <>
       <ParallaxView {...props} isEditMode />

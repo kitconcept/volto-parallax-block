@@ -178,7 +178,7 @@ export default function ParallaxSchema(props) {
         label: 'White',
       },
     ],
-    default: 'black',
+    default: 'custom-foreground-color-1',
   };
 
   return schema;

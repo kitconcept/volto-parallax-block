@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { defineMessages, useIntl } from 'react-intl';
@@ -6,7 +6,7 @@ import cx from 'classnames';
 import config from '@plone/volto/registry';
 import { ImageInput } from '@plone/volto/components/manage/Widgets/ImageWidget';
 import { useSelector } from 'react-redux';
-import { ConditionalLink } from '@plone/volto/components';
+import { ConditionalLink } from '@plone/volto/components/';
 
 const messages = defineMessages({
   buttonText: {
@@ -37,7 +37,11 @@ const ParallaxView = (props) => {
   const speed = 0.3; // Adjust the speed of the parallax effect
 
   const [offsetY, setOffsetY] = useState(0);
+  const [hasLink, setHasLink] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [startScrollY, setStartScrollY] = useState(null);
 
+  const wrapperRef = useRef(null);
   const intl = useIntl();
   // let x = document.getElementsByClassName('parallax-wrapper')[0];
   // console.log(x.offsetTop); ------probably wont use it-------
@@ -86,49 +90,87 @@ const ParallaxView = (props) => {
   }
 
   useEffect(() => {
+    const currentRef = wrapperRef.current;
+    const observer = new IntersectionObserver(
+      ([entry], obs) => {
+        if (entry.isIntersecting) {
+          setStartScrollY((prev) => {
+            if (prev === null) {
+              return window.scrollY;
+            }
+            return prev;
+          });
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     let animationFrameId;
-    let lastScrollY = window.scrollY;
 
     const updateOffset = () => {
-      const currentScrollY = window.scrollY;
-      lastScrollY += currentScrollY - lastScrollY;
-
-      setOffsetY(lastScrollY);
+      if (isVisible && startScrollY !== null) {
+        const distance = window.scrollY - startScrollY;
+        setOffsetY(distance > 0 ? distance : 0);
+      }
       animationFrameId = requestAnimationFrame(updateOffset);
     };
 
     animationFrameId = requestAnimationFrame(updateOffset);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  }, [isVisible, startScrollY]);
 
-  let link = data.href && (
-    <ConditionalLink
-      className={'link'}
-      to={data.href[0]?.['@id']}
-      condition={data.href && !isEditMode}
-      openLinkInNewTab={data.openLinkInNewTab}
-    >
-      {renderedImage}
-      <div className="parallax-content">
-        <div className={cx('box', data.variation)}>
-          {data.title && <h2 className="parallax-title">{data.title}</h2>}
-          {data.text && <div className="parallax-text">{data.text}</div>}
-          {!data.hideButton && (
-            <button className="parallax-button">
-              {data.buttonText || intl.formatMessage(messages.buttonText)}
-            </button>
-          )}
-        </div>
-      </div>
-    </ConditionalLink>
-  );
+  useEffect(() => {
+    if (data.href) {
+      if (data.href && data.href.length > 0) {
+        setHasLink(true);
+      }
+      if (data.href === 0) {
+        setHasLink(false);
+      }
+    }
+  }, [data.href]);
 
   return (
-    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper} id="ParallaxBlock">
-      <>
+    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper}>
+      <div ref={wrapperRef} className={'parallax-wrapperRef'}>
         {data.url ? (
-          <>{link}</>
+          <ConditionalLink
+            className={'link'}
+            to={data.href?.[0]?.['@id']}
+            condition={!isEditMode && hasLink}
+            openLinkInNewTab={data.openLinkInNewTab}
+          >
+            {renderedImage}
+            <div className="transparencyLayer" />
+            <div className="parallax-content">
+              <div className={cx('box', data.variation)}>
+                {data.title && <h2 className="parallax-title">{data.title}</h2>}
+                {data.text && <div className="parallax-text">{data.text}</div>}
+                {!data.hideButton && (
+                  <button className="parallax-button">
+                    {data.buttonText || intl.formatMessage(messages.buttonText)}
+                  </button>
+                )}
+              </div>
+            </div>
+          </ConditionalLink>
         ) : (
           <ImageInput
             onChange={(id, value, item) => {
@@ -148,7 +190,7 @@ const ParallaxView = (props) => {
             objectBrowserPickerType={'image'}
           />
         )}
-      </>
+      </div>
     </BlockWrapper>
   );
 };
