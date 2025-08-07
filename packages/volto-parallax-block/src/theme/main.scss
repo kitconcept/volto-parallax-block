@@ -69,8 +69,10 @@ $custom-foreground-color-2: $white;
 
       .default {
         width: 100%;
-        border-top: 1px solid var(--theme-foreground-color);
-        border-bottom: 1px solid var(--theme-foreground-color);
+        &.has-content {
+          border-top: 1px solid var(--theme-foreground-color);
+          border-bottom: 1px solid var(--theme-foreground-color);
+        }
       }
     }
   }
@@ -80,14 +82,21 @@ $custom-foreground-color-2: $white;
     .parallax-wrapperRef
     .parallax-content
     .solid-textbox {
-    background-color: var(--custom-textbox-color-2, rgba(255, 255, 255, 0.66));
+    &.has-content {
+      background-color: var(
+        --custom-textbox-color-2,
+        rgba(255, 255, 255, 0.66)
+      );
+    }
   }
   &.has--themeForegroundColor--custom-foreground-color-2
     .parallax-wrapper
     .parallax-wrapperRef
     .parallax-content
     .solid-textbox {
-    background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
+    &.has-content {
+      background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
+    }
   }
 
   .parallax-button {
@@ -113,7 +122,7 @@ $custom-foreground-color-2: $white;
 
   .parallax-wrapperRef img {
     position: absolute;
-    top: 40%;
+    top: 35%;
     min-width: 100%;
     min-height: 150%;
     object-fit: cover;
@@ -143,8 +152,11 @@ $custom-foreground-color-2: $white;
 
   .outlined-textbox {
     width: 100%;
-    border: 1px solid #fff;
-    border-color: var(--theme-foreground-color);
+
+    &.has-content {
+      border: 1px solid var(--theme-foreground-color);
+      border-color: var(--theme-foreground-color);
+    }
   }
 
   .solid-textbox {

@@ -83,7 +83,7 @@ export default function ParallaxSchema(props) {
       },
       text: {
         title: intl.formatMessage(messages.text),
-        widget: 'textarea',
+        widget: 'richtext',
       },
       buttonText: {
         title: intl.formatMessage(messages.buttonText),
@@ -107,7 +107,7 @@ export default function ParallaxSchema(props) {
   const variations = [
     {
       id: 'default',
-      title: 'Default',
+      title: 'Textbox',
       isDefault: true,
     },
     {

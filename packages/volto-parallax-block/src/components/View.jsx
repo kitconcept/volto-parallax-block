@@ -34,12 +34,25 @@ const ParallaxView = (props) => {
   const request = useSelector((state) => state.content.subrequests[block]);
   const content = request?.data;
 
-  const speed = 0.3; // Adjust the speed of the parallax effect
-
   const [offsetY, setOffsetY] = useState(0);
   const [hasLink, setHasLink] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [startScrollY, setStartScrollY] = useState(null);
+  const [hasContent, setHasContent] = useState(false);
+
+  const speed = 0.3; // Adjust the speed of the parallax effect
+  const maxOffset = 500;
+  const translateY = Math.min(offsetY * speed, maxOffset);
+
+  useEffect(() => {
+    const contentExists =
+      !!data.title ||
+      !!data.text ||
+      data.styles.showButton ||
+      (data.styles.showButton && !!data.buttonText);
+
+    setHasContent(contentExists);
+  }, [data.title, data.text, data.styles.showButton, data.buttonText]);
 
   const wrapperRef = useRef(null);
   const intl = useIntl();
@@ -67,7 +80,7 @@ const ParallaxView = (props) => {
           loading="lazy"
           responsive={true}
           style={{
-            transform: `translate(0, calc(-50% + ${offsetY * speed}px))`,
+            transform: `translate(0, calc(-50% + ${translateY}px))`,
           }}
         />
       );
@@ -160,9 +173,18 @@ const ParallaxView = (props) => {
             {renderedImage}
             <div className="transparencyLayer" />
             <div className="parallax-content">
-              <div className={cx('box', data.variation)}>
+              <div
+                className={cx('box', data.variation, {
+                  'has-content': hasContent,
+                })}
+              >
                 {data.title && <h2 className="parallax-title">{data.title}</h2>}
-                {data.text && <div className="parallax-text">{data.text}</div>}
+                {data.text && (
+                  <div
+                    className="parallax-text"
+                    dangerouslySetInnerHTML={{ __html: data.text.data }}
+                  />
+                )}
                 {!data.hideButton && (
                   <button className="parallax-button">
                     {data.buttonText || intl.formatMessage(messages.buttonText)}
