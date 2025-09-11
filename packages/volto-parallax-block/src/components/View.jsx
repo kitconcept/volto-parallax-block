@@ -20,15 +20,7 @@ const LegacyWrapper = (props) => (
 );
 
 const ParallaxView = (props) => {
-  const {
-    block,
-    blocksConfig,
-    // className,
-    data,
-    isEditMode,
-    onChangeBlock,
-    // style,
-  } = props;
+  const { block, blocksConfig, data, isEditMode, onChangeBlock } = props;
   const Image = config.getComponent('Image').component;
   const dataAdapter = blocksConfig.parallax.dataAdapter;
   const request = useSelector((state) => state.content.subrequests[block]);
@@ -43,26 +35,29 @@ const ParallaxView = (props) => {
   const speed = 0.3; // Adjust the speed of the parallax effect
   const maxOffset = 500;
   const translateY = Math.min(offsetY * speed, maxOffset);
+  const hasRichText = (value) => {
+    if (!value || typeof value.data !== 'string') return false;
+    const plain = value.data.replace('<p></p>', '');
+    return plain.length > 0;
+  };
 
   useEffect(() => {
+    const hasText = hasRichText(data.text);
     const contentExists =
       !!data.title ||
-      !!data.text ||
-      data.styles.showButton ||
-      (data.styles.showButton && !!data.buttonText);
+      hasText ||
+      data.styles.hideButton ||
+      (data.styles.hideButton && !!data.buttonText);
 
     setHasContent(contentExists);
-  }, [data.title, data.text, data.styles.showButton, data.buttonText]);
+  }, [data.title, data.text, data.styles.hideButton, data.buttonText]);
 
   const wrapperRef = useRef(null);
   const intl = useIntl();
-  // let x = document.getElementsByClassName('parallax-wrapper')[0];
-  // console.log(x.offsetTop); ------probably wont use it-------
 
   let renderedImage = null;
   if (data.url) {
     if (Image) {
-      // custom image component expects item summary as src
       renderedImage = (
         <Image
           className="parallax-img"
@@ -85,14 +80,12 @@ const ParallaxView = (props) => {
         />
       );
     } else {
-      // default img expects string src
       renderedImage = (
         <img
           className="parallax-img"
           src={
             isInternalURL(data.url['@id'])
-              ? // Backwards compat in the case that the block is storing the full server URL
-                `${flattenToAppURL(data.url['@id'])}/@@images/image`
+              ? `${flattenToAppURL(data.url['@id'])}/@@images/image`
               : data.url['@id']
           }
           alt=""
@@ -179,7 +172,7 @@ const ParallaxView = (props) => {
                 })}
               >
                 {data.title && <h2 className="parallax-title">{data.title}</h2>}
-                {data.text && (
+                {hasRichText(data.text) && (
                   <div
                     className="parallax-text"
                     dangerouslySetInnerHTML={{ __html: data.text.data }}

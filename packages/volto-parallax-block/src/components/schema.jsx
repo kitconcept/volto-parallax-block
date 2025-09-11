@@ -23,21 +23,21 @@ const messages = defineMessages({
     id: 'buttonText',
     defaultMessage: 'Button Text',
   },
-  showButton: {
-    id: 'Show Button',
-    defaultMessage: 'Show Button',
+  hideButton: {
+    id: 'Hide Button',
+    defaultMessage: 'Hide Button',
   },
   size: {
     id: 'size',
-    defaultMessage: 'Image size',
+    defaultMessage: 'Block Height',
   },
   variation: {
     id: 'variation',
-    defaultMessage: 'Variation',
+    defaultMessage: 'Overlay',
   },
   fontColor: {
     id: 'Font color',
-    defaultMessage: 'Font color',
+    defaultMessage: 'Text Color / Contrast',
   },
   image: {
     id: 'Image',
@@ -107,17 +107,12 @@ export default function ParallaxSchema(props) {
   const variations = [
     {
       id: 'default',
-      title: 'Textbox',
+      title: 'Full Overlay',
       isDefault: true,
     },
     {
-      id: 'outlined-textbox',
-      title: 'Outlined textbox',
-      isDefault: false,
-    },
-    {
       id: 'solid-textbox',
-      title: 'Solid textbox',
+      title: 'Textbox',
       isDefault: false,
     },
   ];
@@ -140,12 +135,12 @@ export default function ParallaxSchema(props) {
   };
 
   schema.properties.styles.schema.fieldsets[0].fields = [
-    'showButton',
+    'hideButton',
     ...schema.properties.styles.schema.fieldsets[0].fields,
   ];
 
-  schema.properties.styles.schema.properties.showButton = {
-    title: intl.formatMessage(messages.showButton),
+  schema.properties.styles.schema.properties.hideButton = {
+    title: intl.formatMessage(messages.hideButton),
     type: 'boolean',
   };
 

@@ -27,7 +27,7 @@ $custom-foreground-color-2: $white;
       color: var(--custom-foreground-color-1, #000);
     }
 
-    &:has(.parallax-content .default, .outlined-textbox) .transparencyLayer {
+    &:has(.parallax-content .default) .transparencyLayer {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -45,7 +45,7 @@ $custom-foreground-color-2: $white;
       color: var(--custom-foreground-color-2, #fff);
     }
 
-    &:has(.parallax-content .default, .outlined-textbox) .transparencyLayer {
+    &:has(.parallax-content .default) .transparencyLayer {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -69,10 +69,6 @@ $custom-foreground-color-2: $white;
 
       .default {
         width: 100%;
-        &.has-content {
-          border-top: 1px solid var(--theme-foreground-color);
-          border-bottom: 1px solid var(--theme-foreground-color);
-        }
       }
     }
   }
@@ -103,7 +99,7 @@ $custom-foreground-color-2: $white;
     display: none;
   }
 
-  &.has--showButton--true .parallax-button {
+  .parallax-button {
     display: inline-block;
     width: max-content;
     padding: 8px 20px;
@@ -111,7 +107,35 @@ $custom-foreground-color-2: $white;
     border-color: var(--theme-foreground-color);
     background: transparent;
     color: var(--theme-foreground-color);
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
     gap: 10px;
+    line-height: 20px;
+  }
+
+  .parallax-title {
+    padding-bottom: 60px;
+  }
+
+  .parallax-text {
+    padding-bottom: 80px;
+  }
+
+  &.has--hideButton--true {
+    .parallax-button {
+      display: none;
+    }
+
+    .parallax-title {
+      padding-bottom: 0px;
+    }
+
+    .parallax-text {
+      padding-bottom: 0px;
+    }
   }
 }
 
@@ -143,32 +167,38 @@ $custom-foreground-color-2: $white;
   transform: translateX(-50%);
 
   .box {
-    width: 100%;
+    display: inline-block;
+    width: fit-content;
     max-width: 940px;
     box-sizing: border-box;
-    padding: 80px 40px 0px 40px;
+    align-self: var(--block-alignment);
+    padding: 40px 40px 40px 40px;
     text-align: var(--block-alignment);
-  }
 
-  .outlined-textbox {
-    width: 100%;
-
-    &.has-content {
-      border: 1px solid var(--theme-foreground-color);
-      border-color: var(--theme-foreground-color);
+    &:has(.parallax-text) .parallax-title {
+      padding-bottom: 60px;
     }
   }
 
-  .solid-textbox {
-    width: 100%;
-  }
+  // .solid-textbox {
+  //   width: 100%;
+  // }
 
   .parallax-title {
-    padding-bottom: 60px;
     margin-bottom: 0px;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
   }
-  .parallax-text {
-    padding-bottom: 80px;
+
+  p {
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 33px;
   }
 
   .parallax-line {
@@ -179,16 +209,13 @@ $custom-foreground-color-2: $white;
   }
 }
 
-.has--showButton--true .parallax-content .box {
-  padding-bottom: 80px;
+.has--hideButton--true .parallax-content .box {
+  padding-bottom: 40px;
 }
 
 .color-picker-widget,
 .color-swatch-widget,
 .theme-picker-widget {
-  // Color widget &
-  // Theme color picker widget
-
   button,
   .button {
     &.custom-foreground-color-1 {
