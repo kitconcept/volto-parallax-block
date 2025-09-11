@@ -1,43 +1,15 @@
 import React from 'react';
-import { ImageInput } from '@plone/volto/components/manage/Widgets/ImageWidget';
-import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
-import View from './View';
+import ParallaxView from './View';
 import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
-import ParallaxSidebar from './Sidebar.jsx';
+import ParallaxData from './Data.jsx';
 
 const ParallaxEdit = (props) => {
-  const { data, onChangeBlock, block, selected } = props;
-
-  const handleChange = React.useCallback(
-    async (id, image) => {
-      const url = image ? image['@id'] || image : '';
-
-      onChangeBlock(block, {
-        ...data,
-        url: flattenToAppURL(url),
-      });
-    },
-    [onChangeBlock, block, data],
-  );
-
+  const { /*data, onChangeBlock, block,*/ selected /*, blocksConfig*/ } = props;
   return (
     <>
-      {data.url ? (
-        <View {...props} isEditMode />
-      ) : (
-        <ImageInput
-          onChange={handleChange}
-          block={block}
-          id={block}
-          objectBrowserPickerType={'image'}
-        />
-      )}
+      <ParallaxView {...props} isEditMode />
       <SidebarPortal selected={selected}>
-        <ParallaxSidebar
-          data={data}
-          block={block}
-          onChangeBlock={onChangeBlock}
-        />
+        <ParallaxData {...props} />
       </SidebarPortal>
     </>
   );

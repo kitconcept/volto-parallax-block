@@ -1,49 +1,157 @@
-@import 'blocks/relatedItems';
-@import 'variables';
-
 $black: #000;
 $white: #fff;
 
-$parallax-font-black: $black;
-$parallax-font-white: $white;
+$custom-foreground-color-1: $black;
+$custom-foreground-color-2: $white;
 
 :root {
-  --parallax-font-black: #f00;
-  --parallax-font-white: #fff;
+  --custom-foreground-color-1: #000;
+  --custom-foreground-color-2: #fff;
+
+  --custom-textbox-color-1: rgba(0, 0, 0, 0.66);
+  --custom-textbox-color-2: rgba(255, 255, 255, 0.66);
+
+  --custom-transparency-color-1: rgba(0, 0, 0, 0.33);
+  --custom-transparency-color-2: rgba(255, 255, 255, 0.33);
+}
+.block.parallax,
+.block-editor-parallax {
+  &.has--themeForegroundColor--custom-foreground-color-1
+    .parallax-wrapper
+    .parallax-wrapperRef {
+    --theme-foreground-color: var(--custom-foreground-color-1, #000);
+
+    .parallax-title,
+    .parallax-text,
+    .parallax-button {
+      color: var(--custom-foreground-color-1, #000);
+    }
+
+    &:has(.parallax-content .default) .transparencyLayer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.66);
+    }
+  }
+  &.has--themeForegroundColor--custom-foreground-color-2
+    .parallax-wrapper
+    .parallax-wrapperRef {
+    --theme-foreground-color: var(--custom-foreground-color-2, #fff);
+
+    .parallax-title,
+    .parallax-text,
+    .parallax-button {
+      color: var(--custom-foreground-color-2, #fff);
+    }
+
+    &:has(.parallax-content .default) .transparencyLayer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.33);
+    }
+  }
+
+  &.has--size--s {
+    .parallax-wrapper {
+      height: 300px;
+    }
+  }
+  &.has--size--m {
+    .parallax-wrapper {
+      height: 600px;
+    }
+  }
+  &.has--size--l {
+    .parallax-wrapper {
+      height: 900px;
+
+      .default {
+        width: 100%;
+      }
+    }
+  }
+
+  &.has--themeForegroundColor--custom-foreground-color-1
+    .parallax-wrapper
+    .parallax-wrapperRef
+    .parallax-content
+    .solid-textbox {
+    &.has-content {
+      background-color: var(
+        --custom-textbox-color-2,
+        rgba(255, 255, 255, 0.66)
+      );
+    }
+  }
+  &.has--themeForegroundColor--custom-foreground-color-2
+    .parallax-wrapper
+    .parallax-wrapperRef
+    .parallax-content
+    .solid-textbox {
+    &.has-content {
+      background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
+    }
+  }
+
+  .parallax-button {
+    display: none;
+  }
+
+  .parallax-button {
+    display: inline-block;
+    width: max-content;
+    padding: 8px 20px;
+    border: 1px solid var(--theme-foreground-color);
+    border-color: var(--theme-foreground-color);
+    background: transparent;
+    color: var(--theme-foreground-color);
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
+    gap: 10px;
+    line-height: 20px;
+  }
+
+  .parallax-title {
+    padding-bottom: 60px;
+  }
+
+  .parallax-text {
+    padding-bottom: 80px;
+  }
+
+  &.has--hideButton--true {
+    .parallax-button {
+      display: none;
+    }
+
+    .parallax-title {
+      padding-bottom: 0px;
+    }
+
+    .parallax-text {
+      padding-bottom: 0px;
+    }
+  }
 }
 
 .parallax-wrapper {
   position: relative;
   overflow: hidden;
+  color: var(--theme-foreground-color);
 
-  &.s {
-    height: 300px;
+  .parallax-wrapperRef img {
+    position: absolute;
+    top: 35%;
+    min-width: 100%;
+    min-height: 150%;
+    object-fit: cover;
+    will-change: transform;
   }
-  &.m {
-    height: 600px;
-  }
-  &.l {
-    height: 800px;
-  }
-}
-
-.parallax-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: auto;
-  width: 100%;
-  min-height: 150%;
-  object-fit: cover;
-  will-change: transform;
-}
-
-.parallax-sidebar-image {
-  display: flex;
-  justify-content: space-between;
-  padding: 14px;
-  background-color: rgb(243, 245, 246);
-  text-transform: uppercase;
 }
 
 .parallax-content {
@@ -59,133 +167,63 @@ $parallax-font-white: $white;
   transform: translateX(-50%);
 
   .box {
-    width: 100%;
+    display: inline-block;
+    width: fit-content;
     max-width: 940px;
     box-sizing: border-box;
-  }
+    align-self: var(--block-alignment);
+    padding: 40px 40px 40px 40px;
+    text-align: var(--block-alignment);
 
-  .outlined-textbox {
-    width: 100%;
-    padding: 80px 0;
-    border: 1px solid #fff;
-
-    &.parallax-custom-color-1 {
-      border-color: #fff;
-    }
-    &.parallax-custom-color-2 {
-      border-color: #000;
+    &:has(.parallax-text) .parallax-title {
+      padding-bottom: 60px;
     }
   }
 
-  .solid-textbox {
-    width: 100%;
-    padding: 80px 0;
-
-    &.parallax-custom-color-1 {
-      background-color: rgba(0, 0, 0, 0.66);
-    }
-    &.parallax-custom-color-2 {
-      background-color: rgba(255, 255, 255, 0.66);
-    }
-  }
-
-  &.centered {
-    align-items: center;
-    text-align: center;
-  }
-  &.left {
-    align-items: flex-start;
-    text-align: left;
-  }
+  // .solid-textbox {
+  //   width: 100%;
+  // }
 
   .parallax-title {
-    padding: 0 40px;
-    margin: 0;
+    margin-bottom: 0px;
     font-family: Inter;
     font-size: 36px;
     font-style: normal;
     font-weight: 700;
     line-height: 48px;
+  }
 
-    &.has-text {
-      margin-bottom: 60px;
-    }
-    &.has-ButtonText {
-      margin-bottom: 60px;
-    }
-    &.has-hideButton {
-      margin-bottom: 60px;
-    }
+  p {
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 33px;
   }
-  .parallax-text {
-    padding: 0 40px;
-    margin-bottom: 0px;
 
-    &.has-ButtonText {
-      margin-bottom: 80px;
-    }
-  }
-  &.parallax-custom-color-1 {
-    color: #fff;
-  }
-  &.parallax-custom-color-2 {
-    color: #000;
-  }
-  // &.has--fontColor--parallax-font-white {
-  //   color: #fff;
-  // }
-  // &.has--fontColor--parallax-font-black {
-  //   color: #000;
-  // }
   .parallax-line {
     width: 100%;
+    border: 1px solid #fff;
+    border-color: var(--theme-foreground-color);
     margin: 80px 0;
-
-    &.parallax-custom-color-1 {
-      border: 1px solid #fff;
-    }
-    &.parallax-custom-color-2 {
-      border: 1px solid #000;
-    }
   }
 }
 
-.parallax-button {
-  width: max-content;
-  padding: 8px 20px;
-  background: transparent;
-  gap: 10px;
-
-  &.parallax-custom-color-1 {
-    border: 1px solid #fff;
-    color: #fff;
-  }
-  &.parallax-custom-color-2 {
-    border: 1px solid #000;
-    color: #000;
-  }
+.has--hideButton--true .parallax-content .box {
+  padding-bottom: 40px;
 }
 
 .color-picker-widget,
 .color-swatch-widget,
 .theme-picker-widget {
-  // Color widget &
-  // Theme color picker widget
-
   button,
   .button {
-    &.parallax-custom-color-1,
-    &.parallax-custom-color-1.active,
-    &.parallax-custom-color-1:hover,
-    &.active.parallax-custom-color-1:hover {
-      background-color: #fff;
+    &.custom-foreground-color-1 {
+      background: var(--theme-foreground-color, #000);
     }
 
-    &.parallax-custom-color-2,
-    &.parallax-custom-color-2.active,
-    &.parallax-custom-color-2:hover,
-    &.active.parallax-custom-color-2:hover {
-      background-color: #000;
+    &.custom-foreground-color-2 {
+      background: var(--theme-foreground-color, #fff);
     }
   }
 }
