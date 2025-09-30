@@ -46,8 +46,8 @@ const ParallaxView = (props) => {
     const contentExists =
       !!data.title ||
       hasText ||
-      data.styles.hideButton ||
-      (data.styles.hideButton && !!data.buttonText);
+      !data.styles.hideButton ||
+      (!data.styles.hideButton && !!data.buttonText);
 
     setHasContent(contentExists);
   }, [data.title, data.text, data.styles.hideButton, data.buttonText]);
