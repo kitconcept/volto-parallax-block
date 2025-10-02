@@ -14,6 +14,11 @@ $custom-foreground-color-2: $white;
   --custom-transparency-color-1: rgba(0, 0, 0, 0.33);
   --custom-transparency-color-2: rgba(255, 255, 255, 0.33);
 }
+
+body #page-document .blocks-group-wrapper .block.parallax {
+  max-width: 100%;
+}
+
 .block.parallax,
 .block-editor-parallax {
   &.has--themeForegroundColor--custom-foreground-color-1
@@ -22,12 +27,12 @@ $custom-foreground-color-2: $white;
     --theme-foreground-color: var(--custom-foreground-color-1, #000);
 
     .parallax-title,
-    .parallax-text,
+    .parallax-description,
     .parallax-button {
       color: var(--custom-foreground-color-1, #000);
     }
 
-    &:has(.parallax-content .default) .transparencyLayer {
+    &:has(.parallax-content .full_overlay) .transparencyLayer {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -40,12 +45,12 @@ $custom-foreground-color-2: $white;
     --theme-foreground-color: var(--custom-foreground-color-2, #fff);
 
     .parallax-title,
-    .parallax-text,
+    .parallax-description,
     .parallax-button {
       color: var(--custom-foreground-color-2, #fff);
     }
 
-    &:has(.parallax-content .default) .transparencyLayer {
+    &:has(.parallax-content .full_overlay) .transparencyLayer {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -67,7 +72,7 @@ $custom-foreground-color-2: $white;
     .parallax-wrapper {
       height: 900px;
 
-      .default {
+      .full_overlay {
         width: 100%;
       }
     }
@@ -95,8 +100,8 @@ $custom-foreground-color-2: $white;
     }
   }
 
-  .parallax-button {
-    display: none;
+  .external.link .parallax-button {
+    cursor: pointer;
   }
 
   .parallax-button {
@@ -107,7 +112,6 @@ $custom-foreground-color-2: $white;
     border-color: var(--theme-foreground-color);
     background: transparent;
     color: var(--theme-foreground-color);
-    cursor: pointer;
     font-family: Inter;
     font-size: 16px;
     font-style: normal;
@@ -120,7 +124,7 @@ $custom-foreground-color-2: $white;
     padding-bottom: 60px;
   }
 
-  .parallax-text {
+  .parallax-description {
     padding-bottom: 80px;
   }
 
@@ -133,7 +137,7 @@ $custom-foreground-color-2: $white;
       padding-bottom: 0px;
     }
 
-    .parallax-text {
+    .parallax-description {
       padding-bottom: 0px;
     }
   }
@@ -166,23 +170,27 @@ $custom-foreground-color-2: $white;
   justify-content: center;
   transform: translateX(-50%);
 
+  &:has(.solid-textbox) .box {
+    padding: 40px;
+  }
+
+  &:has(.full_overlay, .parallax-content) .box {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
   .box {
     display: inline-block;
     width: fit-content;
     max-width: 940px;
     box-sizing: border-box;
     align-self: var(--block-alignment);
-    padding: 40px 40px 40px 40px;
     text-align: var(--block-alignment);
 
-    &:has(.parallax-text) .parallax-title {
+    &:has(.parallax-description) .parallax-title {
       padding-bottom: 60px;
     }
   }
-
-  // .solid-textbox {
-  //   width: 100%;
-  // }
 
   .parallax-title {
     margin-bottom: 0px;
@@ -193,7 +201,8 @@ $custom-foreground-color-2: $white;
     line-height: 48px;
   }
 
-  p {
+  p,
+  p * {
     font-family: Inter;
     font-size: 24px;
     font-style: normal;
@@ -208,9 +217,10 @@ $custom-foreground-color-2: $white;
     margin: 80px 0;
   }
 }
-
-.has--hideButton--true .parallax-content .box {
-  padding-bottom: 40px;
+.has--hideButton--true
+  :has(.full_overlay .parallax-title):not(:has(.parallax-description))
+  .box {
+  padding-bottom: 60px;
 }
 
 .color-picker-widget,

@@ -11,9 +11,9 @@ const messages = defineMessages({
     id: 'Title',
     defaultMessage: 'Title',
   },
-  text: {
-    id: 'Text',
-    defaultMessage: 'Text',
+  description: {
+    id: 'Description',
+    defaultMessage: 'Description',
   },
   Alignment: {
     id: 'Alignment',
@@ -31,8 +31,8 @@ const messages = defineMessages({
     id: 'size',
     defaultMessage: 'Block Height',
   },
-  variation: {
-    id: 'variation',
+  overlay: {
+    id: 'overlay',
     defaultMessage: 'Overlay',
   },
   fontColor: {
@@ -65,7 +65,7 @@ export default function ParallaxSchema(props) {
         fields: [
           'url',
           'title',
-          'text',
+          'description',
           'buttonText',
           'href',
           'openLinkInNewTab',
@@ -81,8 +81,8 @@ export default function ParallaxSchema(props) {
         title: props.intl.formatMessage(messages.image),
         widget: 'image',
       },
-      text: {
-        title: intl.formatMessage(messages.text),
+      description: {
+        title: intl.formatMessage(messages.description),
         widget: 'richtext',
       },
       buttonText: {
@@ -104,9 +104,9 @@ export default function ParallaxSchema(props) {
     required: [],
   };
 
-  const variations = [
+  const overlays = [
     {
-      id: 'default',
+      id: 'full_overlay',
       title: 'Full Overlay',
       isDefault: true,
     },
@@ -119,10 +119,10 @@ export default function ParallaxSchema(props) {
 
   schema = addExtensionFieldToSchema({
     schema,
-    name: 'variation',
-    items: variations,
+    name: 'overlay',
+    items: overlays,
     intl,
-    title: messages.variation,
+    title: messages.overlay,
   });
 
   addStyling({ schema, intl });

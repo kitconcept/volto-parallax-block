@@ -42,7 +42,7 @@ const ParallaxView = (props) => {
   };
 
   useEffect(() => {
-    const hasText = hasRichText(data.text);
+    const hasText = hasRichText(data.description);
     const contentExists =
       !!data.title ||
       hasText ||
@@ -50,7 +50,7 @@ const ParallaxView = (props) => {
       (!data.styles.hideButton && !!data.buttonText);
 
     setHasContent(contentExists);
-  }, [data.title, data.text, data.styles.hideButton, data.buttonText]);
+  }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
 
   const wrapperRef = useRef(null);
   const intl = useIntl();
@@ -154,7 +154,11 @@ const ParallaxView = (props) => {
   }, [data.href]);
 
   return (
-    <BlockWrapper {...props} ExtraWrapper={LegacyWrapper}>
+    <BlockWrapper
+      {...props}
+      ExtraWrapper={LegacyWrapper}
+      data={{ ...props.data, align: 'full' }}
+    >
       <div ref={wrapperRef} className={'parallax-wrapperRef'}>
         {data.url ? (
           <ConditionalLink
@@ -167,15 +171,15 @@ const ParallaxView = (props) => {
             <div className="transparencyLayer" />
             <div className="parallax-content">
               <div
-                className={cx('box', data.variation, {
+                className={cx('box', data.overlay, {
                   'has-content': hasContent,
                 })}
               >
                 {data.title && <h2 className="parallax-title">{data.title}</h2>}
-                {hasRichText(data.text) && (
+                {hasRichText(data.description) && (
                   <div
-                    className="parallax-text"
-                    dangerouslySetInnerHTML={{ __html: data.text.data }}
+                    className="parallax-description"
+                    dangerouslySetInnerHTML={{ __html: data.description.data }}
                   />
                 )}
                 {!data.hideButton && (
