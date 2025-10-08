@@ -25,7 +25,14 @@ body #page-document .blocks-group-wrapper .block.parallax {
     .parallax-wrapper
     .parallax-wrapperRef {
     --theme-foreground-color: var(--custom-foreground-color-1, #000);
-
+    .solid-textbox {
+      &.has-content {
+        background-color: var(
+          --custom-textbox-color-2,
+          rgba(255, 255, 255, 0.66)
+        );
+      }
+    }
     .parallax-title,
     .parallax-description,
     .parallax-button {
@@ -43,7 +50,11 @@ body #page-document .blocks-group-wrapper .block.parallax {
     .parallax-wrapper
     .parallax-wrapperRef {
     --theme-foreground-color: var(--custom-foreground-color-2, #fff);
-
+    .solid-textbox {
+      &.has-content {
+        background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
+      }
+    }
     .parallax-title,
     .parallax-description,
     .parallax-button {
@@ -78,32 +89,6 @@ body #page-document .blocks-group-wrapper .block.parallax {
     }
   }
 
-  &.has--themeForegroundColor--custom-foreground-color-1
-    .parallax-wrapper
-    .parallax-wrapperRef
-    .parallax-content
-    .solid-textbox {
-    &.has-content {
-      background-color: var(
-        --custom-textbox-color-2,
-        rgba(255, 255, 255, 0.66)
-      );
-    }
-  }
-  &.has--themeForegroundColor--custom-foreground-color-2
-    .parallax-wrapper
-    .parallax-wrapperRef
-    .parallax-content
-    .solid-textbox {
-    &.has-content {
-      background-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
-    }
-  }
-
-  .external.link .parallax-button {
-    cursor: pointer;
-  }
-
   .parallax-button {
     display: inline-block;
     width: max-content;
@@ -118,6 +103,9 @@ body #page-document .blocks-group-wrapper .block.parallax {
     font-weight: 900;
     gap: 10px;
     line-height: 20px;
+  }
+  .external.link .parallax-button {
+    cursor: pointer;
   }
 
   .parallax-title {
@@ -209,31 +197,10 @@ body #page-document .blocks-group-wrapper .block.parallax {
     font-weight: 300;
     line-height: 33px;
   }
-
-  .parallax-line {
-    width: 100%;
-    border: 1px solid #fff;
-    border-color: var(--theme-foreground-color);
-    margin: 80px 0;
-  }
 }
+
 .has--hideButton--true
   :has(.full_overlay .parallax-title):not(:has(.parallax-description))
   .box {
   padding-bottom: 60px;
-}
-
-.color-picker-widget,
-.color-swatch-widget,
-.theme-picker-widget {
-  button,
-  .button {
-    &.custom-foreground-color-1 {
-      background: var(--theme-foreground-color, #000);
-    }
-
-    &.custom-foreground-color-2 {
-      background: var(--theme-foreground-color, #fff);
-    }
-  }
 }

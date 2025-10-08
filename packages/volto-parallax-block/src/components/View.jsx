@@ -25,6 +25,8 @@ const ParallaxView = (props) => {
   const dataAdapter = blocksConfig.parallax.dataAdapter;
   const request = useSelector((state) => state.content.subrequests[block]);
   const content = request?.data;
+  const wrapperRef = useRef(null);
+  const intl = useIntl();
 
   const [offsetY, setOffsetY] = useState(0);
   const [hasLink, setHasLink] = useState(false);
@@ -51,49 +53,6 @@ const ParallaxView = (props) => {
 
     setHasContent(contentExists);
   }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
-
-  const wrapperRef = useRef(null);
-  const intl = useIntl();
-
-  let renderedImage = null;
-  if (data.url) {
-    if (Image) {
-      renderedImage = (
-        <Image
-          className="parallax-img"
-          item={
-            data.image_scales
-              ? {
-                  '@id': data.url,
-                  image_field: data.image_field,
-                  image_scales: data.image_scales,
-                }
-              : null
-          }
-          src={!data.image_scales ? data.url : null}
-          alt=""
-          loading="lazy"
-          responsive={true}
-          style={{
-            transform: `translate(0, calc(-50% + ${translateY}px))`,
-          }}
-        />
-      );
-    } else {
-      renderedImage = (
-        <img
-          className="parallax-img"
-          src={
-            isInternalURL(data.url['@id'])
-              ? `${flattenToAppURL(data.url['@id'])}/@@images/image`
-              : data.url['@id']
-          }
-          alt=""
-          loading="lazy"
-        />
-      );
-    }
-  }
 
   useEffect(() => {
     const currentRef = wrapperRef.current;
@@ -152,6 +111,46 @@ const ParallaxView = (props) => {
       }
     }
   }, [data.href]);
+
+  let renderedImage = null;
+  if (data.url) {
+    if (Image) {
+      renderedImage = (
+        <Image
+          className="parallax-img"
+          item={
+            data.image_scales
+              ? {
+                  '@id': data.url,
+                  image_field: data.image_field,
+                  image_scales: data.image_scales,
+                }
+              : null
+          }
+          src={!data.image_scales ? data.url : null}
+          alt=""
+          loading="lazy"
+          responsive={true}
+          style={{
+            transform: `translate(0, calc(-50% + ${translateY}px))`,
+          }}
+        />
+      );
+    } else {
+      renderedImage = (
+        <img
+          className="parallax-img"
+          src={
+            isInternalURL(data.url['@id'])
+              ? `${flattenToAppURL(data.url['@id'])}/@@images/image`
+              : data.url['@id']
+          }
+          alt=""
+          loading="lazy"
+        />
+      );
+    }
+  }
 
   return (
     <BlockWrapper
