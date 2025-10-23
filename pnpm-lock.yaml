@@ -12,6 +12,9 @@ importers:
 
   .:
     dependencies:
+      '@kitconcept/volto-parallax-block':
+        specifier: workspace:*
+        version: link:packages/volto-parallax-block
       '@plone/registry':
         specifier: workspace:*
         version: link:core/packages/registry
@@ -1553,9 +1556,6 @@ importers:
       '@kitconcept/volto-light-theme':
         specifier: 6.2.0
         version: 6.2.0(@eeacms/volto-accordion-block@10.4.6)(@kitconcept/volto-banner-block@1.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@kitconcept/volto-button-block@3.0.3(classnames@2.5.1)(react-dom@18.2.0(react@18.2.0))(react-intl@3.12.1(react@18.2.0))(react@18.2.0))(@kitconcept/volto-dsgvo-banner@2.4.0)(@kitconcept/volto-heading-block@2.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@kitconcept/volto-highlight-block@4.2.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@kitconcept/volto-introduction-block@1.0.0)(@kitconcept/volto-separator-block@4.1.2(react-dom@18.2.0(react@18.2.0))(react-intl@3.12.1(react@18.2.0))(react@18.2.0)(storybook@8.6.14(prettier@3.2.5)))(@kitconcept/volto-slider-block@6.3.1(@plone/volto@18.23.0(@babel/runtime@7.27.6)(@popperjs/core@2.11.8)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-with-direction@1.4.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(seamless-immutable@7.1.4))(embla-carousel@8.6.0)(react@18.2.0))(@plonegovbr/volto-social-media@2.0.0-alpha.6(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(storybook@8.6.14(prettier@3.2.5)))(classnames@2.5.1)(lodash@4.17.21)(react-dom@18.2.0(react@18.2.0))(react-intl@3.12.1(react@18.2.0))(react-redux@8.1.2(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1))(react-router-dom@5.2.0(react@18.2.0))(react@18.2.0)(storybook@8.6.14(prettier@3.2.5))
-      '@kitconcept/volto-parallax-block':
-        specifier: workspace:*
-        version: 'link:'
       react:
         specifier: 18.2.0
         version: 18.2.0
