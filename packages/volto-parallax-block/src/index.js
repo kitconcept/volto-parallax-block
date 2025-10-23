@@ -1,7 +1,6 @@
 import ParallaxEdit from './components/Edit';
 import ParallaxView from './components/View';
 import imageFileListSVG from '@plone/volto/icons/image-fit.svg';
-import './theme/main.scss';
 import { ParallaxBlockDataAdapter } from './components/adapter';
 import ParallaxSchema from './components/schema';
 
