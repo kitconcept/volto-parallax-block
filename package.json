@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "@plone/volto": "workspace:*",
-    "@plone/registry": "workspace:*"
+    "@plone/registry": "workspace:*",
+    "@kitconcept/volto-parallax-block": "workspace:*"
 
   },
   "devDependencies": {

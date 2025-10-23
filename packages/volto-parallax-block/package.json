@@ -31,7 +31,6 @@
   ],
   "dependencies": {
     "@kitconcept/volto-bm3-compat": "^1.0.0-alpha.1",
-    "@kitconcept/volto-parallax-block": "workspace:*",
     "@kitconcept/volto-light-theme": "6.2.0"
   },
   "peerDependencies": {
