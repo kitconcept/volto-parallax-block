@@ -152,6 +152,8 @@ const ParallaxView = (props) => {
     }
   }
 
+  if (!isEditMode && !data.url) return null;
+
   return (
     <BlockWrapper
       {...props}

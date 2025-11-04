@@ -126,6 +126,13 @@ body #page-document .blocks-group-wrapper .block.parallax {
     object-fit: cover;
     will-change: transform;
   }
+
+  .parallax-wrapperRef img.placeholder {
+    position: relative;
+    min-width: auto;
+    min-height: auto;
+    top: 0%;
+  }
 }
 
 .parallax-content {
