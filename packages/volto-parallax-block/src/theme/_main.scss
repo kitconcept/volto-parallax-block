@@ -129,10 +129,14 @@ body #page-document .blocks-group-wrapper .block.parallax {
 
   .parallax-wrapperRef img.placeholder {
     position: relative;
-    top: 0%;
+    top: 50%;
     min-width: auto;
     min-height: auto;
   }
+}
+
+.parallax-wrapper:has(.image-upload-widget) {
+  align-content: center;
 }
 
 .parallax-content {

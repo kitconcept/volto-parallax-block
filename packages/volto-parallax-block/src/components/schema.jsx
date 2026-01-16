@@ -131,7 +131,7 @@ export default function ParallaxSchema(props) {
   schema.properties.styles.schema.properties['size'] = {
     title: intl.formatMessage(messages.size),
     widget: 'size',
-    default: 'l',
+    default: 'm',
   };
 
   schema.properties.styles.schema.fieldsets[0].fields = [

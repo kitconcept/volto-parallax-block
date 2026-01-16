@@ -138,15 +138,14 @@ const ParallaxView = (props) => {
       );
     } else {
       renderedImage = (
-        <img
+        <Image
           className="parallax-img"
           src={
             isInternalURL(data.url['@id'])
               ? `${flattenToAppURL(data.url['@id'])}/@@images/image`
               : data.url['@id']
           }
-          alt=""
-          loading="lazy"
+          alt="Background image from parallax block"
         />
       );
     }
