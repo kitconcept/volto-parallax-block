@@ -17,7 +17,30 @@ const applyConfig = (config) => {
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
+    themes: [
+      {
+        style: {
+          '--theme-foreground-color': '#000',
+          '--overlay-color': 'rgba(255, 255, 255, 0.66)',
+        },
+        name: 'black',
+        label: 'Black',
+      },
+      {
+        style: {
+          '--theme-foreground-color': '#fff',
+          '--overlay-color': 'rgba(0, 0, 0, 0.33)',
+        },
+        name: 'white',
+        label: 'White',
+      },
+    ],
   };
+  config.registerUtility({
+    name: 'colors',
+    type: 'styleFieldDefinition',
+    method: (props) => config.blocks.blocksConfig.parallax.themes,
+  });
 
   return config;
 };
