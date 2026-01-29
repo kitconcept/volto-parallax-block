@@ -15,8 +15,8 @@ const ParallaxData = (props) => {
   } = props;
   const intl = useIntl();
 
-  const schema = blocksConfig.parallax.blockSchema({ data, intl });
-  const dataAdapter = blocksConfig.parallax.dataAdapter;
+  const schema = blocksConfig[data['@type']].blockSchema({ data, intl });
+  const dataAdapter = blocksConfig[data['@type']].dataAdapter;
   const request = useSelector((state) => state.content.subrequests[block]);
   const content = request?.data;
 

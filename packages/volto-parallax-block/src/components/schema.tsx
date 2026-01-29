@@ -1,6 +1,5 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, type IntlShape } from 'react-intl';
 import { addStyling } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
-import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions';
 import config from '@plone/volto/registry';
 
 const messages = defineMessages({
@@ -54,33 +53,9 @@ const messages = defineMessages({
   },
 });
 
-const colors = [
-  {
-    style: {
-      '--theme-foreground-color': '#000',
-      '--overlay-color': 'rgba(255, 255, 255, 0.66)',
-    },
-    name: 'black',
-    label: 'Black',
-  },
-  {
-    style: {
-      '--theme-foreground-color': '#fff',
-      '--overlay-color': 'rgba(0, 0, 0, 0.33)',
-    },
-    name: 'white',
-    label: 'White',
-  },
-];
-config.registerUtility({
-  name: 'colors',
-  type: 'styleFieldDefinition',
-  method: (props: { data: any; container: any }) => colors,
-});
 
-export default function ParallaxSchema(props) {
-  const { intl } = props;
-  let schema = {
+export const ParallaxSchema = ({ intl }: { intl: IntlShape }) => {
+  return {
     title: intl.formatMessage(messages.parallaxBlock),
     block: 'parallax',
     fieldsets: [
@@ -91,9 +66,10 @@ export default function ParallaxSchema(props) {
           'url',
           'title',
           'description',
-          'buttonText',
           'href',
           'openLinkInNewTab',
+          'buttonText',
+          'hideButton',
         ],
       },
     ],
@@ -103,7 +79,7 @@ export default function ParallaxSchema(props) {
         title: intl.formatMessage(messages.title),
       },
       url: {
-        title: props.intl.formatMessage(messages.image),
+        title: intl.formatMessage(messages.image),
         widget: 'image',
       },
       description: {
@@ -114,6 +90,10 @@ export default function ParallaxSchema(props) {
         title: intl.formatMessage(messages.buttonText),
         type: 'string',
         widget: 'textarea',
+      },
+      hideButton: {
+        title: intl.formatMessage(messages.hideButton),
+        type: 'boolean',
       },
       href: {
         title: intl.formatMessage(messages.href),
@@ -128,28 +108,15 @@ export default function ParallaxSchema(props) {
     },
     required: [],
   };
+};
 
-  const overlays = [
-    {
-      id: 'full_overlay',
-      title: 'Full Overlay',
-      isDefault: true,
-    },
-    {
-      id: 'solid-textbox',
-      title: 'Textbox',
-      isDefault: false,
-    },
-  ];
-
-  schema = addExtensionFieldToSchema({
-    schema,
-    name: 'overlay',
-    items: overlays,
-    intl,
-    title: messages.overlay,
-  });
-
+export const ParallaxSchemaEnhancer = ({
+  schema,
+  intl,
+}: {
+  schema: any;
+  intl: IntlShape;
+}) => {
   addStyling({ schema, intl });
 
   schema.properties.styles.schema.fieldsets[0].fields.push('size');
@@ -157,16 +124,6 @@ export default function ParallaxSchema(props) {
     title: intl.formatMessage(messages.size),
     widget: 'size',
     default: 'm',
-  };
-
-  schema.properties.styles.schema.fieldsets[0].fields = [
-    'hideButton',
-    ...schema.properties.styles.schema.fieldsets[0].fields,
-  ];
-
-  schema.properties.styles.schema.properties.hideButton = {
-    title: intl.formatMessage(messages.hideButton),
-    type: 'boolean',
   };
 
   schema.properties.styles.schema.fieldsets[0].fields.push('align:noprefix');
@@ -179,10 +136,8 @@ export default function ParallaxSchema(props) {
   schema.properties.styles.schema.fieldsets[0].fields.push('colors');
   schema.properties.styles.schema.properties.colors = {
     title: intl.formatMessage(messages.fontColor),
-    widget: 'colorSwatch',
-    default: 'black',
-    colors: colors,
+    widget: 'color_picker',
+    colors: config.blocks.blocksConfig.parallax.themes,
   };
-
   return schema;
-}
+};

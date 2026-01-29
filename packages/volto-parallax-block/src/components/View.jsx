@@ -48,11 +48,11 @@ const ParallaxView = (props) => {
     const contentExists =
       !!data.title ||
       hasText ||
-      !data.styles.hideButton ||
-      (!data.styles.hideButton && !!data.buttonText);
+      !data.hideButton ||
+      (!data.hideButton && !!data.buttonText);
 
     setHasContent(contentExists);
-  }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
+  }, [data.title, data.description, data.hideButton, data.buttonText]);
 
   useEffect(() => {
     const currentRef = wrapperRef.current;

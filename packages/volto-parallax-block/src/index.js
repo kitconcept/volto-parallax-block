@@ -2,7 +2,7 @@ import ParallaxEdit from './components/Edit';
 import ParallaxView from './components/View';
 import imageFileListSVG from '@plone/volto/icons/image-fit.svg';
 import { ParallaxBlockDataAdapter } from './components/adapter';
-import ParallaxSchema from './components/schema';
+import { ParallaxSchema, ParallaxSchemaEnhancer } from './components/schema';
 
 const applyConfig = (config) => {
   config.blocks.blocksConfig.parallax = {
@@ -12,8 +12,9 @@ const applyConfig = (config) => {
     group: 'common',
     view: ParallaxView,
     edit: ParallaxEdit,
-    blockSchema: ParallaxSchema,
     dataAdapter: ParallaxBlockDataAdapter,
+    blockSchema: ParallaxSchema,
+    schemaEnhancer: ParallaxSchemaEnhancer,
     restricted: false,
     mostUsed: true,
     sidebarTab: 1,
