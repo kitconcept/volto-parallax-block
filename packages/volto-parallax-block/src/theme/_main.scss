@@ -1,3 +1,4 @@
+// this is currently not working
 #sidebar {
   .color-swatch-widget[class*='field-wrapper-themeForegroundColor'] {
     .buttons {
@@ -19,40 +20,6 @@
   }
   &.has--size--l .parallax-wrapper {
     height: 900px;
-    .full_overlay {
-      width: 100%;
-    }
-  }
-  .parallax-button {
-    display: inline-block;
-    width: max-content;
-    padding: 8px 20px;
-    border: 1px solid var(--theme-foreground-color);
-    background: transparent;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 900;
-    gap: 10px;
-    line-height: 20px;
-  }
-  .external.link .parallax-button {
-    cursor: pointer;
-  }
-  .parallax-title {
-    padding-bottom: 60px;
-  }
-  .parallax-description {
-    padding-bottom: 80px;
-  }
-
-  &.has--hideButton--true {
-    .parallax-button {
-      display: none;
-    }
-    .parallax-title,
-    .parallax-description {
-      padding-bottom: 0;
-    }
   }
   .parallax-wrapper {
     position: relative;
@@ -61,7 +28,10 @@
       align-content: center;
     }
     .parallax-wrapperRef {
-      img {
+      .external.link .parallax-button {
+        cursor: pointer;
+      }
+      .parallax-img {
         position: absolute;
         top: 35%;
         min-width: 100%;
@@ -75,85 +45,102 @@
           min-height: auto;
         }
       }
-      .solid-textbox.has-content {
-        background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
-      }
-
-      .parallax-title,
-      .parallax-description,
-      .parallax-button {
-        color: var(--theme-foreground-color, #000);
-      }
-
       &:has(.parallax-content .full_overlay) .transparencyLayer {
         position: absolute;
         width: 100%;
         height: 100%;
         background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
       }
+      .parallax-content {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: flex;
+        width: 100%;
+        max-width: 980px;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 20px;
+        padding-left: 20px;
+        transform: translateX(-50%);
+        &:has(.solid-textbox) .box {
+          padding: 40px;
+        }
+        &:has(.full_overlay, .parallax-content) .box {
+          padding-top: 80px;
+          padding-bottom: 80px;
+        }
+        .box {
+          display: inline-block;
+          width: fit-content;
+          max-width: 940px;
+          box-sizing: border-box;
+          align-self: var(--block-alignment);
+          text-align: var(--block-alignment);
+
+          .parallax-title,
+          .parallax-description,
+          .parallax-button {
+            color: var(--theme-foreground-color, #000);
+          }
+          .parallax-title {
+            margin-bottom: 0px;
+            font-family: Inter;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 48px;
+          }
+          p,
+          p * {
+            font-family: Inter;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 33px;
+          }
+          &:has(.parallax-description) .parallax-title {
+            padding-bottom: 60px;
+          }
+          .parallax-button {
+            display: inline-block;
+            width: max-content;
+            padding: 8px 20px;
+            border: 1px solid var(--theme-foreground-color);
+            background: transparent;
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 900;
+            gap: 10px;
+            line-height: 20px;
+          }
+          .parallax-title {
+            padding-bottom: 60px;
+          }
+          .parallax-description {
+            padding-bottom: 80px;
+          }
+        }
+        .solid-textbox.has-content {
+          background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
+        }
+      }
     }
   }
 }
-
-&:has(.image-upload-widget) {
-  align-content: center;
-}
-
-.parallax-content {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  display: flex;
-  width: 100%;
-  max-width: 940px;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  transform: translateX(-50%);
-
-  &:has(.solid-textbox) .box {
-    padding: 40px;
+.block.parallax.has--hideButton--true,
+.block-editor-parallax.has--hideButton--true .parallax-wrapper {
+  :has(.full_overlay .parallax-title):not(:has(.parallax-description)) .box {
+    padding-bottom: 60px;
   }
-
-  &:has(.full_overlay, .parallax-content) .box {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
-  .box {
-    display: inline-block;
-    width: fit-content;
-    max-width: 940px;
-    box-sizing: border-box;
-    align-self: var(--block-alignment);
-    text-align: var(--block-alignment);
-
-    &:has(.parallax-description) .parallax-title {
-      padding-bottom: 60px;
+  .parallax-wrapperRef .parallax-content .box {
+    .parallax-button {
+      display: none;
+    }
+    .parallax-title,
+    .parallax-description {
+      padding-bottom: 0;
     }
   }
-
-  .parallax-title {
-    margin-bottom: 0px;
-    font-family: Inter;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 48px;
-  }
-
-  p,
-  p * {
-    font-family: Inter;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 33px;
-  }
-}
-
-.has--hideButton--true
-  :has(.full_overlay .parallax-title):not(:has(.parallax-description))
-  .box {
-  padding-bottom: 60px;
 }
