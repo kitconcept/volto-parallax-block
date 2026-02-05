@@ -176,13 +176,15 @@ export default function ParallaxSchema(props) {
     default: 'left',
   };
 
-  schema.properties.styles.schema.fieldsets[0].fields.push('colors');
-  schema.properties.styles.schema.properties.colors = {
+  schema.properties.styles.schema.fieldsets[0].fields = [
+    ...schema.properties.styles.schema.fieldsets[0].fields,
+    'colors',
+  ];
+  schema.properties.styles.schema.properties['colors'] = {
     title: intl.formatMessage(messages.fontColor),
     widget: 'color_picker',
-    default: 'black',
+    dafault: 'black',
     colors: config.blocks.blocksConfig.parallax.themes,
   };
-
   return schema;
 }
