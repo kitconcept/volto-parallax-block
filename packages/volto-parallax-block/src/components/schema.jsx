@@ -1,6 +1,7 @@
 import { defineMessages } from 'react-intl';
 import { addStyling } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
 import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions';
+import config from '@plone/volto/registry';
 
 const messages = defineMessages({
   parallaxBlock: {
@@ -53,8 +54,22 @@ const messages = defineMessages({
   },
 });
 
+const getThemes = (formData) => {
+  const blockConfig = config.blocks?.blocksConfig?.[formData?.['@type']];
+
+  return blockConfig?.themes || config.blocks.themes;
+};
+
+const getDefaultTheme = (formData) => {
+  const blockConfig = config.blocks?.blocksConfig?.[formData?.['@type']];
+
+  return (
+    blockConfig?.defaultTheme || config.blocks.themes?.[0]?.name || undefined
+  );
+};
+
 export default function ParallaxSchema(props) {
-  const { intl } = props;
+  const { data, intl } = props;
   let schema = {
     title: intl.formatMessage(messages.parallaxBlock),
     block: 'parallax',
@@ -125,6 +140,9 @@ export default function ParallaxSchema(props) {
     title: messages.overlay,
   });
 
+  const themes = getThemes(data);
+  const defaultTheme = getDefaultTheme(data);
+
   addStyling({ schema, intl });
 
   schema.properties.styles.schema.fieldsets[0].fields.push('size');
@@ -156,24 +174,9 @@ export default function ParallaxSchema(props) {
   );
   schema.properties.styles.schema.properties['themeForegroundColor'] = {
     title: intl.formatMessage(messages.fontColor),
-    widget: 'color_picker',
-    colors: [
-      {
-        style: {
-          '--theme-foreground-color': '#000',
-        },
-        name: 'custom-foreground-color-1',
-        label: 'Black',
-      },
-      {
-        style: {
-          '--theme-foreground-color': '#fff',
-        },
-        name: 'custom-foreground-color-2',
-        label: 'White',
-      },
-    ],
-    default: 'custom-foreground-color-1',
+    widget: 'colorSwatch',
+    themes,
+    default: defaultTheme,
   };
 
   return schema;
