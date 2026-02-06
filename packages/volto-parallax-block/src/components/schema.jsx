@@ -169,10 +169,8 @@ export default function ParallaxSchema(props) {
     default: 'left',
   };
 
-  schema.properties.styles.schema.fieldsets[0].fields.push(
-    'themeForegroundColor',
-  );
-  schema.properties.styles.schema.properties['themeForegroundColor'] = {
+  schema.properties.styles.schema.fieldsets[0].fields.push('colors');
+  schema.properties.styles.schema.properties['colors'] = {
     title: intl.formatMessage(messages.fontColor),
     widget: 'colorSwatch',
     themes,
