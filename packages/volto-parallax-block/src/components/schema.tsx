@@ -179,7 +179,7 @@ export default function ParallaxSchema(props) {
   schema.properties.styles.schema.fieldsets[0].fields.push('colors');
   schema.properties.styles.schema.properties.colors = {
     title: intl.formatMessage(messages.fontColor),
-    widget: 'colorSwatch',
+    widget: 'color_picker',
     default: 'black',
     colors: colors,
   };

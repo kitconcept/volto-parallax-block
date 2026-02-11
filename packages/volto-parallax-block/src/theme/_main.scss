@@ -21,13 +21,17 @@
   &.has--size--l .parallax-wrapper {
     height: 900px;
   }
-  &.has--colors--black {
-    --theme-foreground-color: #000;
+  &.has--colors--black .transparencyLayer {
     --overlay-color: rgba(255, 255, 255, 0.66);
+    .parallax-content {
+      --theme-foreground-color: #000;
+    }
   }
-  &.has--colors--white {
-    --theme-foreground-color: #fff;
+  &.has--colors--white .transparencyLayer {
     --overlay-color: rgba(0, 0, 0, 0.33);
+    .parallax-content {
+      --theme-foreground-color: #fff;
+    }
   }
   .parallax-wrapper {
     position: relative;
