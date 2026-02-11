@@ -54,19 +54,29 @@ const messages = defineMessages({
   },
 });
 
-const getThemes = (formData) => {
-  const blockConfig = config.blocks?.blocksConfig?.[formData?.['@type']];
-
-  return blockConfig?.themes || config.blocks.themes;
-};
-
-const getDefaultTheme = (formData) => {
-  const blockConfig = config.blocks?.blocksConfig?.[formData?.['@type']];
-
-  return (
-    blockConfig?.defaultTheme || config.blocks.themes?.[0]?.name || undefined
-  );
-};
+const colors = [
+  {
+    style: {
+      '--theme-foreground-color': '#000',
+      '--overlay-color': 'rgba(255, 255, 255, 0.66)',
+    },
+    name: 'black',
+    label: 'Black',
+  },
+  {
+    style: {
+      '--theme-foreground-color': '#fff',
+      '--overlay-color': 'rgba(0, 0, 0, 0.33)',
+    },
+    name: 'white',
+    label: 'White',
+  },
+];
+config.registerUtility({
+  name: 'colors',
+  type: 'styleFieldDefinition',
+  method: (props: { data: any; container: any }) => colors,
+});
 
 export default function ParallaxSchema(props) {
   const { data, intl } = props;
@@ -170,11 +180,11 @@ export default function ParallaxSchema(props) {
   };
 
   schema.properties.styles.schema.fieldsets[0].fields.push('colors');
-  schema.properties.styles.schema.properties['colors'] = {
+  schema.properties.styles.schema.properties.colors = {
     title: intl.formatMessage(messages.fontColor),
-    widget: 'colorSwatch',
-    themes,
-    default: defaultTheme,
+    widget: 'color_picker',
+    default: 'black',
+    colors: colors,
   };
 
   return schema;

@@ -1,73 +1,6 @@
-$black: #000;
-$white: #fff;
-
-$custom-foreground-color-1: $black;
-$custom-foreground-color-2: $white;
-
-:root {
-  --custom-foreground-color-1: rgb(0, 0, 0);
-  --custom-foreground-color-2: rgb(255, 255, 255);
-
-  --custom-textbox-color-1: rgba(0, 0, 0, 0.66);
-  --custom-textbox-color-2: rgba(255, 255, 255, 0.66);
-
-  --custom-transparency-color-1: rgba(0, 0, 0, 0.33);
-  --custom-transparency-color-2: rgba(255, 255, 255, 0.33);
-}
-
-body #page-document .blocks-group-wrapper .block.parallax {
+.block.parallax,
+.block-editor-parallax {
   max-width: 100%;
-}
-
-#sidebar {
-  .color-swatch-widget[class*='field-wrapper-themeForegroundColor'] {
-    .buttons {
-      button {
-        background-color: var(--theme-foreground-color);
-      }
-    }
-  }
-}
-
-.block.parallax,
-.block-editor-parallax {
-  .parallax-wrapper .parallax-wrapperRef {
-    .solid-textbox.has-content {
-      background-color: var(--custom-textbox-color, rgba(255, 255, 255, 0.66));
-    }
-
-    .parallax-title,
-    .parallax-description,
-    .parallax-button {
-      color: var(--theme-foreground-color-parallax, #000);
-    }
-
-    &:has(.parallax-content .full_overlay) .transparencyLayer {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
-    }
-  }
-
-  &.has--themeForegroundColor--custom-foreground-color-1 {
-    --theme-foreground-color-parallax: var(--custom-foreground-color-1, #000);
-    --custom-textbox-color: var(
-      --custom-textbox-color-2,
-      rgba(255, 255, 255, 0.66)
-    );
-    --overlay-color: rgba(255, 255, 255, 0.66);
-  }
-
-  &.has--themeForegroundColor--custom-foreground-color-2 {
-    --theme-foreground-color-parallax: var(--custom-foreground-color-2, #fff);
-    --custom-textbox-color: var(--custom-textbox-color-1, rgba(0, 0, 0, 0.66));
-    --overlay-color: rgba(0, 0, 0, 0.33);
-  }
-}
-
-.block.parallax,
-.block-editor-parallax {
   &.has--size--s .parallax-wrapper {
     height: 300px;
   }
@@ -76,124 +9,176 @@ body #page-document .blocks-group-wrapper .block.parallax {
   }
   &.has--size--l .parallax-wrapper {
     height: 900px;
-    .full_overlay {
-      width: 100%;
+  }
+  &.has--colors--white {
+    --overlay-color: rgba(0, 0, 0, 0.33);
+    .parallax-content {
+      --theme-foreground-color: #fff;
+    }
+  }
+  &.has--colors--black {
+    --overlay-color: rgba(255, 255, 255, 0.66);
+    .parallax-content {
+      --theme-foreground-color: #000;
+    }
+  }
+  .parallax-wrapper {
+    position: relative;
+    overflow: hidden;
+    &:has(.image-upload-widget) {
+      align-content: center;
+    }
+    .parallax-wrapperRef {
+      .external.link .parallax-button {
+        cursor: pointer;
+      }
+      .parallax-img {
+        position: absolute;
+        top: 35%;
+        min-width: 100%;
+        min-height: 150%;
+        object-fit: cover;
+        will-change: transform;
+        &.placeholder {
+          position: relative;
+          top: 50%;
+          min-width: auto;
+          min-height: auto;
+        }
+      }
+      &:has(.parallax-content .full_overlay) .transparencyLayer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
+      }
+      .parallax-content {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        display: flex;
+        width: 100%;
+        max-width: 980px;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 20px;
+        padding-left: 20px;
+        transform: translateX(-50%);
+        .box {
+          display: inline-block;
+          width: fit-content;
+          max-width: 940px;
+          box-sizing: border-box;
+          align-self: var(--block-alignment);
+          text-align: var(--block-alignment);
+          .parallax-title,
+          .parallax-description,
+          .parallax-button {
+            color: var(--theme-foreground-color, #000);
+          }
+          .parallax-title {
+            margin-bottom: 0px;
+            font-family: Inter;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 48px;
+          }
+          p,
+          p * {
+            font-family: Inter;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 33px;
+          }
+          .parallax-button {
+            display: inline-block;
+            width: max-content;
+            padding: 8px 20px;
+            border: 1px solid var(--theme-foreground-color);
+            background: transparent;
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 900;
+            gap: 10px;
+            line-height: 20px;
+          }
+          .parallax-title {
+            padding-bottom: 60px;
+          }
+          .parallax-description {
+            padding-bottom: 80px;
+          }
+        }
+        .solid-textbox.has-content {
+          background-color: var(--overlay-color, rgba(255, 255, 255, 0.66));
+        }
+      }
     }
   }
 
-  .parallax-button {
-    display: inline-block;
-    width: max-content;
-    padding: 8px 20px;
-    border: 1px solid var(--theme-foreground-color-parallax);
-    background: transparent;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 900;
-    gap: 10px;
-    line-height: 20px;
-  }
-  .external.link .parallax-button {
-    cursor: pointer;
-  }
-  .parallax-title {
-    padding-bottom: 60px;
-  }
-  .parallax-description {
-    padding-bottom: 80px;
-  }
-
-  &.has--hideButton--true {
-    .parallax-button {
+  &.has--hideButton--true
+    .parallax-wrapper
+    .parallax-wrapperRef
+    .parallax-content {
+    .box.solid-textbox:not(:has(.parallax-description)) {
+      .parallax-title {
+        padding-bottom: 0px;
+      }
+    }
+    .box.solid-textbox .parallax-description {
+      padding-bottom: 0px;
+    }
+    .box.full_overlay:not(:has(.parallax-description)) {
+      padding-bottom: 60px;
+      .parallax-title {
+        padding-bottom: 0px;
+      }
+    }
+    .box.full_overlay {
+      .parallax-title {
+        padding-bottom: 60px;
+      }
+      .parallax-description {
+        padding-bottom: 0px;
+      }
+    }
+    .box .parallax-button {
       display: none;
     }
-    .parallax-title,
-    .parallax-description {
-      padding-bottom: 0;
+  }
+  .parallax-wrapper .parallax-wrapperRef .parallax-content {
+    &:has(.solid-textbox) .box {
+      padding: 40px;
+      &:not(:has(.parallax-description)) .parallax-title {
+        padding-bottom: 80px;
+      }
+    }
+    &:has(.full_overlay) .box {
+      padding-top: 80px;
+      padding-bottom: 80px;
     }
   }
-}
-
-.parallax-wrapper {
-  position: relative;
-  overflow: hidden;
-
-  .parallax-wrapperRef img {
-    position: absolute;
-    top: 35%;
-    min-width: 100%;
-    min-height: 150%;
-    object-fit: cover;
-    will-change: transform;
-  }
-
-  .parallax-wrapperRef img.placeholder {
-    position: relative;
-    top: 50%;
-    min-width: auto;
-    min-height: auto;
-  }
-}
-
-.parallax-wrapper:has(.image-upload-widget) {
-  align-content: center;
-}
-
-.parallax-content {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  display: flex;
-  width: 100%;
-  max-width: 940px;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  transform: translateX(-50%);
-
   &:has(.solid-textbox) .box {
     padding: 40px;
+    &:not(:has(.parallax-description)) .parallax-title {
+      padding-bottom: 80px;
+    }
   }
-
-  &:has(.full_overlay, .parallax-content) .box {
+  &:has(.full_overlay) .box {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-
-  .box {
-    display: inline-block;
-    width: fit-content;
-    max-width: 940px;
-    box-sizing: border-box;
-    align-self: var(--block-alignment);
-    text-align: var(--block-alignment);
-
-    &:has(.parallax-description) .parallax-title {
-      padding-bottom: 60px;
-    }
-  }
-
-  .parallax-title {
-    margin-bottom: 0px;
-    font-family: Inter;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 48px;
-  }
-
-  p,
-  p * {
-    font-family: Inter;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 33px;
-  }
 }
 
-.has--hideButton--true
-  :has(.full_overlay .parallax-title):not(:has(.parallax-description))
-  .box {
-  padding-bottom: 60px;
+#sidebar {
+  .color-swatch-widget {
+    .buttons {
+      button.black {
+        background: #000;
+      }
+    }
+  }
 }

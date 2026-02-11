@@ -21,21 +21,26 @@ const applyConfig = (config) => {
       {
         style: {
           '--theme-foreground-color': '#000',
-          '--theme-color': '#000',
+          '--overlay-color': 'rgba(255, 255, 255, 0.66)',
         },
-        name: 'custom-foreground-color-1',
+        name: 'black',
         label: 'Black',
       },
       {
         style: {
           '--theme-foreground-color': '#fff',
-          '--theme-color': '#fff',
+          '--overlay-color': 'rgba(0, 0, 0, 0.33)',
         },
-        name: 'custom-foreground-color-2',
+        name: 'white',
         label: 'White',
       },
     ],
   };
+  config.registerUtility({
+    name: 'colors',
+    type: 'styleFieldDefinition',
+    method: (props) => config.blocks.blocksConfig.parallax.themes,
+  });
 
   return config;
 };
