@@ -21,6 +21,14 @@
   &.has--size--l .parallax-wrapper {
     height: 900px;
   }
+  &.has--colors--black {
+    --theme-foreground-color: #000;
+    --overlay-color: rgba(255, 255, 255, 0.66);
+  }
+  &.has--colors--white {
+    --theme-foreground-color: #fff;
+    --overlay-color: rgba(0, 0, 0, 0.33);
+  }
   .parallax-wrapper {
     position: relative;
     overflow: hidden;

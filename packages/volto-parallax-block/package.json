@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@kitconcept/volto-bm3-compat": "^1.0.0-alpha.1",
-    "@kitconcept/volto-light-theme": "6.2.0"
+    "@kitconcept/volto-light-theme": "8.0.0-alpha.12"
   },
   "peerDependencies": {
     "react": "18.2.0",
