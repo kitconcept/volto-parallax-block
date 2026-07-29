@@ -150,9 +150,6 @@ export default function ParallaxSchema(props) {
     title: messages.overlay,
   });
 
-  const themes = getThemes(data);
-  const defaultTheme = getDefaultTheme(data);
-
   addStyling({ schema, intl });
 
   schema.properties.styles.schema.fieldsets[0].fields.push('size');
