@@ -79,7 +79,7 @@ config.registerUtility({
 });
 
 export default function ParallaxSchema(props) {
-  const { data, intl } = props;
+  const { intl } = props;
   let schema = {
     title: intl.formatMessage(messages.parallaxBlock),
     block: 'parallax',
