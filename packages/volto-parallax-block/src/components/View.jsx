@@ -16,7 +16,9 @@ const messages = defineMessages({
 });
 
 const LegacyWrapper = (props) => (
-  <div className="parallax-wrapper">{props.children}</div>
+  <div className="parallax-wrapper" ref={props.wrapperElRef}>
+    {props.children}
+  </div>
 );
 
 const ParallaxView = (props) => {
@@ -26,15 +28,14 @@ const ParallaxView = (props) => {
   const request = useSelector((state) => state.content.subrequests[block]);
   const content = request?.data;
   const wrapperRef = useRef(null);
+  const outerRef = useRef(null);
   const intl = useIntl();
 
   const [offsetY, setOffsetY] = useState(0);
   const [hasLink, setHasLink] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [startScrollY, setStartScrollY] = useState(null);
   const [hasContent, setHasContent] = useState(false);
 
-  const speed = 0.3; // Adjust the speed of the parallax effect
+  const speed = 0.2; // Adjust the speed of the parallax effect
   const maxOffset = 500;
   const translateY = Math.min(offsetY * speed, maxOffset);
   const hasRichText = (value) => {
@@ -50,67 +51,43 @@ const ParallaxView = (props) => {
       hasText ||
       !data.styles.hideButton ||
       (!data.styles.hideButton && !!data.buttonText);
+    // console.log(data.hideButton, 'styles: ', data.styles.hideButton);
 
     setHasContent(contentExists);
   }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
 
   useEffect(() => {
-    const currentRef = wrapperRef.current;
-    const observer = new IntersectionObserver(
-      ([entry], obs) => {
-        if (entry.isIntersecting) {
-          setStartScrollY((prev) => {
-            if (prev === null) {
-              return window.scrollY;
-            }
-            return prev;
-          });
-          setIsVisible(true);
-          obs.disconnect();
-        }
-      },
-      {
-        threshold: 0.1,
-      },
-    );
+    setHasLink(!!(data.href && data.href.length > 0));
+  }, [data.href]);
 
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+  useEffect(() => {
+    let ticking = false;
+
+    const measure = () => {
+      const el = outerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (visible) setOffsetY(Math.max(0, -rect.top + window.innerHeight));
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(measure);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    measure();
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
     };
   }, []);
-
-  useEffect(() => {
-    let animationFrameId;
-
-    const updateOffset = () => {
-      if (isVisible && startScrollY !== null) {
-        const distance = window.scrollY - startScrollY;
-        setOffsetY(distance > 0 ? distance : 0);
-      }
-      animationFrameId = requestAnimationFrame(updateOffset);
-    };
-
-    animationFrameId = requestAnimationFrame(updateOffset);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isVisible, startScrollY]);
-
-  useEffect(() => {
-    if (data.href) {
-      if (data.href && data.href.length > 0) {
-        setHasLink(true);
-      }
-      if (data.href === 0) {
-        setHasLink(false);
-      }
-    }
-  }, [data.href]);
 
   let renderedImage = null;
   if (data.url) {
@@ -156,7 +133,7 @@ const ParallaxView = (props) => {
   return (
     <BlockWrapper
       {...props}
-      ExtraWrapper={LegacyWrapper}
+      ExtraWrapper={(p) => <LegacyWrapper {...p} wrapperElRef={outerRef} />}
       data={{ ...props.data, align: 'full' }}
     >
       <div ref={wrapperRef} className={'parallax-wrapperRef'}>
@@ -182,7 +159,7 @@ const ParallaxView = (props) => {
                     dangerouslySetInnerHTML={{ __html: data.description.data }}
                   />
                 )}
-                {!data.hideButton && (
+                {!data.styles.hideButton && (
                   <button className="parallax-button">
                     {data.buttonText || intl.formatMessage(messages.buttonText)}
                   </button>
