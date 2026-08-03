@@ -28,7 +28,6 @@ const ParallaxView = (props) => {
   const request = useSelector((state) => state.content.subrequests[block]);
   const content = request?.data;
   const wrapperRef = useRef(null);
-  const outerRef = useRef(null);
   const intl = useIntl();
 
   const [offsetY, setOffsetY] = useState(0);
@@ -51,7 +50,6 @@ const ParallaxView = (props) => {
       hasText ||
       !data.styles.hideButton ||
       (!data.styles.hideButton && !!data.buttonText);
-    // console.log(data.hideButton, 'styles: ', data.styles.hideButton);
 
     setHasContent(contentExists);
   }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
@@ -64,7 +62,7 @@ const ParallaxView = (props) => {
     let ticking = false;
 
     const measure = () => {
-      const el = outerRef.current;
+      const el = wrapperRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
       const visible = rect.bottom > 0 && rect.top < window.innerHeight;
@@ -133,10 +131,11 @@ const ParallaxView = (props) => {
   return (
     <BlockWrapper
       {...props}
-      ExtraWrapper={(p) => <LegacyWrapper {...p} wrapperElRef={outerRef} />}
+      ExtraWrapper={LegacyWrapper}
+      wrapperElRef={wrapperRef}
       data={{ ...props.data, align: 'full' }}
     >
-      <div ref={wrapperRef} className={'parallax-wrapperRef'}>
+      <div className={'parallax-wrapperRef'}>
         {data.url ? (
           <ConditionalLink
             className={'link'}
