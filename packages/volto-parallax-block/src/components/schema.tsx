@@ -56,20 +56,22 @@ const messages = defineMessages({
 
 const colors = [
   {
+    name: 'black',
+    label: 'Black',
     style: {
+      '--theme-color': '#000',
       '--theme-foreground-color': '#000',
       '--overlay-color': 'rgba(255, 255, 255, 0.66)',
     },
-    name: 'black',
-    label: 'Black',
   },
   {
+    name: 'white',
+    label: 'White',
     style: {
+      '--theme-color': '#fff',
       '--theme-foreground-color': '#fff',
       '--overlay-color': 'rgba(0, 0, 0, 0.33)',
     },
-    name: 'white',
-    label: 'White',
   },
 ];
 config.registerUtility({
