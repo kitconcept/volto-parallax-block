@@ -171,7 +171,8 @@ export default function ParallaxSchema(props) {
 
   schema.properties.styles.schema.fieldsets[0].fields.push('align:noprefix');
   schema.properties.styles.schema.properties['align:noprefix'] = {
-    widget: 'blockAlignment',
+    widget: 'align',
+    actions: ['left', 'center', 'right'],
     title: intl.formatMessage(messages.Alignment),
     default: 'left',
   };
