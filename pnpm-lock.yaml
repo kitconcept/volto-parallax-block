@@ -1509,8 +1509,8 @@ importers:
   packages/volto-parallax-block:
     dependencies:
       '@kitconcept/volto-bm3-compat':
-        specifier: 1.0.0-alpha.1
-        version: 1.0.0-alpha.1(classnames@2.5.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: workspace:*
+        version: link:../volto-bm3-compat/packages/volto-bm3-compat
       '@kitconcept/volto-light-theme':
         specifier: workspace:*
         version: link:../volto-light-theme/frontend/packages/volto-light-theme
@@ -3365,13 +3365,6 @@ packages:
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
-
-  '@kitconcept/volto-bm3-compat@1.0.0-alpha.1':
-    resolution: {integrity: sha512-eKEtR1WBvLh9gf9JzCB7THgcYxyJPiw7QVXZ2Bdo6NOYSh05PPMvpN+lUBYj3ottk7oAt9Mvln4FCyfza4abUw==}
-    peerDependencies:
-      classnames: ^2.2.6
-      react: 18.2.0
-      react-dom: 18.2.0
 
   '@kwsites/file-exists@1.1.1':
     resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
@@ -13716,12 +13709,6 @@ snapshots:
       keyv: 5.6.0
 
   '@keyv/serialize@1.1.1': {}
-
-  '@kitconcept/volto-bm3-compat@1.0.0-alpha.1(classnames@2.5.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      classnames: 2.5.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
 
   '@kwsites/file-exists@1.1.1':
     dependencies:
