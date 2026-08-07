@@ -1,6 +1,7 @@
 import { flattenToAppURL } from '@plone/volto/helpers/Url/Url';
+import type { ParallaxBlockData, ParallaxDataAdapter } from './types';
 
-export const ParallaxBlockDataAdapter = ({
+export const ParallaxBlockDataAdapter: ParallaxDataAdapter = ({
   block,
   data,
   id,
@@ -9,7 +10,7 @@ export const ParallaxBlockDataAdapter = ({
   content,
   item,
 }) => {
-  let dataSaved = {
+  let dataSaved: ParallaxBlockData = {
     ...data,
     [id]: value,
   };

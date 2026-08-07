@@ -17,7 +17,7 @@
       "@kitconcept/volto-parallax-block/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.jsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
   "exclude": [
     "node_modules",
     "build",

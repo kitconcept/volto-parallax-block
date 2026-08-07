@@ -3,7 +3,7 @@
   "version": "1.0.0-alpha.0",
   "description": "A visual block with a fixed background image that creates a parallax scrolling effect. Content scrolls over the image, revealing different areas as the user scrolls down the page.",
   "author": "Timo Broeskamp",
-  "homepage": "https://github.com/TimoBroeskamp/volto-parallax-block",
+  "homepage": "https://github.com/kitconcept/volto-parallax-block",
   "license": "MIT",
   "keywords": [
     "volto-addon",
@@ -18,13 +18,13 @@
     "build": "VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto build",
     "build:deps": "pnpm --filter @plone/registry --filter @plone/components build",
     "i18n": "pnpm --filter @kitconcept/volto-parallax-block i18n && VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto i18n",
-    "test": "RAZZLE_JEST_CONFIG=$(pwd)/jest-addon.config.js pnpm --filter @plone/volto test -- --passWithNoTests",
-    "lint": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --max-warnings=0 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --fix 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
-    "prettier": "prettier --check 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
-    "prettier:fix": "prettier --write 'packages/**/src/**/*.{js,jsx,ts,tsx}' ",
-    "stylelint": "stylelint 'packages/**/src/**/*.{css,scss,less}' --allow-empty-input",
-    "stylelint:fix": "stylelint 'packages/**/src/**/*.{css,scss,less}' --fix --allow-empty-input",
+    "test": "pnpm --filter @kitconcept/volto-parallax-block exec vitest",
+    "lint": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --max-warnings=0 'packages/volto-parallax-block/src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --fix 'packages/volto-parallax-block/src/**/*.{js,jsx,ts,tsx}'",
+    "prettier": "prettier --check 'packages/volto-parallax-block/src/**/*.{js,jsx,ts,tsx}'",
+    "prettier:fix": "prettier --write 'packages/volto-parallax-block/src/**/*.{js,jsx,ts,tsx}'",
+    "stylelint": "stylelint 'packages/volto-parallax-block/src/**/*.{css,scss,less}' --allow-empty-input",
+    "stylelint:fix": "stylelint 'packages/volto-parallax-block/src/**/*.{css,scss,less}' --fix --allow-empty-input",
     "dry-release": "pnpm --filter @kitconcept/volto-parallax-block dry-release",
     "release": "pnpm --filter @kitconcept/volto-parallax-block release",
     "release-major-alpha": "pnpm --filter @kitconcept/volto-parallax-block release-major-alpha",
@@ -36,7 +36,6 @@
     "@plone/volto": "workspace:*",
     "@plone/registry": "workspace:*",
     "@kitconcept/volto-parallax-block": "workspace:*"
-
   },
   "devDependencies": {
     "mrs-developer": "^2.2.0"
@@ -45,10 +44,20 @@
     "overrides": {
       "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
       "react-refresh": "^0.14.2"
-    }
+    },
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher"
+    ],
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "cypress",
+      "es5-ext",
+      "esbuild",
+      "full-icu",
+      "lightningcss-cli",
+      "unrs-resolver"
+    ]
   },
-  "packageManager": "pnpm@9.1.1",
-  "addons": [
-    "@plone/volto-parallax-addon"
-  ]
+  "packageManager": "pnpm@10.20.0"
 }

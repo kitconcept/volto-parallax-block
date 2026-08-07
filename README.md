@@ -1,75 +1,50 @@
-# volto-parallax-block (@kitconcept/volto-parallax-block)
+# Volto Parallax Block (@kitconcept/volto-parallax-block)
 
 A visual block with a fixed background image that creates a parallax scrolling effect. Content scrolls over the image, revealing different areas as the user scrolls down the page.
 
 [![npm](https://img.shields.io/npm/v/@kitconcept/volto-parallax-block)](https://www.npmjs.com/package/@kitconcept/volto-parallax-block)
-[![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://TimoBroeskamp.github.io/volto-parallax-block/)
-[![Code analysis checks](https://github.com/TimoBroeskamp/volto-parallax-block/actions/workflows/code.yml/badge.svg)](https://github.com/TimoBroeskamp/volto-parallax-block/actions/workflows/code.yml)
-[![Unit tests](https://github.com/TimoBroeskamp/volto-parallax-block/actions/workflows/unit.yml/badge.svg)](https://github.com/TimoBroeskamp/volto-parallax-block/actions/workflows/unit.yml)
+[![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://kitconcept.github.io/volto-parallax-block/)
+[![CI](https://github.com/kitconcept/volto-parallax-block/actions/workflows/main.yml/badge.svg)](https://github.com/kitconcept/volto-parallax-block/actions/workflows/main.yml)
 
 ## Features
 
-<!-- List your awesome features here -->
+Implement a Parallax block for Volto sites.
 
 ## Installation
 
-To install your project, you must choose the method appropriate to your version of Volto.
+To install this add-on on your project, you should add the following configurations to your `package.json`:
 
-
-### Volto 18 and later
-
-Add `@kitconcept/volto-parallax-block` to your `package.json`:
+This add-on requires both `@kitconcept/volto-bm3-compat` and `@kitconcept/volto-light-theme`, so please make sure you have the `theme` set to `@kitconcept/volto-light-theme`
 
 ```json
-"dependencies": {
-    "@kitconcept/volto-parallax-block": "*"
-}
+"theme": "@kitconcept/volto-light-theme",
 ```
 
-Add `@kitconcept/volto-parallax-block` to your `volto.config.js`:
+And also make sure both add-ons are present in `addons` and in `dependencies`:
 
-```javascript
-const addons = ['@kitconcept/volto-parallax-block'];
-```
-
-If this package provides a Volto theme, and you want to activate it, then add the following to your `volto.config.js`:
-
-```javascript
-const theme = '@kitconcept/volto-parallax-block';
-```
-
-### Volto 17 and earlier
-
-Create a new Volto project (you can skip this step if you already have one):
-
-```
-npm install -g yo @plone/generator-volto
-yo @plone/volto my-volto-project --addon @kitconcept/volto-parallax-block
-cd my-volto-project
-```
-
-Add `@kitconcept/volto-parallax-block` to your package.json:
-
-```JSON
+```json
 "addons": [
+    "@kitconcept/volto-bm3-compat",
+    "@kitconcept/volto-light-theme",
     "@kitconcept/volto-parallax-block"
 ],
-
 "dependencies": {
-    "@kitconcept/volto-parallax-block": "*"
+    "@kitconcept/volto-bm3-compat": "*",
+    "@kitconcept/volto-light-theme": "*"
 }
 ```
 
-Download and install the new add-on by running:
+Then add `@kitconcept/volto-parallax-block` to `addons` and to `dependencies`
 
-```
-yarn install
-```
-
-Start volto with:
-
-```
-yarn start
+```json
+"addons": [
+    ...
+    "@kitconcept/volto-parallax-block"
+],
+"dependencies": {
+    ...
+    "@kitconcept/volto-parallax-block": "*"
+}
 ```
 
 ## Test installation
@@ -87,7 +62,7 @@ For this reason, it only works with pnpm and Volto 18 (currently in alpha).
 
 -   An [operating system](https://6.docs.plone.org/install/create-project-cookieplone.html#prerequisites-for-installation) that runs all the requirements mentioned.
 -   [nvm](https://6.docs.plone.org/install/create-project-cookieplone.html#nvm)
--   [Node.js and pnpm](https://6.docs.plone.org/install/create-project.html#node-js) 22
+-   [Node.js and pnpm](https://6.docs.plone.org/install/create-project.html#node-js) 24
 -   [Make](https://6.docs.plone.org/install/create-project-cookieplone.html#make)
 -   [Git](https://6.docs.plone.org/install/create-project-cookieplone.html#git)
 -   [Docker](https://docs.docker.com/get-started/get-docker/) (optional)
@@ -97,7 +72,7 @@ For this reason, it only works with pnpm and Volto 18 (currently in alpha).
 1.  Clone this repository, then change your working directory.
 
     ```shell
-    git clone git@github.com:TimoBroeskamp/volto-parallax-block.git
+    git clone git@github.com:kitconcept/volto-parallax-block.git
     cd volto-parallax-block
     ```
 
@@ -218,4 +193,4 @@ The project is licensed under the MIT license.
 
 ## Credits and acknowledgements 🙏
 
-Generated using [Cookieplone (0.9.7)](https://github.com/plone/cookieplone) and [cookieplone-templates (c7497ac)](https://github.com/plone/cookieplone-templates/commit/c7497ace6a6d52fd75e67047f652a801b03c12c4) on 2025-06-26 10:05:11.148380. A special thanks to all contributors and supporters!
+Generated using [Cookieplone (2.0.0b3)](https://github.com/plone/cookieplone) and [cookieplone-templates (321ce0f)](https://github.com/plone/cookieplone-templates/commit/321ce0f7e5da80755483552af9a85599bd532468) on 2026-08-07 09:57:44.639278. A special thanks to all contributors and supporters!
