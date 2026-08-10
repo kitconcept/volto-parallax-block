@@ -1,9 +1,14 @@
-import React from 'react';
 import BlockDataForm from '@plone/volto/components/manage/Form/BlockDataForm';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import type {
+  BrowserItem,
+  ParallaxDataAdapter,
+  ParallaxDataProps,
+  ParallaxStoreState,
+} from './types';
 
-const ParallaxData = (props) => {
+const ParallaxData = (props: ParallaxDataProps) => {
   const {
     block,
     blocksConfig,
@@ -15,9 +20,15 @@ const ParallaxData = (props) => {
   } = props;
   const intl = useIntl();
 
-  const schema = blocksConfig.parallax.blockSchema({ data, intl });
-  const dataAdapter = blocksConfig.parallax.dataAdapter;
-  const request = useSelector((state) => state.content.subrequests[block]);
+  const blockSchema = blocksConfig.parallax.blockSchema;
+  const schema =
+    typeof blockSchema === 'function'
+      ? blockSchema({ data, intl })
+      : blockSchema;
+  const dataAdapter = blocksConfig.parallax.dataAdapter as ParallaxDataAdapter;
+  const request = useSelector(
+    (state: ParallaxStoreState) => state.content.subrequests[block],
+  );
   const content = request?.data;
 
   return (
@@ -25,7 +36,11 @@ const ParallaxData = (props) => {
       <BlockDataForm
         schema={schema}
         title={schema.title}
-        onChangeField={(id, value, item) => {
+        onChangeField={(
+          id: string,
+          value: string | BrowserItem | null,
+          item?: BrowserItem,
+        ) => {
           dataAdapter({
             block,
             data,

@@ -1,4 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import type {
+  ComponentProps,
+  ComponentType,
+  ReactNode,
+  RefObject,
+} from 'react';
 import { BlockWrapper } from '@kitconcept/volto-bm3-compat';
 import { flattenToAppURL, isInternalURL } from '@plone/volto/helpers/Url/Url';
 import { defineMessages, useIntl } from 'react-intl';
@@ -7,6 +13,13 @@ import config from '@plone/volto/registry';
 import { ImageInput } from '@plone/volto/components/manage/Widgets/ImageWidget';
 import { useSelector } from 'react-redux';
 import { ConditionalLink } from '@plone/volto/components/';
+import type {
+  BrowserItem,
+  ParallaxDataAdapter,
+  ParallaxStoreState,
+  ParallaxViewProps,
+  RichTextValue,
+} from './types';
 
 const messages = defineMessages({
   buttonText: {
@@ -15,19 +28,33 @@ const messages = defineMessages({
   },
 });
 
-const LegacyWrapper = (props) => (
+const LegacyWrapper = (props: {
+  children: ReactNode;
+  wrapperElRef: RefObject<HTMLDivElement>;
+}) => (
   <div className="parallax-wrapper" ref={props.wrapperElRef}>
     {props.children}
   </div>
 );
 
-const ParallaxView = (props) => {
+// `BlockWrapper` forwards every extra prop it receives down to `ExtraWrapper`,
+// but its prop type does not declare that. Widen it locally until
+// `@kitconcept/volto-bm3-compat` types the pass-through.
+const ParallaxBlockWrapper = BlockWrapper as ComponentType<
+  ComponentProps<typeof BlockWrapper> & {
+    wrapperElRef: RefObject<HTMLDivElement>;
+  }
+>;
+
+const ParallaxView = (props: ParallaxViewProps) => {
   const { block, blocksConfig, data, isEditMode, onChangeBlock } = props;
   const Image = config.getComponent('Image').component;
-  const dataAdapter = blocksConfig.parallax.dataAdapter;
-  const request = useSelector((state) => state.content.subrequests[block]);
+  const dataAdapter = blocksConfig.parallax.dataAdapter as ParallaxDataAdapter;
+  const request = useSelector(
+    (state: ParallaxStoreState) => state.content.subrequests[block],
+  );
   const content = request?.data;
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
 
   const [offsetY, setOffsetY] = useState(0);
@@ -37,22 +64,27 @@ const ParallaxView = (props) => {
   const speed = 0.2; // Adjust the speed of the parallax effect
   const maxOffset = 500;
   const translateY = Math.min(offsetY * speed, maxOffset);
-  const hasRichText = (value) => {
+  const hasRichText = (value?: RichTextValue) => {
     if (!value || typeof value.data !== 'string') return false;
     const plain = value.data.replace('<p></p>', '');
     return plain.length > 0;
   };
+
+  // `url` holds a plain string once it went through the data adapter, but
+  // older content may still carry the object browser item.
+  const imageUrl =
+    typeof data.url === 'string' ? data.url : (data.url?.['@id'] as string);
 
   useEffect(() => {
     const hasText = hasRichText(data.description);
     const contentExists =
       !!data.title ||
       hasText ||
-      !data.styles.hideButton ||
-      (!data.styles.hideButton && !!data.buttonText);
+      !data.styles?.hideButton ||
+      (!data.styles?.hideButton && !!data.buttonText);
 
     setHasContent(contentExists);
-  }, [data.title, data.description, data.styles.hideButton, data.buttonText]);
+  }, [data.title, data.description, data.styles?.hideButton, data.buttonText]);
 
   useEffect(() => {
     setHasLink(!!(data.href && data.href.length > 0));
@@ -87,7 +119,7 @@ const ParallaxView = (props) => {
     };
   }, []);
 
-  let renderedImage = null;
+  let renderedImage: ReactNode = null;
   if (data.url) {
     if (Image) {
       renderedImage = (
@@ -96,13 +128,13 @@ const ParallaxView = (props) => {
           item={
             data.image_scales
               ? {
-                  '@id': data.url,
+                  '@id': imageUrl,
                   image_field: data.image_field,
                   image_scales: data.image_scales,
                 }
               : null
           }
-          src={!data.image_scales ? data.url : null}
+          src={!data.image_scales ? imageUrl : null}
           alt=""
           loading="lazy"
           responsive={true}
@@ -116,9 +148,9 @@ const ParallaxView = (props) => {
         <Image
           className="parallax-img"
           src={
-            isInternalURL(data.url['@id'])
-              ? `${flattenToAppURL(data.url['@id'])}/@@images/image`
-              : data.url['@id']
+            isInternalURL(imageUrl)
+              ? `${flattenToAppURL(imageUrl)}/@@images/image`
+              : imageUrl
           }
           alt="Background image from parallax block"
         />
@@ -129,7 +161,7 @@ const ParallaxView = (props) => {
   if (!isEditMode && !data.url) return null;
 
   return (
-    <BlockWrapper
+    <ParallaxBlockWrapper
       {...props}
       ExtraWrapper={LegacyWrapper}
       wrapperElRef={wrapperRef}
@@ -158,7 +190,7 @@ const ParallaxView = (props) => {
                     dangerouslySetInnerHTML={{ __html: data.description.data }}
                   />
                 )}
-                {!data.styles.hideButton && (
+                {!data.styles?.hideButton && (
                   <button className="parallax-button">
                     {data.buttonText || intl.formatMessage(messages.buttonText)}
                   </button>
@@ -168,7 +200,11 @@ const ParallaxView = (props) => {
           </ConditionalLink>
         ) : (
           <ImageInput
-            onChange={(id, value, item) => {
+            onChange={(
+              id: string,
+              value: string | BrowserItem | null,
+              item?: BrowserItem,
+            ) => {
               dataAdapter({
                 block,
                 data,
@@ -186,7 +222,7 @@ const ParallaxView = (props) => {
           />
         )}
       </div>
-    </BlockWrapper>
+    </ParallaxBlockWrapper>
   );
 };
 

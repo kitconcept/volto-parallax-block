@@ -1,0 +1,14 @@
+{
+    "title": "Volto Parallax Block",
+    "frontend_addon_name": "volto-parallax-block",
+    "description": "A visual block with a fixed background image that creates a parallax scrolling effect. Content scrolls over the image, revealing different areas as the user scrolls down the page.",
+    "author": "Timo Broeskamp",
+    "email": "broeskamp@kitconcept.com",
+    "github_organization": "kitconcept",
+    "npm_package_name": "@kitconcept/volto-parallax-block",
+    "use_prerelease_versions": "No",
+    "volto_version": "19.3.0",
+    "initialize_ci": true,
+    "initialize_documentation": false,
+    "__template__": "frontend_addon"
+}

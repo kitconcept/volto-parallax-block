@@ -1,7 +1,4 @@
-const addons = [
-  '@kitconcept/volto-parallax-block',
-  '@kitconcept/volto-light-theme',
-];
+const addons = ['@kitconcept/volto-parallax-block'];
 const theme = '@kitconcept/volto-light-theme';
 
 module.exports = {

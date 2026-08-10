@@ -1,3 +1,4 @@
+import type { ConfigType } from '@plone/registry';
 import { defineMessages } from 'react-intl';
 import { addStyling } from '@plone/volto/helpers/Extensions/withBlockSchemaEnhancer';
 import { addExtensionFieldToSchema } from '@plone/volto/helpers/Extensions';
@@ -56,22 +57,20 @@ const messages = defineMessages({
 
 const colors = [
   {
-    name: 'black',
-    label: 'Black',
     style: {
-      '--theme-color': '#000',
       '--theme-foreground-color': '#000',
       '--overlay-color': 'rgba(255, 255, 255, 0.66)',
     },
+    name: 'black',
+    label: 'Black',
   },
   {
-    name: 'white',
-    label: 'White',
     style: {
-      '--theme-color': '#fff',
       '--theme-foreground-color': '#fff',
       '--overlay-color': 'rgba(0, 0, 0, 0.33)',
     },
+    name: 'white',
+    label: 'White',
   },
 ];
 config.registerUtility({
@@ -80,7 +79,7 @@ config.registerUtility({
   method: (props: { data: any; container: any }) => colors,
 });
 
-export default function ParallaxSchema(props) {
+export default function ParallaxSchema(props: ConfigType) {
   const { intl } = props;
   let schema = {
     title: intl.formatMessage(messages.parallaxBlock),
