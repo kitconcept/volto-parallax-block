@@ -174,11 +174,16 @@
 }
 
 #sidebar {
+  // for the standalone addon
   .color-swatch-widget {
     .buttons {
       button.black {
         background: #000;
       }
     }
+  }
+  // for the use with VLT
+  .color-swatch-option-handler.black {
+    background: black;
   }
 }
