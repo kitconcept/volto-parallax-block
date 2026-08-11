@@ -20,7 +20,6 @@ import type {
   ParallaxViewProps,
   RichTextValue,
 } from './types';
-import '../../../theme/blocks/parallax.scss';
 
 const messages = defineMessages({
   buttonText: {
