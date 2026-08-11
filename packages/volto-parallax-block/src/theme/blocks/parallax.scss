@@ -174,25 +174,8 @@
 }
 
 #sidebar {
-<<<<<<< Updated upstream
-  // for the standalone addon
-  .color-swatch-widget {
-    .buttons {
-      button.black {
-        background: #000;
-      }
-    }
-||||||| Stash base
-  .color-swatch-widget {
-    .buttons {
-      button.black {
-        background: #000;
-      }
-    }
-=======
   .color-swatch-option-handler.black {
     background: #000;
->>>>>>> Stashed changes
   }
   // for the use with VLT
   .color-swatch-option-handler.black {
