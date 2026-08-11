@@ -57,6 +57,10 @@ export interface ParallaxBlockData extends BlocksFormData {
   overlay?: string;
   placeholder?: string;
   styles?: ParallaxStyles;
+  hideButton?: boolean;
+  size?: String;
+  align?: String;
+  colors?: String;
 }
 
 /**
