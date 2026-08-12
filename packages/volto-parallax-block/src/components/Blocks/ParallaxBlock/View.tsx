@@ -69,7 +69,6 @@ const ParallaxView = (props: ParallaxViewProps) => {
     const plain = value.data.replace('<p></p>', '');
     return plain.length > 0;
   };
-  console.log(config);
   // `url` holds a plain string once it went through the data adapter, but
   // older content may still carry the object browser item.
   const imageUrl =
