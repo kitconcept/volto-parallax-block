@@ -1,0 +1,99 @@
+{
+  "name": "@kitconcept/volto-light-theme-dev",
+  "version": "8.0.0-alpha.31",
+  "description": "Volto Light Theme by kitconcept",
+  "main": "src/index.js",
+  "types": "src/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kitconcept/volto-light-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kitconcept/volto-light-theme/issues"
+  },
+  "homepage": "https://github.com/kitconcept/volto-light-theme#readme",
+  "author": "kitconcept, GmbH",
+  "license": "MIT",
+  "keywords": [
+    "volto-addon",
+    "volto",
+    "plone",
+    "react",
+    "light-theme",
+    "theme"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "start": "VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto start",
+    "start:prod": "pnpm --filter @plone/volto start:prod",
+    "build": "VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto build",
+    "build:deps": "pnpm --filter @plone/registry --filter @plone/components build",
+    "i18n": "pnpm --filter @kitconcept/volto-light-theme i18n && VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto i18n",
+    "test": "pnpm --filter @kitconcept/volto-light-theme exec vitest",
+    "lint": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --max-warnings=0 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "VOLTOCONFIG=$(pwd)/volto.config.js eslint --fix 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
+    "prettier": "prettier --check 'packages/**/src/**/*.{js,jsx,ts,tsx}'",
+    "prettier:fix": "prettier --write 'packages/**/src/**/*.{js,jsx,ts,tsx}' ",
+    "stylelint": "stylelint 'packages/**/src/**/*.{css,scss,less}' --allow-empty-input",
+    "stylelint:fix": "stylelint 'packages/**/src/**/*.{css,scss,less}' --fix",
+    "dry-release": "release-it --dry-run",
+    "release": "pnpm --filter @kitconcept/volto-light-theme run release",
+    "release-major-alpha": "pnpm --filter @kitconcept/volto-light-theme run release-major-alpha",
+    "release-alpha": "pnpm --filter @kitconcept/volto-light-theme run release-alpha",
+    "storybook": "VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto storybook dev -p 6006 -c $(pwd)/.storybook",
+    "storybook-build": "VOLTOCONFIG=$(pwd)/volto.config.js pnpm --filter @plone/volto build-storybook -c $(pwd)/.storybook",
+    "test:visual": "playwright test playwright/tests/visual/main/*.test.{ts,tsx}",
+    "test:visual:ui": "playwright test --ui",
+    "update:browserlist": "pnpm --filter @plone/volto add caniuse-lite && pnpm --filter @plone/volto remove caniuse-lite"
+  },
+  "devDependencies": {
+    "@cypress/skip-test": "2.6.1",
+    "mrs-developer": "^2.2.0"
+  },
+  "dependencies": {
+    "@plone/registry": "workspace:*",
+    "@plone/volto": "workspace:*",
+    "@kitconcept/volto-light-theme": "workspace:*",
+    "@eeacms/volto-accordion-block": "^12.0.0",
+    "@kitconcept/volto-banner-block": "workspace:*",
+    "@kitconcept/volto-bm3-compat": "workspace:*",
+    "@kitconcept/volto-button-block": "workspace:*",
+    "@kitconcept/volto-calendar-block": "workspace:*",
+    "@kitconcept/volto-carousel-block": "workspace:*",
+    "@kitconcept/volto-dsgvo-banner": "workspace:*",
+    "@kitconcept/volto-heading-block": "workspace:*",
+    "@kitconcept/volto-highlight-block": "workspace:*",
+    "@kitconcept/volto-introduction-block": "workspace:*",
+    "@kitconcept/volto-logos-block": "workspace:*",
+    "@kitconcept/volto-separator-block": "workspace:*",
+    "@kitconcept/volto-slider-block": "workspace:*",
+    "@plonegovbr/volto-social-media": "^3.0.0-alpha.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+      "react-refresh": "^0.14.2",
+      "cypress": "^15.0.3",
+      "@testing-library/cypress": "^10.1.0",
+      "@types/node": "^24"
+    },
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher"
+    ],
+    "onlyBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "cypress",
+      "es5-ext",
+      "esbuild",
+      "full-icu",
+      "lightningcss-cli",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "packageManager": "pnpm@10.20.0"
+}

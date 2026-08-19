@@ -1,0 +1,84 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-09 11:45-0400\n"
+"PO-Revision-Date: 2023-05-10 11:34-0400\n"
+"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
+"Language: es\n"
+"Language-Team: ES <LL@li.org>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Preferred-Encodings: utf-8\n"
+"MIME-Version: 1.0\n"
+"Language-Code: es\n"
+"Language-Name: Español\n"
+"Domain: volto\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. Default: "Alignment"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Alignment"
+msgstr ""
+
+#. Default: "Description"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Description"
+msgstr ""
+
+#. Default: "Text Color / Contrast"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Font color"
+msgstr ""
+
+#. Default: "Hide Button"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Hide Button"
+msgstr ""
+
+#. Default: "Image"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Image"
+msgstr ""
+
+#. Default: "Link"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Link"
+msgstr ""
+
+#. Default: "Open in a new tab"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Open in a new tab"
+msgstr ""
+
+#. Default: "Parallax Block"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Parallax Block"
+msgstr ""
+
+#. Default: "Title"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Title"
+msgstr ""
+
+#. Default: "Button Text"
+#: components/Blocks/ParallaxBlock/schema
+msgid "buttonText"
+msgstr ""
+
+#. Default: "Continue Reading"
+#: components/Blocks/ParallaxBlock/View
+msgid "continueReading"
+msgstr ""
+
+#. Default: "Overlay"
+#: components/Blocks/ParallaxBlock/schema
+msgid "overlay"
+msgstr ""
+
+#. Default: "Block Height"
+#: components/Blocks/ParallaxBlock/schema
+msgid "size"
+msgstr ""

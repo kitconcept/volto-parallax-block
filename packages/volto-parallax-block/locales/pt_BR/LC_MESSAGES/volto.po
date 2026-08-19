@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-06T16:01:32.969Z\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Language: \n"
+"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Language-Code: pt_BR\n"
+"Language-Name: Português do Brasil\n"
+"Preferred-Encodings: utf-8\n"
+"Domain: volto\n"
+
+#. Default: "Alignment"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Alignment"
+msgstr ""
+
+#. Default: "Description"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Description"
+msgstr ""
+
+#. Default: "Text Color / Contrast"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Font color"
+msgstr ""
+
+#. Default: "Hide Button"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Hide Button"
+msgstr ""
+
+#. Default: "Image"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Image"
+msgstr ""
+
+#. Default: "Link"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Link"
+msgstr ""
+
+#. Default: "Open in a new tab"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Open in a new tab"
+msgstr ""
+
+#. Default: "Parallax Block"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Parallax Block"
+msgstr ""
+
+#. Default: "Title"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Title"
+msgstr ""
+
+#. Default: "Button Text"
+#: components/Blocks/ParallaxBlock/schema
+msgid "buttonText"
+msgstr ""
+
+#. Default: "Continue Reading"
+#: components/Blocks/ParallaxBlock/View
+msgid "continueReading"
+msgstr ""
+
+#. Default: "Overlay"
+#: components/Blocks/ParallaxBlock/schema
+msgid "overlay"
+msgstr ""
+
+#. Default: "Block Height"
+#: components/Blocks/ParallaxBlock/schema
+msgid "size"
+msgstr ""

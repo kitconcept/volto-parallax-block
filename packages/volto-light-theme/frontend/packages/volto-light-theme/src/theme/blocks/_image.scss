@@ -1,0 +1,314 @@
+figure {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.block.image,
+.block-editor-image {
+  --align-left: left;
+  --align-center: none;
+  --align-right: right;
+  // Floating image sizes, referenced by the `--media-size` style variable
+  --size-small: 220px;
+  --size-medium: 300px;
+  --size-large: calc(var(--default-container-width) / 2 - 10px);
+
+  margin: 0;
+  margin-top: $spacing-large;
+
+  &.has--block-width--full {
+    figcaption {
+      padding-right: 25px;
+      padding-left: 25px;
+    }
+  }
+
+  &.has--block-width--default,
+  &.has--block-width--layout,
+  &.has--block-width--narrow,
+  &.has--block-width--full {
+    figure {
+      margin-top: $spacing-large;
+      margin-bottom: $spacing-large;
+    }
+  }
+
+  &.has--block-alignment--left,
+  &.has--block-alignment--right {
+    margin-bottom: 0 !important;
+
+    &:has(+ h2) {
+      margin-top: $spacing-xlarge;
+    }
+
+    figure {
+      margin-top: 0 !important;
+      margin-bottom: $spacing-small;
+      @container (max-width: #{$largest-mobile-screen}) {
+        max-width: unset !important;
+        margin-bottom: $spacing-large;
+      }
+
+      img {
+        margin: 0 !important;
+        float: none;
+      }
+    }
+  }
+
+  &.has--block-alignment--left {
+    figure {
+      @include floated-figure('left');
+    }
+  }
+
+  &.has--block-alignment--right {
+    figure {
+      @include floated-figure('right');
+    }
+  }
+
+  figure {
+    width: 100%;
+    img {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto;
+      aspect-ratio: var(--image-aspect-ratio, auto);
+    }
+  }
+}
+
+// image/video captions
+figcaption {
+  margin: 25px 0 0 0;
+  color: $grey;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 18px;
+  text-align: left;
+  white-space: initial;
+
+  .title {
+    display: block;
+    margin-bottom: 10px;
+    @include marginal-title();
+  }
+
+  .description {
+    p,
+    a {
+      @include marginal-description();
+    }
+  }
+
+  .credits {
+    margin-top: 5px;
+    color: $blue-for-grey-contrast;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    @include marginal-description();
+  }
+}
+
+// video block
+
+.block.video,
+.block-editor-video {
+  margin-top: $spacing-large;
+  .video-inner {
+    @include variable-container-width();
+
+    .placeholder {
+      width: 100% !important;
+    }
+  }
+  &.has--block-alignment--left {
+    .video-inner {
+      width: 100%;
+      @include floated-figure('left');
+    }
+  }
+
+  &.has--block-alignment--right {
+    .video-inner {
+      width: 100%;
+      @include floated-figure('right');
+    }
+  }
+  figure {
+    width: 100%;
+  }
+
+  &.has--block-width--full figcaption {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+}
+
+.image-widget {
+  container-type: inline-size;
+
+  #sidebar & img {
+    width: 100%;
+  }
+
+  .no-image-wrapper {
+    display: flex;
+    width: min(100%, 450px);
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-width: 150px;
+    }
+  }
+
+  .toolbar-inner {
+    display: flex;
+    width: min(100%, 450px);
+    height: 40px;
+    padding: 4px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.975);
+    box-shadow:
+      0 0 8px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.05);
+
+    .ui.form & .ui.input input[type='text'] {
+      height: initial;
+    }
+
+    & > svg {
+      display: inline-block !important;
+      box-sizing: content-box;
+      padding: 4px;
+      margin-right: 4px;
+      color: $brown !important;
+    }
+
+    .ui.input {
+      width: 100%;
+      margin-left: 8px;
+    }
+
+    .ui.input > input {
+      padding: 0;
+      border: none;
+    }
+
+    .ui.icon.button {
+      padding: 4px;
+      border-radius: 1px;
+      margin-left: -3px;
+      color: $brown !important;
+
+      &:hover {
+        background-color: #edf1f2 !important;
+      }
+    }
+
+    .ui.buttons:first-child {
+      & .ui.icon.button {
+        margin-left: 0;
+      }
+    }
+  }
+  .image-widget-preview-wrapper {
+    position: relative;
+  }
+
+  .ui.basic.button.remove-block-button {
+    position: absolute;
+    z-index: 2;
+    top: 6px;
+    right: 2px;
+    background-color: transparent;
+    box-shadow: none;
+
+    .icon {
+      height: 18px !important;
+    }
+
+    .circled {
+      padding: 8px;
+      border: 1px solid $greySmoke;
+      background: $greySnow;
+
+      &:hover {
+        background-color: $greySmoke;
+      }
+    }
+
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  .image-widget-filepath-preview {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    word-break: break-all;
+
+    a {
+      margin-left: 5px;
+    }
+  }
+}
+
+.ui.form {
+  p.help {
+    @include marginal-description();
+    a {
+      @include marginal-description();
+      text-decoration: underline;
+    }
+  }
+}
+
+#page-document .blocks-group-wrapper > .block.image,
+#page-document .blocks-group-wrapper > .block.video {
+  @include variable-container-width();
+}
+
+#page-document .blocks-group-wrapper {
+  // Unfortunately needed to have more specificity than the top one
+  // TODO: Remove when using layers and the BMv3
+  & > .block.image.has--block-width--default,
+  & > .block.video.has--block-width--default {
+    @include adjustMarginsToContainer($default-container-width);
+  }
+  & > .block.image.has--block-width--layout,
+  & > .block.video.has--block-width--layout {
+    @include adjustMarginsToContainer($layout-container-width);
+  }
+  & > .block.image.has--block-width--narrow,
+  & > .block.video.has--block-width--narrow {
+    @include adjustMarginsToContainer($narrow-container-width);
+  }
+}
+
+// Edit block overrides
+#page-edit,
+#page-add {
+  .block-editor-image,
+  .block-editor-video {
+    &.has--block-alignment--right,
+    &.has--block-alignment--left {
+      .block .block:not(.inner)::before {
+        z-index: 1;
+      }
+    }
+    .block.inner .block .block {
+      z-index: 2;
+      @include variable-container-width();
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+}

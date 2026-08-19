@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: en\n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. Default: "Alignment"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Alignment"
+msgstr ""
+
+#. Default: "Description"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Description"
+msgstr ""
+
+#. Default: "Text Color / Contrast"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Font color"
+msgstr ""
+
+#. Default: "Hide Button"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Hide Button"
+msgstr ""
+
+#. Default: "Image"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Image"
+msgstr ""
+
+#. Default: "Link"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Link"
+msgstr ""
+
+#. Default: "Open in a new tab"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Open in a new tab"
+msgstr ""
+
+#. Default: "Parallax Block"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Parallax Block"
+msgstr ""
+
+#. Default: "Title"
+#: components/Blocks/ParallaxBlock/schema
+msgid "Title"
+msgstr ""
+
+#. Default: "Button Text"
+#: components/Blocks/ParallaxBlock/schema
+msgid "buttonText"
+msgstr ""
+
+#. Default: "Continue Reading"
+#: components/Blocks/ParallaxBlock/View
+msgid "continueReading"
+msgstr ""
+
+#. Default: "Overlay"
+#: components/Blocks/ParallaxBlock/schema
+msgid "overlay"
+msgstr ""
+
+#. Default: "Block Height"
+#: components/Blocks/ParallaxBlock/schema
+msgid "size"
+msgstr ""

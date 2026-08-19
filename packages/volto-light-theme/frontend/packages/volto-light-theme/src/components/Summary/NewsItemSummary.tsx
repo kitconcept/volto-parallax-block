@@ -1,0 +1,50 @@
+import * as React from 'react';
+import { parseDateFromCatalog } from '@kitconcept/volto-light-theme/helpers/dates';
+import FormattedDate from '@plone/volto/components/theme/FormattedDate/FormattedDate';
+import type { DefaultSummaryProps } from './DefaultSummary';
+import { smartTextRenderer } from '../../helpers/smartText';
+
+const NewsItemSummary = (props: DefaultSummaryProps) => {
+  const {
+    item,
+    LinkToItem = React.Fragment,
+    HeadingTag = 'div',
+    a11yLabelId,
+    hide_description,
+  } = props;
+
+  const effective = parseDateFromCatalog(item.effective);
+  const headline = [
+    effective ? (
+      // @ts-expect-error
+      <FormattedDate
+        key="day"
+        date={effective}
+        format={{
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }}
+        className="day"
+      />
+    ) : null,
+    item.head_title,
+  ]
+    .filter((x) => x)
+    .flatMap((x) => [' | ', x])
+    .slice(1);
+
+  return (
+    <>
+      {headline.length ? <div className="headline">{headline}</div> : null}
+      <HeadingTag className="title" id={a11yLabelId}>
+        <LinkToItem>{item.title ? item.title : item.id}</LinkToItem>
+      </HeadingTag>
+      {!hide_description && item?.description !== '' && (
+        <p className="description">{smartTextRenderer(item.description)}</p>
+      )}
+    </>
+  );
+};
+
+export default NewsItemSummary;

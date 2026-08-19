@@ -1,0 +1,411 @@
+// Hiding Event Calendar options since it is only for eventCalendar block.
+.inline.field {
+  &.field-wrapper-variation,
+  &.field-wrapper-listingBodyTemplate {
+    .react-select__menu-list [id$='-option-3'] {
+      display: none;
+    }
+  }
+}
+
+// Listing Block
+.block.listing,
+.column > .block.listing,
+.block.search,
+.block-editor-search,
+.block.rssBlock,
+.block-editor-rssBlock {
+  .items {
+    padding: 0;
+    margin: 0;
+    & + .pagination-wrapper {
+      margin-top: $spacing-xlarge;
+      @container (max-width: #{$largest-mobile-screen}) {
+        margin-top: $spacing-large;
+      }
+    }
+    &:not(:has(+ .pagination-wrapper)) {
+      .listing-item:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+        margin-bottom: 0;
+
+        .card-inner {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+
+  &.next--has--same--backgroundColor.next--is--same--block-type:not(
+      :last-child
+    ),
+  &.next--is--__button {
+    .items > .listing-item:last-child {
+      border-bottom: 1px solid var(--theme-font-color, black);
+      .card-inner {
+        padding-bottom: $spacing-medium;
+      }
+    }
+  }
+  &.next--is--__button {
+    margin-bottom: 0 !important;
+    .listing-item:last-child {
+      padding-bottom: $spacing-medium !important;
+    }
+  }
+
+  .listing-item {
+    border-bottom: 1px solid $black;
+    margin-bottom: $spacing-medium;
+    .card-summary {
+      padding: 0;
+
+      p:empty {
+        display: none;
+      }
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    .card-inner a {
+      display: inline;
+    }
+
+    .title {
+      display: block;
+      margin-top: 0;
+      margin-bottom: $spacing-medium !important;
+      @include text-heading-h2();
+      @container (max-width: #{$largest-mobile-screen}) {
+        @include text-heading-h3();
+        margin-bottom: $spacing-small;
+      }
+    }
+  }
+
+  // Summary variation
+  &.summary,
+  & .summary-variation {
+    .listing-item {
+      .card {
+        .card-inner .image-wrapper {
+          flex: 0 0 220px;
+          img {
+            width: 220px;
+            max-width: 100%;
+            height: min-content;
+            @container (max-width: #{$largest-mobile-screen}) {
+              width: 100%;
+              min-width: 335px;
+              margin-bottom: $spacing-small;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Grid variation
+  &.grid,
+  & .grid-variation {
+    &.next--has--same--backgroundColor.next--is--same--block-type,
+    &.next--is--__button {
+      .listing-item:last-child {
+        padding-bottom: 0 !important;
+        border-bottom: none !important;
+      }
+    }
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      @media only screen and (max-width: $largest-mobile-screen) {
+        flex-direction: column;
+
+        .listing-item {
+          padding-bottom: $spacing-small !important;
+        }
+      }
+    }
+    .listing-item {
+      align-items: normal;
+      border-bottom: none;
+      margin: 0 !important;
+
+      @media only screen and (min-width: $tablet-breakpoint) {
+        width: 50%;
+        padding-top: 10px;
+        padding-bottom: 10px !important;
+
+        &:nth-child(2n) {
+          padding-left: 10px !important;
+        }
+
+        &:nth-child(2n + 1) {
+          padding-right: 10px !important;
+        }
+
+        &:last-child,
+        &:nth-last-child(2):not(:nth-child(2n)) {
+          padding-bottom: 0 !important;
+        }
+
+        &:first-child,
+        &:nth-child(2) {
+          padding-top: 0 !important;
+        }
+      }
+
+      &:last-child:nth-child(2n + 1) {
+        @media only screen and (min-width: $largest-mobile-screen) {
+          margin-left: 0 !important;
+        }
+      }
+
+      .card {
+        flex-grow: 1;
+        .card-inner {
+          padding-bottom: $spacing-medium !important;
+          .image-wrapper {
+            img {
+              margin: 0;
+            }
+          }
+          .card-summary {
+            padding: $spacing-medium $spacing-small 0 $spacing-small;
+
+            .title {
+              margin: 0 0 $spacing-small 0 !important;
+              @include text-heading-h3();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .image-gallery {
+    .ui.button {
+      margin: 0;
+      box-shadow: none !important;
+      color: black !important;
+      filter: none;
+
+      &.image-gallery-left-nav {
+        top: calc(50% - 47px);
+        left: -68px;
+      }
+
+      &.image-gallery-right-nav {
+        top: calc(50% - 47px);
+        right: -68px;
+      }
+
+      @media only screen and (max-width: $narrow-container-width) {
+        &.image-gallery-left-nav {
+          left: -0.5rem;
+        }
+        &.image-gallery-right-nav {
+          right: -0.5rem;
+        }
+      }
+
+      @media only screen and (max-width: 1085px) {
+        &.image-gallery-left-nav {
+          left: -1rem;
+        }
+        &.image-gallery-right-nav {
+          right: -1rem;
+        }
+      }
+
+      &.image-gallery-fullscreen-button,
+      &.image-gallery-play-button {
+        bottom: -94px;
+        border: solid 1px black;
+        border-radius: 0;
+
+        svg {
+          vertical-align: top;
+        }
+      }
+
+      &.image-gallery-play-button {
+        right: 49px;
+        left: auto;
+      }
+
+      .icon {
+        margin: 0;
+      }
+    }
+
+    & .fullscreen .ui.button {
+      color: white !important;
+
+      &.image-gallery-left-nav {
+        left: 20px;
+      }
+
+      &.image-gallery-right-nav {
+        right: 20px;
+      }
+    }
+
+    .image-gallery-description {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      display: block;
+      padding: 25px 0 0 0;
+      background: none;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 18px;
+      text-align: left;
+      white-space: initial;
+
+      .title {
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .credits,
+      .download,
+      .download a {
+        min-height: 18px;
+        margin-top: 5px;
+        color: #0070a2;
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      .description {
+        min-height: 18px;
+      }
+
+      .download {
+        float: right;
+      }
+    }
+
+    .fullscreen .image-gallery-description {
+      color: white;
+    }
+
+    .image-gallery-thumbnails {
+      padding: 40px 0;
+
+      .image-gallery-thumbnail {
+        border: 0;
+        margin-left: $spacing-small;
+        opacity: 0.5;
+
+        &.active,
+        &:hover,
+        &:focus {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .documentFirstHeading
+    + &.previous--has--same--backgroundColor:not(.has--headline) {
+    margin-top: 0;
+  }
+
+  // Pagination
+  .pagination-wrapper {
+    display: table;
+    margin: auto;
+    border-collapse: collapse;
+    @include body-text();
+
+    .ui.pagination.menu {
+      display: table-row;
+      margin-bottom: 30px;
+
+      .item {
+        display: table-cell;
+        min-width: 32px;
+        padding: 6.5px 10px;
+        border: solid 1px $black;
+        border-radius: 0;
+        border-collapse: collapse;
+        color: $black;
+
+        &:first-child,
+        &:last-child {
+          padding: 6.5px 15px 6.5px 15px;
+        }
+
+        &.active {
+          background-color: $black;
+          color: $white;
+        }
+      }
+
+      &.mobile-pagination {
+        display: none;
+      }
+
+      @container (max-width: #{$largest-mobile-screen}) {
+        &.mobile-pagination {
+          display: table-row;
+        }
+
+        &.desktop-pagination {
+          display: none;
+        }
+      }
+    }
+
+    .total {
+      display: table-caption;
+      margin-top: 30px;
+      caption-side: bottom;
+      text-align: center;
+    }
+  }
+
+  // To overwrite semantic ui .grid negative margin rule
+  .ui.grid {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+#page-add .block-editor-listing,
+#page-edit .block-editor-listing,
+#page-add .block-editor-rssBlock,
+#page-edit .block-editor-rssBlock {
+  .block.listing,
+  .block.rssBlock {
+    margin-top: 0;
+    .items {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    h2.headline {
+      @include default-container-width();
+      margin-right: auto !important;
+      margin-left: auto !important;
+    }
+  }
+}
+
+#page-add .block-editor-listing.has--backgroundColor--grey,
+#page-edit .block-editor-listing.has--backgroundColor--grey,
+.block.listing.has--backgroundColor--grey {
+  background-color: $lightgrey;
+}
+
+.listing-item .headline span:not(:last-child)::after {
+  margin: 0 10px;
+  content: '|';
+}

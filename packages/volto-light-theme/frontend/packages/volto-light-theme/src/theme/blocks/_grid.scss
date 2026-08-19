@@ -1,0 +1,372 @@
+.block.gridBlock,
+#page-edit .block-editor-gridBlock .block.gridBlock,
+#page-add .block-editor-gridBlock .block.gridBlock {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  &.is--first--of--block-type,
+  &.previous--is--same--block-type.previous--has--different--backgroundColor {
+    @media only screen and (min-width: $largest-mobile-screen) {
+      .ui.stackable.grid > .column {
+        padding-top: 0 !important;
+      }
+    }
+    .ui.stackable.grid > .column:first-child {
+      padding-top: 0 !important;
+    }
+  }
+
+  &.is--last--of--block-type,
+  &.next--is--same--block-type.next--has--different--backgroundColor {
+    @media only screen and (min-width: $largest-mobile-screen) {
+      .ui.stackable.grid > .column {
+        padding-bottom: 0 !important;
+      }
+    }
+    .ui.stackable.grid > .column:last-child {
+      padding-bottom: 0 !important;
+    }
+  }
+
+  // Override the Image component `aspect-ratio`
+  .block.image img {
+    aspect-ratio: var(--image-aspect-ratio, $aspect-ratio) !important;
+  }
+
+  .block.teaser {
+    padding-top: 0;
+    margin-bottom: 0;
+
+    a {
+      text-decoration: none;
+    }
+    &.file-teaser .card .card-inner .image-wrapper {
+      img {
+        aspect-ratio: var(
+          --file-image-aspect-ratio,
+          $aspect-ratio-A4
+        ) !important;
+      }
+    }
+  }
+
+  .block-editor-teaser {
+    padding: 0;
+    margin: 10px;
+
+    .ui.block.inner.teaser {
+      .block.teaser > .block.teaser > .teaser-item.default {
+        padding-bottom: 0;
+        border: none;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+
+  .slate:not(.inner) {
+    padding: $spacing-medium $spacing-small $spacing-small $spacing-small;
+    margin: 0;
+    p {
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px !important;
+      @include text-heading-h3();
+    }
+  }
+
+  .block-editor-slate {
+    padding: 0;
+    margin: 0.5rem !important;
+    .text-slate-editor-inner > .slate-editor {
+      max-width: inherit !important;
+      margin-right: auto !important;
+      margin-left: auto !important;
+    }
+  }
+
+  .block.image {
+    margin-top: 0;
+    figcaption {
+      position: absolute;
+      z-index: 100;
+      bottom: 0;
+      padding: 0 1rem 15px 1rem;
+      margin: 0;
+
+      .title {
+        margin: 0 0 $spacing-small 0;
+        color: $white !important;
+        letter-spacing: 0;
+        @include text-heading-h3();
+      }
+
+      .description {
+        display: none;
+      }
+
+      .credits {
+        margin-bottom: 0;
+        color: $white !important;
+        font-size: 10px;
+      }
+    }
+    img {
+      z-index: revert !important;
+    }
+    figure {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      margin: 0 !important;
+    }
+
+    figure:after {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 76px;
+      background: $black;
+
+      content: '';
+      opacity: 0.75;
+    }
+    figure figcaption:not(:has(strong.title)) {
+      display: none;
+    }
+    figure:not(:has(figcaption strong.title)):after {
+      display: none;
+    }
+  }
+
+  .block-editor-image {
+    padding: 0;
+    margin: 0.5rem !important;
+    figure {
+      max-width: unset;
+    }
+  }
+
+  .block.listing {
+    &.previous--has--same--backgroundColor:not(.has--headline) {
+      margin-top: 0;
+    }
+    .card {
+      .card-inner {
+        background-color: transparent;
+      }
+    }
+    h2 {
+      margin-bottom: $spacing-medium !important;
+    }
+    &.previous--is--same--block-type.previous--has--same--backgroundColor:not(
+        .has--headline
+      ) {
+      margin-top: unset;
+    }
+
+    &.grid {
+      .listing-item {
+        padding-bottom: 10px !important;
+        border-bottom: none !important;
+
+        &:last-child {
+          padding-bottom: 0 !important;
+          border-bottom: none !important;
+        }
+      }
+    }
+  }
+  .ui.stackable.stretched.four.column.grid,
+  .ui.stackable.stretched.three.column.grid,
+  .ui.stackable.stretched.two.column.grid,
+  .four.grid-items,
+  .three.grid-items,
+  .two.grid-items {
+    .block.listing.summary {
+      .listing-item {
+        .card-inner {
+          flex-direction: column;
+          .image-wrapper {
+            flex: 1 1 auto !important;
+            img {
+              width: 100%;
+            }
+          }
+          .card-summary {
+            padding-top: $spacing-medium;
+            h3 {
+              margin-bottom: $spacing-small !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ui.stackable.stretched.four.column.grid,
+  .ui.stackable.stretched.three.column.grid,
+  .four.grid-items,
+  .three.grid-items {
+    .block.listing {
+      .listing-item {
+        &:last-child {
+          padding-bottom: 0 !important;
+        }
+      }
+      .pagination-wrapper {
+        .ui.pagination.desktop-pagination.menu {
+          display: none;
+        }
+        .ui.pagination.mobile-pagination.menu {
+          display: table-row;
+        }
+        .ui.pagination.menu .item {
+          padding: 6.5px 7px;
+        }
+      }
+    }
+  }
+  .ui.stackable.stretched.two.column.grid {
+    .block.listing {
+      .listing-item {
+        &:last-child {
+          padding-bottom: 0 !important;
+        }
+      }
+    }
+  }
+
+  .block-editor-empty {
+    padding: 0;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem !important;
+  }
+
+  & + .block.__button {
+    .button.container {
+      padding-top: 0 !important;
+    }
+  }
+}
+
+#page-edit .block-editor-gridBlock,
+#page-add .block-editor-gridBlock {
+  h2.headline {
+    margin-left: 10px !important;
+  }
+}
+
+// Dynamic font sizes depending on number of columns for in-grid blocks
+#page-document .block.gridBlock,
+#page-edit .block-editor-gridBlock .block.gridBlock,
+#page-add .block-editor-gridBlock .block.gridBlock {
+  @media only screen and (min-width: $largest-mobile-screen) {
+    .one {
+      .slate {
+        h2 {
+          margin-bottom: $spacing-medium !important;
+          @include text-heading-h2();
+        }
+
+        h3 {
+          margin-bottom: $spacing-small !important;
+        }
+      }
+
+      .image {
+        figcaption {
+          .title {
+            @include text-heading-h2();
+          }
+        }
+      }
+    }
+
+    .two,
+    .three {
+      .image {
+        figcaption {
+          .title {
+            @include text-heading-h3();
+            @include word-break();
+            margin: 0 0 $spacing-small 0;
+          }
+        }
+        figure:after {
+          height: 70px;
+        }
+      }
+      .slate {
+        h2 {
+          margin-bottom: $spacing-small !important;
+          @include text-heading-h3();
+        }
+
+        h3 {
+          margin-bottom: $spacing-small !important;
+          @include text-heading-h4();
+        }
+      }
+    }
+
+    .four {
+      .image {
+        figcaption {
+          .title {
+            margin: 0 0 15px 0;
+            color: $white !important;
+            letter-spacing: 0;
+            @include text-heading-h4();
+          }
+        }
+        figure:after {
+          height: 59px;
+        }
+      }
+
+      .slate {
+        h2 {
+          margin-bottom: $spacing-small !important;
+          @include text-heading-h3();
+        }
+
+        h3 {
+          margin-bottom: $spacing-small !important;
+          @include text-heading-h4();
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+
+        padding-top: $spacing-small !important;
+      }
+    }
+  }
+}
+
+// Teasers in grids specific
+#page-document .block.gridBlock .block.teaser {
+  margin-bottom: 0;
+}
+
+// Watch out for the following rule, it is used to override the default
+// behavior of the block editor when selecting a block but it stopped working
+// if the z-index is still -1 (from 6.0.0-alpha.0)
+// I have no clue what is going on here, but it used to be important
+// related to selecting and clicking things inside (or prevent some event bubbling)
+.block.gridBlock [class^='block-editor-'].selected .cell-wrapper::before {
+  z-index: unset;
+}
+
+/* Listing template inside grid block doesn't need contained colors */
+
+.block.gridBlock .block.listing.contained {
+  .card {
+    .card-inner {
+      background-color: transparent;
+    }
+  }
+}

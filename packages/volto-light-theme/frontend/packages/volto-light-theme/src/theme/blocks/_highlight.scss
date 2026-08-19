@@ -1,0 +1,29 @@
+.block.highlight {
+  --highlight-images-aspect-ratio: var(--image-aspect-ratio, 1.7777777778);
+
+  .teaser-item.top .highlight-description {
+    .title h2 {
+      @include highlight-title();
+    }
+    .description {
+      --link-foreground-color: var(--theme-foreground-color);
+
+      p {
+        @include introduction();
+      }
+    }
+
+    .button a {
+      @include body-text-bold();
+      text-decoration: none;
+    }
+  }
+  .block-inner-container {
+    max-width: var(--layout-container-width);
+  }
+}
+.color-swatch-widget[class*='field-wrapper-descriptionColor'] {
+  & + .color-swatch-widget.field-wrapper-theme {
+    padding-top: 16px;
+  }
+}

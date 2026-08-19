@@ -1,0 +1,467 @@
+#footer {
+  margin-top: 1rem;
+
+  background: var(--footer-background);
+  color: var(--footer-foreground, $black);
+  text-align: center;
+
+  // Use #{$var} for Sass fallbacks in CSS vars.
+  // Without interpolation, $var stays literal in output and breaks.
+
+  &:has(.main-footer) {
+    --footer-background: var(--primary-color, #{$white});
+    --footer-foreground: var(--primary-foreground-color, #{$black});
+  }
+
+  & > .container:not(:empty) {
+    padding: $spacing-xlarge 0;
+    .container {
+      @include adjustMarginsToContainer($default-container-width);
+    }
+  }
+
+  & > :first-child:not(:empty) {
+    padding-top: $footer-vertical-spacing-top;
+  }
+
+  .pre-footer {
+    &:has(.logos-container) {
+      --footer-background: var(--primary-color, #{$white});
+      --footer-foreground: var(--primary-foreground-color, #{$black});
+    }
+
+    background: var(--footer-background, $white);
+    color: var(--footer-foreground, $black);
+  }
+
+  .main-footer {
+    --footer-background: var(--secondary-color, #{$white});
+    --footer-foreground: var(--secondary-foreground-color, #{$black});
+
+    background: var(--footer-background);
+    color: var(--footer-foreground, $black);
+
+    font-size: 18px;
+
+    a {
+      color: var(--footer-foreground);
+    }
+
+    a.powered-by {
+      font-size: 14px;
+    }
+    .footer-branding {
+      font-size: 14px;
+    }
+
+    .footer-message {
+      font-weight: $bold;
+      a {
+        font-weight: inherit;
+        text-decoration: underline;
+      }
+    }
+
+    .followus-and-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .follow-us {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .footer-links {
+      ul {
+        justify-content: center;
+      }
+    }
+    .address-column {
+      & > a:has(img) {
+        display: block;
+        max-width: 200px;
+
+        img {
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .logo {
+      display: flex;
+      max-width: 300px;
+      max-height: 90px;
+      margin-bottom: $spacing-medium;
+      a {
+        display: block;
+        max-width: 100%;
+
+        img {
+          max-width: 100%;
+          max-height: 90px;
+        }
+      }
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: $spacing-small;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      grid-template-columns: auto;
+      text-align: left;
+
+      h2 {
+        @include text-heading-h4();
+        margin-bottom: $spacing-small;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          font-size: 18px;
+          line-height: 30px;
+
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .address-column {
+        justify-self: start;
+        @include body-text();
+
+        &:has(~ div li),
+        &:has(~ div h2) {
+          width: 380px;
+          .logo ~ * {
+            padding-right: $spacing-xlarge;
+          }
+        }
+      }
+
+      .column-left,
+      .column-middle,
+      .column-right {
+        &:has(ul:empty):not(:has(h2)) {
+          display: none;
+        }
+      }
+
+      @media only screen and (max-width: $largest-mobile-screen) {
+        gap: $spacing-medium;
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+
+        .address-column {
+          display: flex;
+          width: 100% !important;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-bottom: $spacing-medium;
+        }
+
+        .address-column,
+        .column-left,
+        .column-middle,
+        .column-right {
+          justify-self: start;
+        }
+      }
+    }
+  }
+
+  .post-footer {
+    background: var(--footer-background);
+    color: var(--footer-foreground, $black);
+    font-size: 18px;
+  }
+
+  .follow-us-links-and-logo {
+    display: grid;
+
+    margin-bottom: $spacing-large;
+    grid-template-areas:
+      'social logo'
+      'links  links';
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    .follow-us {
+      grid-area: social;
+    }
+    .footer-logo {
+      grid-area: logo;
+    }
+    .footer-links {
+      grid-area: links;
+    }
+
+    &:not(:has(.footer-logo)) .follow-us {
+      grid-column: 1 / -1;
+    }
+    &:not(:has(.follow-us)) .footer-logo {
+      grid-column: 1 / -1;
+      justify-self: center;
+
+      span {
+        text-align: center;
+      }
+    }
+    .follow-us {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-links {
+      ul {
+        justify-content: center;
+      }
+    }
+
+    @media only screen and (max-width: $largest-mobile-screen) {
+      align-items: center;
+      grid-template-areas:
+        'social'
+        'logo'
+        'links';
+      grid-template-columns: minmax(0, 1fr);
+
+      .follow-us {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        ul.social-networks {
+          flex-wrap: wrap;
+          gap: 10px;
+          li {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .footer-links {
+        margin-top: $spacing-large;
+        ul {
+          flex-wrap: wrap;
+          gap: 10px 0;
+          li {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .footer-logo {
+        margin: 0 auto;
+        span {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .followus-and-links {
+    flex-direction: column;
+  }
+
+  .footer-links,
+  .follow-us {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+    }
+  }
+
+  .follow-us {
+    margin-bottom: $spacing-large;
+    text-align: left;
+
+    span {
+      @include headtitle2();
+      display: block;
+      margin-bottom: $spacing-large;
+      text-transform: uppercase;
+    }
+
+    .image-wrapper {
+      line-height: 0;
+    }
+
+    li {
+      margin-right: 15px;
+    }
+
+    li span {
+      display: none;
+    }
+  }
+
+  .footer-links {
+    li {
+      position: relative;
+      padding: 0 8px;
+      margin-bottom: 8px;
+      @include add(size, xs);
+      @include add(height, s);
+
+      &:not(:last-child):after {
+        position: absolute;
+        right: 0;
+        display: inline-block;
+        color: var(--footer-foreground, $black);
+        content: '|';
+        transform: translateX(50%);
+      }
+
+      a {
+        @include add(size, xs);
+        @include add(height, s);
+        color: var(--footer-foreground);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .footer-logo {
+    display: flex;
+    max-width: 200px;
+    flex-direction: column;
+    margin-bottom: $spacing-large;
+    justify-self: end;
+    span {
+      display: block;
+      margin-bottom: $spacing-large;
+      text-align: left;
+      text-transform: uppercase;
+      @include headtitle2();
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  .colophon {
+    @include add(size, xs);
+    @include add(height, s);
+
+    .slate.widget {
+      width: fit-content;
+      margin-right: auto;
+      margin-left: auto;
+      @include add(size, xs);
+      @include add(height, s);
+      ul,
+      ol,
+      li,
+      p,
+      a {
+        margin-bottom: 0;
+        font: inherit;
+        line-height: inherit;
+      }
+    }
+
+    a {
+      color: var(--footer-foreground);
+      font: inherit;
+      text-decoration: underline;
+    }
+
+    p {
+      @include add(size, xs);
+      @include add(height, s);
+      margin-bottom: 0;
+    }
+
+    img {
+      margin-top: 25px;
+    }
+
+    &:before {
+      display: block;
+      padding-top: $spacing-large;
+      border-top: 1px solid var(--footer-foreground, $black);
+      content: '';
+      @include default-container-width();
+    }
+    &:has(.slate p:only-child:empty) {
+      display: none;
+    }
+  }
+
+  .main-footer + .post-footer {
+    background-color: var(--primary-color, $white);
+    color: var(--primary-foreground-color, $black);
+    --social-network-icon-color-main: #{$black};
+    --social-network-icon-color-hover: #{$black};
+  }
+}
+
+ul.logos-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: $pre-footer-vertical-spacing 0;
+  padding-left: 0;
+  margin-top: 0;
+  gap: 60px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  list-style: none;
+
+  .logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain !important;
+    //using !important because in layout.scss it targets img , so to override it for logo-image, class specificity did'nt work
+  }
+
+  .logo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &.s {
+    .logo-link,
+    .logo-image {
+      max-width: min(100%, 175px);
+      max-height: 120px;
+    }
+  }
+
+  &.l {
+    .logo-link,
+    .logo-image {
+      max-width: min(100%, 240px);
+      max-height: 165px;
+    }
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
