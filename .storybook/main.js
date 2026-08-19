@@ -74,6 +74,7 @@ module.exports = {
     name: '@storybook/react-webpack5',
     options: { builder: { useSWC: true } },
   },
+  staticDirs: [{ from: '../packages', to: '/packages' }],
   typescript: {
     check: false,
     checkOptions: {},
