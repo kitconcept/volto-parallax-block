@@ -5,17 +5,19 @@ import StyleWrapper from '@plone/volto/components/manage/Blocks/Block/StyleWrapp
 import ParallaxView from './View';
 import type { ParallaxBlockData, RichTextValue } from './types';
 import config from '@plone/volto/registry';
+import preview_image from '../../../../desert_landscape.jpg';
 
 type StoryParams = {
   containerWidth?: number;
 };
 
 const renderStory: StoryObj<typeof ParallaxView>['render'] = (
-  args,
-  context,
+  // the "any" is just a placeholder for now
+  args: any,
+  context: any,
 ) => {
   const params = (context?.parameters || {}) as StoryParams;
-  const containerWidth = params.containerWidth ?? 960;
+  const containerWidth = params.containerWidth ?? 1440;
 
   return (
     <Wrapper anonymous>
@@ -39,7 +41,7 @@ const descriptionText: RichTextValue = {
 
 const baseData: ParallaxBlockData = {
   '@type': 'parallax',
-  url: 'https://kitconcept.com/de/projekte/dlr-web-relaunch-2023/dlr_1.jpg/@@images/image-2880-8586fbd83536eb9b56bf8bb6a0479796.jpeg',
+  url: preview_image,
   overlay: 'full_overlay',
   title: 'Lorem ipsum',
   description: descriptionText,
@@ -58,6 +60,11 @@ const meta = {
   render: renderStory,
   parameters: {
     layout: 'centered',
+    docs: {
+      story: {
+        height: '650px',
+      },
+    },
   },
   tags: ['autodocs'],
   args: {
@@ -79,7 +86,43 @@ export const Default: Story = {
   },
 };
 
+export const Textbox: Story = {
+  args: {
+    data: {
+      ...baseData,
+      overlay: 'solid-textbox',
+    },
+  },
+};
+
+export const WhiteTheme: Story = {
+  args: {
+    data: {
+      ...baseData,
+      styles: { ...baseData.styles, colors: 'white' },
+    },
+  },
+};
+
+export const WhiteThemeTextbox: Story = {
+  args: {
+    data: {
+      ...baseData,
+
+      overlay: 'solid-textbox',
+      styles: { ...baseData.styles, colors: 'white' },
+    },
+  },
+};
+
 export const LargeSize: Story = {
+  parameters: {
+    docs: {
+      story: {
+        height: '950px',
+      },
+    },
+  },
   args: {
     data: { ...baseData, styles: { ...baseData.styles, size: 'l' } },
   },
@@ -91,10 +134,23 @@ export const MediumSize: Story = {
   },
 };
 
-export const SmallSize: Story = {
-  parameters: { containerWidth: 480 },
+export const SmallSize1: Story = {
   args: {
-    data: { ...baseData, styles: { ...baseData.styles, size: 's' } },
+    data: {
+      ...baseData,
+      styles: { ...baseData.styles, size: 's' },
+      description: '',
+    },
+  },
+};
+
+export const SmallSize2: Story = {
+  args: {
+    data: {
+      ...baseData,
+      styles: { ...baseData.styles, size: 's', hideButton: true },
+      title: '',
+    },
   },
 };
 
