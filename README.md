@@ -21,9 +21,9 @@ https://github.com/user-attachments/assets/06ef1bff-1eee-4f02-9e09-e5bca06e7238
 
 > [!IMPORTANT]
 > #### `@kitconcept/volto-light-theme` required first
-> 
-> From version ```7.0.0``` onwards, this add-on assumes that you are using the `@kitconcept/volto-light-theme` theme.
-> This add-on can be used without it, but some styles and functionalities may not work as expected, or may require additional configuration or customization.
+>
+> This add-on is build to be used with the `@kitconcept/volto-light-theme` theme.
+> To use this addon with volto you may require additional configuration or customization.
 
 ## Features
 
