@@ -6,6 +6,25 @@ A visual block with a fixed background image that creates a parallax scrolling e
 [![](https://img.shields.io/badge/-Storybook-ff4785?logo=Storybook&logoColor=white&style=flat-square)](https://kitconcept.github.io/volto-parallax-block/)
 [![CI](https://github.com/kitconcept/volto-parallax-block/actions/workflows/main.yml/badge.svg)](https://github.com/kitconcept/volto-parallax-block/actions/workflows/main.yml)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://kitconcept.com/kitconcept-white.svg">
+  <img width="300" alt="kitconcept, GmbH" src="https://kitconcept.com/kitconcept-black.svg">
+</picture>
+
+## Screenshot
+
+<img width="2560" height="1355" alt="image" src="https://github.com/user-attachments/assets/618be7d3-eaf3-484f-8b59-f459f6978029" />
+
+## Screencast
+
+https://github.com/user-attachments/assets/06ef1bff-1eee-4f02-9e09-e5bca06e7238
+
+> [!IMPORTANT]
+> #### `@kitconcept/volto-light-theme` required first
+> 
+> From version ```7.0.0``` onwards, this add-on assumes that you are using the `@kitconcept/volto-light-theme` theme.
+> This add-on can be used without it, but some styles and functionalities may not work as expected, or may require additional configuration or customization.
+
 ## Features
 
 Implement a Parallax block for Volto sites.
